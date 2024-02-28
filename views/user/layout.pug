@@ -1,0 +1,139 @@
+doctype html
+head
+    // Title
+    title Ifemad Dashboard
+    // Required Meta Tag
+    meta(http-equiv='Content-Type' content='text/html; charset=UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    meta(name='handheldfriendly' content='true')
+    meta(name='MobileOptimized' content='width')
+    meta(name='description' content='Mordenize')
+    meta(name='author' content='')
+    meta(name='keywords' content='Mordenize')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    // Favicon
+    link(rel='shortcut icon' type='image/png' href='/images/logos/favicon.png')
+    // Core Css
+    link#themeColors(rel='stylesheet' href='/css/style.min.css')
+    link(rel='stylesheet' href='/css/notie.min.css')
+    block styleBlock
+
+
+body
+    // Preloader
+    .preloader
+        img.lds-ripple.img-fluid(src='/images/logos/favicon.png' alt='loader')
+    // Preloader
+    .preloader
+        img.lds-ripple.img-fluid(src='/images/logos/favicon.png' alt='loader')
+    // Body Wrapper
+    #main-wrapper.page-wrapper(data-layout='vertical' data-sidebartype='full' data-sidebar-position='fixed' data-header-position='fixed')
+        // Sidebar Start
+        aside.left-sidebar
+            // Sidebar scroll
+            div
+                .brand-logo.d-flex.align-items-center.justify-content-between
+                    a.text-nowrap.logo-img(href='/')
+                        img.dark-logo(src='/images/logo.png' width='140' alt='')
+                        img.light-logo(src='/images/logo.png' width='180' alt='')
+                    #sidebarCollapse.close-btn.d-lg-none.d-block.sidebartoggler.cursor-pointer
+                        i.ti.ti-x.fs-8
+                // Sidebar navigation
+                nav.sidebar-nav.scroll-sidebar(data-simplebar='')
+                    ul#sidebarnav
+                        li.sidebar-item
+                            a.sidebar-link(href='/user/dashboard' aria-expanded='false')
+                                span
+                                    i.ti.ti-activity-heartbeat
+                                span.hide-menu Dashboard
+                        li.sidebar-item
+                            a.sidebar-link(href='/user/flights' aria-expanded='false')
+                                span
+                                    i.ti.ti-plane-departure
+                                span.hide-menu Flights
+                        li.sidebar-item
+                            a.sidebar-link(href='/user/earning' aria-expanded='false')
+                                span
+                                    i.ti.ti-cash
+                                span.hide-menu Earnings
+                        li.sidebar-item
+                            a.sidebar-link(href='/user/settings' aria-expanded='false')
+                                span
+                                    i.ti.ti-settings
+                                span.hide-menu Settings
+                        li.sidebar-item
+                            a.sidebar-link(href='/logout' aria-expanded='false')
+                                span
+                                    i.ti.ti-logout
+                                span.hide-menu Logout
+                    //- .unlimited-access.hide-menu.bg-light-primary.position-relative.my-7.rounded
+                    //-     .d-flex
+                    //-         .unlimited-access-title
+                .fixed-profile.p-3.bg-light-secondary.rounded.sidebar-ad.mt-3
+                    .hstack.gap-3
+                        .john-img
+                            if (user.profilePhoto)
+                                .rounded-circle.px-5.py-3
+                                    img.img-fluid.rounded-circle(src=`${user.profilePhoto}` style='width: 100%')
+                            else
+                                img.rounded-circle(src='/images/profile/user-6.jpg' width='40' height='40' alt='')
+                        .john-title
+                            h6.mb-0.fs-4.fw-semibold Mathew
+                            span.fs-2.text-dark Designer
+                        button.border-0.bg-transparent.text-primary.ms-auto(tabindex='0' type='button' aria-label='logout' data-bs-toggle='tooltip' data-bs-placement='top' data-bs-title='logout')
+                            i.ti.ti-power.fs-6
+                // End Sidebar navigation
+                // End Sidebar scroll
+                // Sidebar End
+
+        // Main wrapper
+        .body-wrapper
+
+            // Header End
+            .container-fluid(style="margin-top: -35px")
+                block content 
+
+
+    block Modals
+
+// Import Js Files
+script(src='/libs/jquery/dist/jquery.min.js')
+script(src='/libs/simplebar/dist/simplebar.min.js')
+script(src='/libs/bootstrap/dist/js/bootstrap.bundle.min.js')
+// core files
+script(src='/js/app.min.js')
+script(src='/js/app.init.js')
+script(src='/js/app-style-switcher.js')
+script(src='/js/sidebarmenu.js') 
+script(src='/js/custom.js')
+script(src='/js/notie.min.js')
+
+
+script. 
+    function serialize(data) {
+        let obj = {};
+        for (let [key, value] of data) {
+            if (obj[key] !== undefined) {
+                if (!Array.isArray(obj[key])) {
+                    obj[key] = [obj[key]];
+                }
+                obj[key].push(value);
+            } else {
+                obj[key] = value;
+            }
+        }
+        return obj;
+    }
+
+    async function postForm(url, data) {
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        });
+        return res.json();
+    }
+
+block scriptBlock

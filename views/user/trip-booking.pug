@@ -1,0 +1,275 @@
+extends layout 
+
+block styleBlock 
+    style. 
+        input[type=checkbox] {
+            visibility: hidden;
+        }
+        .option {
+            display: block;
+            position: relative;
+            padding-left: 25px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .customcheckbox {
+            position: absolute;
+            top: 6px;
+            left: 0;
+            height: 15px;
+            width: 15px;
+            border: 1px solid #000;
+        }
+        .option input:checked ~ .customcheckbox {
+            background-color: #FA896B;
+        }
+        .customcheckbox:after {
+            content: "";
+            position: absolute;
+            display: none;
+            }
+        .option input:checked ~ .customcheckbox:after {
+            display: block;
+        }
+
+        .customcheckbox:after {
+            content: "";
+            position: absolute;
+            display: none;
+            }
+        .option input:checked ~ .customcheckbox:after {
+            display: block;
+        }
+        .option .customcheckbox:after {
+            left: 5px;
+            bottom: 3px;
+            width: 4px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+block content
+    .card.bg-light-info.shadow-none.position-relative.overflow-hidden
+        .card-body.px-4.py-3
+            .row.align-items-center
+                .col-9
+                    h4.fw-semibold.mb-8 Manage Reservations
+                    nav(aria-label='breadcrumb')
+                        ol.breadcrumb
+                            li.breadcrumb-item
+                                a.text-muted(href='') Home
+                            li.breadcrumb-item 
+                                a.text-muted(href='') Flights
+                            li.breadcrumb-item(aria-current='page') Reservations
+                .col-3
+                    .text-center.mb-n5
+
+    .card.w-100.position-relative.overflow-hidden
+        .px-4.py-3.border-bottom
+            .card-title.fw-semibold.mb-0.lh-sm Flight Details
+        .card-body.p-4
+            .row 
+                .col-md-4 
+                    p #[strong Route:] #{trip.origin} - #{trip.destination}
+                    p #[strong Flight No:] #{trip.flight_no}
+                .col-md-4 
+                    p #[strong Travel Date:] #{view.formatDate(trip.travel_date)}
+                    p #[strong Dep Terminal:] #{trip.dep_terminal}
+                .col-md-4
+                    p #[strong Fare:] $ #{view.formatCurrency(trip.fare)}
+                    p #[strong Capacity:] #{trip.capacity}
+    .card.w-100.position-relative.overflow-hidden
+        .card-body.p-4
+            .row 
+                .col-md-12 
+                    .row 
+                        .col
+                            h4.mb-0 Booking Link 
+                            small Agent's booking link
+                        .col 
+                            .btn.btn-danger.float-end(data-bs-toggle='modal' data-bs-target='#fareModal') Set Fare
+                    .row.mt-4 
+                        .col-md-8
+                            .input-group.mb-2
+                                input.form-control.input-lg#bookingCode(value=`${bookingLinkData.bookingLink}` readonly)
+                                span.input-group-text $#{view.formatCurrency(bookingLinkData.fare)} USD
+                        .col-md-2
+                            button.btn.btn-light(onclick='copyToClipboard()') 
+                                i.ti.ti-clipboard-text 
+                                | Copy Link
+
+    .card.w-100.position-relative.overflow-hidden
+        .card-body.p-4
+            .row 
+                .col-md-12 
+                    .row.mb-3
+                        .col
+                            h4 Travelers
+                        .col 
+                            .btn.btn-dark.float-end(data-bs-toggle='modal' data-bs-target='#newBookingModal') New Booking
+                    table.table.table-striped.table-hover
+                        thead 
+                            tr 
+                                th Name 
+                                th phone 
+                                //- th Email 
+                                th Reference #
+                                th status
+                                th.checkbox 
+                                    label.option
+                                        input#tick-all(type="checkbox") 
+                                        span.customcheckbox
+                        tbody 
+                            each resrv in reservations 
+                                tr  
+                                    td= resrv.name 
+                                    td= resrv.phone 
+                                    //- td= resrv.email 
+                                    td= resrv.reference 
+                                    td= resrv.status
+                                    td.checkbox 
+                                        label.option
+                                            input.check(type="checkbox" name="check_p")
+                                            span.customcheckbox
+
+                    button.btn.btn-danger.mx-2#make-payment.float-end Pay NGN 0
+
+block Modals 
+    #newBookingModal.modal.fade(tabindex='0' aria-hidden='true')
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h5.modal-title New Reservation
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close') 
+
+                form.form(action='/reservation/new' method='post')
+                    .modal-body.px-4
+                        .mb-3 
+                            label.form-lable Name 
+                            input.form-control(type='text' name='name' placeholder='Traveler\'s Full name' Required)
+                        .mb-3 
+                            label.form-lable Phone 
+                            input.form-control(type='text' name='phone' placeholder='Traveler\'s Phone' Required)
+                        .mb-3 
+                            label.form-lable Email 
+                            input.form-control(type='email' name='email' placeholder='Traveler\'s Email' Required)
+                            input(type='hidden' name='trip_id' value=`${trip.id}`)
+
+                    .modal-footer
+                        button.btn.btn-dark.float-end(type='submit') Book Now 
+
+
+    #fareModal.modal.fade(tabindex='0' aria-hidden='true')
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h5.modal-title Set your Fare
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close') 
+                .modal-body.px-4
+                    .alert.alert-info.d-none   
+                        p You can set a different fare for your clients. IF you set this a new fare, they will be charged based on it 
+                            | instead of the base fare.
+
+                    form.form(action='/user/set-fare' method="post") 
+                        .mb-3.row 
+                            .col-8
+                                label.form-label Set Fare 
+                                .input-group 
+                                    span.input-group-text USD 
+                                    input.form-control(type='text' name='fare' placeholder='Set your own travel fare...' required)
+                                    input(type='hidden' name='bookingLinkId' value=`${bookingLinkData.id}`)
+                                    input(type='hidden' name='tripId' value=`${trip.id}`)
+                            .col-4.pt-4
+                                button.btn.btn-outline-danger.mt-1(type='submit') Save Fare
+
+block scriptBlock
+    script(src="https://js.paystack.co/v1/inline.js")
+    script. 
+
+        let accumulatedSum = 0;
+        const fare = !{JSON.stringify(trip.fare)}
+
+        const checkAll = document.getElementById("tick-all");
+        const allBoxes = document.getElementsByName("check_p");
+        const paymentBtn = document.getElementById("make-payment");
+
+        for (let n = 0; n < allBoxes.length; n++) {
+            allBoxes[n].addEventListener('change', function() {
+                if (allBoxes[n].checked) accumulatedSum += fare;
+                else accumulatedSum -= fare;
+                paymentBtn.innerText = `Pay NGN ${accumulatedSum.toLocaleString('en-US', { style: 'decimal' })}`;
+            });
+        }
+
+        // check and uncheck all boxes
+        checkAll && checkAll.addEventListener('change', (e) => {
+            accumulatedSum = 0;
+            if (checkAll.checked) {
+                for (let i = 0; i < allBoxes.length; i++) {
+                    allBoxes[i].checked = true;
+                    accumulatedSum += parseInt(fare, 10);
+                }
+            } else {
+                for (let i = 0; i < allBoxes.length; i++) {
+                    allBoxes[i].checked = false;
+                }
+                accumulatedSum = 0;
+            }
+            paymentBtn.innerText = `Pay NGN ${accumulatedSum.toLocaleString('en-US', { style: 'decimal' })}`;
+        });
+
+        function createContribution() {
+            fetch("/user/contribution", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ amount: totalPayable })
+            }).then((d) => { return d.json(); }).then(d => {
+                if (d.status.trim() == 'success') {
+                    payWithPaystack(totalPayable * 100, d.reference);
+                }
+            });
+        }
+
+        function payWithPaystack(amount, ref) {
+            const handler = PaystackPop.setup({
+                //key: !{JSON.stringify(publicKey)},
+                email: !{JSON.stringify(user.email)},
+                amount,
+                ref,
+                currency: 'NGN',
+                callback: function(response) {
+                    const { reference, status } = response;
+
+                    fetch("/complete-payment?reference=" + reference, {
+                        method: 'GET',
+                        headers: {
+                            "Content-Type": "application/json",
+                        }
+                    }).then((d) => { location.reload() });
+                },
+                onClose: function(){
+                    alert('Payment cancelled');
+                }
+            });
+            handler.openIframe();
+        }
+
+        function copyToClipboard() {
+            // Get the text field
+            var copyText = document.getElementById("bookingCode");
+
+            // Select the text field
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+
+            // Copy the text inside the text field
+            navigator.clipboard.writeText(copyText.value);
+
+            alert("Booking link copied to clipboard")
+        }

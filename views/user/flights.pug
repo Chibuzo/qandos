@@ -1,0 +1,145 @@
+extends layout 
+
+block content
+    .card.bg-light-info.shadow-none.position-relative.overflow-hidden
+        .card-body.px-4.py-3
+            .row.align-items-center
+                .col-9
+                    h4.fw-semibold.mb-8 Scheduled Flights
+                    nav(aria-label='breadcrumb')
+                        ol.breadcrumb
+                            li.breadcrumb-item
+                                a.text-muted(href='index.html') Home
+                            li.breadcrumb-item(aria-current='page') Flights
+                .col-3
+                    .text-center.mb-n5
+
+    .card.w-100.position-relative.overflow-hidden
+        .px-4.py-3.border-bottom
+            .card-title.fw-semibold.mb-0.lh-sm Flights
+        .card-body.p-4
+            .table-responsive.rounded-2.mb-4
+                table.table.table-hover
+                    thead
+                        tr
+                            th Route
+                            th Flight No
+                            th Travel Date
+                            th Dep Terminal
+                            th Fare
+                            th Capacity
+
+                    tbody
+                        each trip in trips
+                            tr
+                                td 
+                                    a(href=`/user/flight-booking/${trip.id}`) #{trip.origin} - #{trip.destination}
+                                td= trip.flight_no 
+                                td= view.formatDate(trip.travel_date) 
+                                td= trip.dep_terminal
+                                td= '$' + view.formatCurrency(trip.fare) 
+                                td= trip.capacity
+
+
+block Modals 
+    #confirmationModal.modal.fade(tabindex='0' aria-hidden='true')
+        .modal-dialog.modal-lg
+            .modal-content
+                .modal-header
+                    h5.modal-title Monthly Contribution
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close') 
+
+                .modal-body
+                    .card
+                        .card-header
+                            | #[strong Details:]
+                        .card-body
+                            p.mb-3 Minimum amount to pay per month: 1,000 NGN
+                            .row
+                                .col-md-4.col-xs-12
+                                    .input-group.mb-3
+                                        span.input-group-text NGN
+                                        input.form-control(type="text" id="amount" placeholder="1000" aria-describedby="inputGroup-sizing-lg")
+                                .col-md-2 
+                                    button.btn.btn-light#continueBtn Continue
+
+                            .mt-5.d-none#details
+                                // h5 Breakdown 
+                                table.table.table-sm
+                                    tr 
+                                        td Monthly contribution 
+                                        td#amt 
+                                    tr 
+                                        td Annual contribution payable 
+                                        td 
+                                            span#annual_payable
+                                    tr 
+                                        td Processing fees
+                                        td
+                                            span#proc-fees 3000
+                                            |  NGN
+                                    tr  
+                                        td Total amount payable
+                                        td#payable
+
+
+
+                .modal-footer
+                    button.btn.btn-info(type='button' onClick=`createContribution()`) Continue to Payment 
+
+block scriptBlock
+    script(src="https://js.paystack.co/v1/inline.js")
+    script. 
+
+        const procFees = 3000;
+        let totalPayable = 0;
+
+        document.getElementById("continueBtn").addEventListener('click', function() {
+            document.getElementById("details").classList.remove('d-none');
+            const amount = +document.getElementById("amount").value;
+            const annual_payable = amount * 12;
+            document.getElementById("amt").textContent = amount.toLocaleString('en-US', { style: 'decimal' }) + ' NGN';
+            document.getElementById("annual_payable").textContent = annual_payable.toLocaleString('en-US', { style: 'decimal' }) + ' NGN';
+            //- const procFees = (annual_payable * 0.015) + 100;
+            document.getElementById("proc-fees").textContent = procFees;
+            totalPayable = annual_payable + procFees;
+            document.getElementById("payable").textContent = totalPayable.toLocaleString('en-US', { style: 'decimal' }) + ' NGN';
+        })
+
+        function createContribution() {
+            fetch("/user/contribution", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ amount: totalPayable })
+            }).then((d) => { return d.json(); }).then(d => {
+                if (d.status.trim() == 'success') {
+                    payWithPaystack(totalPayable * 100, d.reference);
+                }
+            });
+        }
+
+        function payWithPaystack(amount, ref) {
+            const handler = PaystackPop.setup({
+                key: !{JSON.stringify(publicKey)},
+                email: !{JSON.stringify(user.email)},
+                amount,
+                ref,
+                currency: 'NGN',
+                callback: function(response) {
+                    const { reference, status } = response;
+
+                    fetch("/complete-payment?reference=" + reference, {
+                        method: 'GET',
+                        headers: {
+                            "Content-Type": "application/json",
+                        }
+                    }).then((d) => { location.reload() });
+                },
+                onClose: function(){
+                    alert('Payment cancelled');
+                }
+            });
+            handler.openIframe();
+        }

@@ -1,0 +1,90 @@
+extends layout 
+
+block styleBlock
+    style.
+        .align-center { text-align: center }
+
+block content
+    .card.bg-light-info.shadow-none.position-relative.overflow-hidden
+        .card-body.px-4.py-3
+            .row.align-items-center
+                .col-9
+                    h4.fw-semibold.mb-8 Payouts
+                    nav(aria-label='breadcrumb')
+                        ol.breadcrumb
+                            li.breadcrumb-item
+                                a.text-muted(href='index.html') Home
+                            li.breadcrumb-item(aria-current='page') Payouts
+                .col-3
+                    .text-center.mb-n5
+                        img.img-fluid.mb-n4(src='../../dist/images/breadcrumb/ChatBc.png' alt='')
+    .card.w-100.position-relative.overflow-hidden
+        .px-4.py-3.border-bottom
+            .card-title.fw-semibold.mb-0.lh-sm Payouts
+        .card-body.p-4
+            .table-responsive.rounded-2.mb-4
+                table.table
+                    thead
+                        tr
+                            th Date
+                            th Name
+                            th Bank
+                            th Account No.
+                            th Amount
+                            th Status
+                            th Action
+
+                    tbody
+                        each trnx in payouts 
+
+                            tr
+                                td= view.formatDate(trnx.createdAt)
+                                td= trnx.User.fullname  
+                                td= trnx.bank 
+                                td= trnx.account_number
+                                td= '₦' + view.formatCurrency(trnx.amount) 
+                                td
+                                    if (trnx.status == 'pending') 
+                                        span.badge.bg-light-warning.text-warning.rounded-pill
+                                            span.round-8.bg-warning.rounded-circle.d-inline-block.me-1
+                                            | #{trnx.status}
+                                    else if (trnx.status == 'paid') 
+                                        span.badge.bg-light-success.text-success.rounded-pill
+                                            span.round-8.bg-success.rounded-circle.d-inline-block.me-1  
+                                            | #{trnx.status}
+                                    else if (trnx.status == 'rejected') 
+                                        span.badge.bg-light-danger.text-danger.rounded-pill
+                                            span.round-8.bg-danger.rounded-circle.d-inline-block.me-1  
+                                            | #{trnx.status}
+                                td.align-center
+                                    if (trnx.status != 'paid')
+                                        .dropdown
+                                            button.btn.btn-sm.btn-secondary.dropdown-toggle#dropdownMenu(type="button" data-bs-toggle="dropdown" aria-expanded="false") Menu
+
+                                            ul.dropdown-menu(aria-labelledby="dropdownMenu" data-payout_id=`${trnx.id}`) 
+                                                li  
+                                                    a.dropdown-item(href="#" data-action="paid") Confirm 
+                                                li 
+                                                    a.dropdown-item(href="#" data-action="rejected") Reject
+
+
+block scriptBlock
+    script. 
+        const menus = document.getElementsByClassName("dropdown-item");
+        let action;
+        for (let i = 0; i < menus.length; i++) {
+            menus[i].addEventListener("click", function() {
+                if (confirm("Are you sure you want to continue with this operation?")) {
+                    action = this.dataset.action;
+                    const payout_id = this.closest('ul').dataset.payout_id;
+                    const data = { action, payout_id };
+                    fetch('process-payout', {
+                        method: 'POST', 
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(data) 
+                    }).then(d => location.reload());
+                }
+            });
+        }   

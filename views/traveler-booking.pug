@@ -1,0 +1,34 @@
+extends auth-layout
+
+block content   
+    .row 
+        .col-md-12 
+            div(style='border: #ccc solid thin; border-radius: 10px').p-3.mb-4
+                .row 
+                    .col-md-4 
+                        p #[strong Route:] #{trip.origin} - #{trip.destination}
+                        p #[strong Flight No:] #{trip.flight_no}
+                    .col-md-4 
+                        p #[strong Travel Date:] #{view.formatDate(trip.travel_date)}
+                        p #[strong Dep Terminal:] #{trip.dep_terminal}
+                    .col-md-4
+                        p #[strong Fare:] $ #{view.formatCurrency(trip.fare)}
+                        p #[strong Capacity:] #{trip.capacity}
+        .col-md-12 
+            button.btn.btn-outline-danger New Reservation 
+            button.btn.btn-danger.mx-4 Manage Reservation
+
+            form.form(action='/reservation/new' method='post').mt-4
+                .mb-3 
+                    label.form-label Your Name 
+                    input.form-control(type='text' name='name' placeholder='Your Full name' Required)
+                .mb-3 
+                    label.form-label Phone 
+                    input.form-control(type='text' name='phone' placeholder='Yours Phone' Required)
+                .mb-3 
+                    label.form-label Email 
+                    input.form-control(type='email' name='email' placeholder='Your Email' Required)
+                    input(type='hidden' name='trip_id' value=`${trip.id}`)
+                    input(type='hidden' name='booking-link' value='yes')
+                .mb-3
+                    button.btn.btn-dark.float-end(type='submit') Book Now 
