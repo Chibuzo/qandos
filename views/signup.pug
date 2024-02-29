@@ -1,7 +1,7 @@
 doctype html
 head
   // Title
-  title Ifemad Financials
+  title Vexpress Sign up
   // Required Meta Tag
   meta(http-equiv='Content-Type' content='text/html; charset=UTF-8')
   meta(name='viewport' content='width=device-width, initial-scale=1')
@@ -61,7 +61,8 @@ head
                     .mb-3.form-floating
                       select.form-control#state_(placeholder='State')
                         option(value='') -- Select State --
-                        option(value='Enugu') Enugu
+                        each state in states 
+                          option(value=`${state.state_name}`)= state.state_name
                       label State
 
                     button.btn.btn-dark.btn-lg.w-100.py-8.mb-4.rounded-2(type='submit') Save Address

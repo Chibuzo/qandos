@@ -29,7 +29,7 @@ const create = async ({ fullname, email, phone, password, ...rest }) => {
         ...rest
     };
     const newUser = await User.create(data);
-    // emailService.sendConfirmationEmail(newUser);
+    emailService.sendConfirmationEmail(newUser);
     delete newUser.password;
     return newUser;
 }

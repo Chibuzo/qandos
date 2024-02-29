@@ -46,7 +46,6 @@ router.post('/signup', async (req, res, next) => {
     try {
         const newUser = await userService.create(req.body);
         if (req.query.json == 'no') {
-            console.log({ newUser })
             return res.render('signup', { title: 'Sign Up', newUser });
         }
         sendResponse(res, 201, 'Sign up Successful', { newUser });

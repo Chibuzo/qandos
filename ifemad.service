@@ -1,19 +1,19 @@
 [Unit]
-Description=Node.js INF Service   	#inf-server service
+Description=Node.js VEXPRESS Service   	#vexpress-server service
 After=network.target
 Requires=After=mysql.service       # Requires the mysql service to run first
 
 [Service]
-WorkingDirectory=/home/ubuntu/investNfarm
+WorkingDirectory=/home/ubuntu/vexpress
 ExecStart=npm start
 Restart=on-failure
 
-Environment=NODE_ENV=development PORT=80 DB_USER=chibuzo DB_PASSWORD=+Inf@invest1 DB_HOST=localhost DB_NAME=investnfarmDB
+Environment=NODE_ENV=development PORT=4000 DB_USER=chibuzo DB_PASSWORD=my+s3cretDb# DB_HOST=localhost DB_NAME=vexpress
 
 
 [Install]
 WantedBy=multi-user.target
 
-#sudo nano /lib/systemd/system/farm.service
+#sudo nano /lib/systemd/system/vexpress.service
 #sudo systemctl daemon-reload
-# systemctl enable farm
+#sudo systemctl enable farm

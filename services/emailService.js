@@ -4,7 +4,6 @@ const { Buffer } = require('buffer');
 const path = require('path');
 const nodemailer = require('nodemailer');
 var hbs = require('nodemailer-express-handlebars');
-const { formatCurrency } = require('./UtillityService');
 
 const options = {
     viewEngine: {
@@ -35,7 +34,7 @@ const SENT_FROM = 'support@dumena.com';
 
 const sendMail = (to, subject, template, data) => {
     let mailOptions = {
-        from: '"Ifemad" <' + SENT_FROM + '>',
+        from: '"Vexpress" <' + SENT_FROM + '>',
         to: to,
         subject: subject,
         template: template,
@@ -52,13 +51,13 @@ const sendMail = (to, subject, template, data) => {
 
 module.exports = {
     sendConfirmationEmail: function (user) {
-        if (user.firstname.length > 60) return;
+        // if (user.firstname.length > 60) return;
         const email_b64 = Buffer.from(user.email).toString('base64');
         const crypto = require('crypto');
         const hash = crypto.createHash('md5').update(user.email + 'okirikwenEE129Okpkenakai').digest('hex');
 
         const data = {
-            user: user.firstname,
+            user: user.fullname.split(' ')[0],
             url: BASE_URL + 'activate/' + email_b64 + '/' + hash,
             base_url: BASE_URL
         };
