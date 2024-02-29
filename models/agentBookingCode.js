@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     const AgentBookingLink = sequelize.define('AgentBookingLink', {
         tripId: DataTypes.INTEGER,
         fare: DataTypes.INTEGER,
-        agentId: DataTypes.INTEGER,
+        agentId: DataTypes.CHAR(36),
         bookingCode: DataTypes.STRING(15),
         active: {
             type: DataTypes.BOOLEAN,
