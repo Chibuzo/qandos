@@ -12,23 +12,89 @@ block content
                         p #[strong Travel Date:] #{view.formatDate(trip.travel_date)}
                         p #[strong Dep Terminal:] #{trip.dep_terminal}
                     .col-md-4
-                        p #[strong Fare:] $ #{view.formatCurrency(trip.fare)}
+                        p #[strong Fare:] $ #{view.formatCurrency(fare)}
                         p #[strong Capacity:] #{trip.capacity}
         .col-md-12 
-            button.btn.btn-outline-danger New Reservation 
-            button.btn.btn-danger.mx-4 Manage Reservation
+            #booking-div
+                button.btn.btn-outline-danger New Reservation 
+                button.btn.btn-danger.mx-4 Manage Reservation
 
-            form.form(action='/reservation/new' method='post').mt-4
-                .mb-3 
-                    label.form-label Your Name 
-                    input.form-control(type='text' name='name' placeholder='Your Full name' Required)
-                .mb-3 
-                    label.form-label Phone 
-                    input.form-control(type='text' name='phone' placeholder='Yours Phone' Required)
-                .mb-3 
-                    label.form-label Email 
-                    input.form-control(type='email' name='email' placeholder='Your Email' Required)
-                    input(type='hidden' name='trip_id' value=`${trip.id}`)
-                    input(type='hidden' name='booking-link' value='yes')
-                .mb-3
-                    button.btn.btn-dark.float-end(type='submit') Book Now 
+                form.form(action='/new-reservation' method='post').mt-4#form-booking
+                    .mb-3 
+                        label.form-label Your Name 
+                        input.form-control(type='text' name='name' placeholder='Your Full name' Required)
+                    .mb-3 
+                        label.form-label Phone 
+                        input.form-control(type='text' name='phone' placeholder='Yours Phone' Required)
+                    .mb-3 
+                        label.form-label Email 
+                        input.form-control#email(type='email' name='email' placeholder='Your Email' Required)
+                        input(type='hidden' name='tripId' value=`${trip.id}`)
+                        input(type='hidden' name='agentId' value=`${agent.id}`)
+                        input(type='hidden' name='booking_link' value='yes')
+                        input(type='hidden' name='fare' value=`${fare}`)
+                    .mb-3
+                        button.btn.btn-dark.float-end(type='submit') Book Now 
+
+            #details.d-none
+                p Your booking reference: <span id='reserv-ref'></span>
+                p You will pay a total of: $#{view.formatCurrency(fare)} USD
+
+                button.btn.btn-danger#paymentBtn(type='button') PAY: $#{view.formatCurrency(fare)} USD
+
+
+block scriptBlock
+    script(src="https://js.paystack.co/v1/inline.js")
+    script. 
+
+        let bookingRef;
+
+        const bookingForm = document.getElementById('form-booking');
+        const paymentBtn = document.getElementById('paymentBtn');
+
+        bookingForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const data = new FormData(this);
+            const formData = serialize(data);
+            const res = await postForm("/new-reservation", formData);
+            if (res.status) {
+                $("#booking-div").fadeOut();
+                $("#details").hide().removeClass('d-none').fadeIn();
+                bookingRef = res.data.reference;
+            }
+        });
+
+
+        paymentBtn.addEventListener('click', function() {
+            const email = document.getElementById('email').value;
+            payWithPaystack(bookingRef, email);
+        });
+
+
+        function payWithPaystack(ref, email) {
+            const handler = PaystackPop.setup({
+                key: !{JSON.stringify(publicKey)},
+                email,
+                amount: parseInt(!{JSON.stringify(fare)}, 10) * 100,
+                ref,
+                //- currency: 'USD',
+                callback: function(response) {
+                    const { reference, status } = response;
+
+                    fetch("/complete-payment?reference=" + reference, {
+                        method: 'GET',
+                        headers: {
+                            "Content-Type": "application/json",
+                        }
+                    }).then((d) => { 
+
+                    });
+                },
+                onClose: function(){
+                    alert('Payment cancelled');
+                }
+            });
+            handler.openIframe();
+        }
+

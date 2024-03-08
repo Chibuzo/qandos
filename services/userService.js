@@ -55,7 +55,6 @@ const login = async ({ email, password }) => {
 
     // send OTP
     const otp = sendOtp(user);
-    console.log(user)
     delete user.password;
     return { user, otp };
 }

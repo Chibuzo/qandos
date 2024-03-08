@@ -1,65 +1,58 @@
-const { Payment, UserInvestments } = require('../models');
-const { fw_keys } = require('../config/config');
-const { FW_API_URL } = require('../config/constants');
-const { getExchangeRate } = require('./UtillityService');
+const { Payment } = require('../models');
+const { Op } = require('sequelize');
+const { PAYSTACK_API_URL } = require('../config/constants');
 const APIRequest = require('../helpers/APIRequest');
 const { ErrorHandler } = require('../helpers/errorHandler');
+const reservationService = require('./reservationService');
 
-const savePaymentDetails = async ({ tx_ref: inf_reference, status, transaction_id }) => {
+const savePaymentDetails = async (reference, agentId) => {
     // first verify payment status
-    const { amount, amount_settled, payment_type: channel, currency } = await verifyPayment(transaction_id);
+    const { amount, channel, currency, status } = await verifyPayment(reference);
 
-    // verify product reference
-    const userInvestmentId = inf_reference.split('_')[1];
-    const [userInvestment, exchange_rate] = await Promise.all([
-        UserInvestments.findByPk(userInvestmentId, { raw: true }),
-        getExchangeRate(currency)
-    ]);
-    if (!userInvestment) {   // wahala!
-        // log this, alert
-        throw new ErrorHandler(400, 'Invalid investment reference');
+    // verify reservation
+    let reservation;
+    if (agentId) {
+        reservation = await reservationService.findAgentReservation({ reference });
+    } else {
+        reservation = await reservationService.findOne({ reference });
     }
-
-    // verify currency
-    if (userInvestment.currency != currency) {
+    if (!reservation) {
         // log this
-        throw new ErrorHandler(400, 'Wrong payment currency');
+        throw new ErrorHandler(400, 'Invalid Reservation reference');
     }
 
     // verify amount paid
-    // if (order.total_amount > amount) {
-    //     // log this, alert admin
-    //     throw new handleError(400, 'Amount paid is less than order amount');
-    // }
-    await Payment.create({
-        inf_reference,
-        amount,
-        amount_settled,
-        channel,
-        currency,
-        investmentId: userInvestment.InvestmentId,
-        userInvestmentId: userInvestment.id,
-        transaction_id,
-        userId: userInvestment.UserId,
-        status
-    });
-    await UserInvestments.update({ status: 'active', currency, exchange_rate }, { where: { id: userInvestment.id } });
-    return { userInvestment_id: userInvestment.id, user_id: userInvestment.UserId };
+    if (Number(reservation.fare) > Number(amount)) {
+        // log this
+        throw new ErrorHandler(400, 'Amount paid is less than reservation amount');
+    }
+
+    const [payment] = await Promise.all([
+        Payment.create({ amount, channel, currency, status, reference }),
+        reservationService.update({ id: reservation.id }, { status: 'paid' }, agentId)
+    ]);
+
+    // update individual reservations for agent
+    if (agentId) {
+        await reservationService.update({ id: { [Op.in]: JSON.parse(reservation.reservations) } }, { status: 'paid' });
+    }
+
+    return payment;
 }
 
 
-const verifyPayment = async (transactionId) => {
+const verifyPayment = async (reference) => {
     const option = {
-        headers: { Authorization: `Bearer ${fw_keys.SECRET_KEY}` },
-        baseURL: FW_API_URL
+        headers: { Authorization: `Bearer ${process.env.SECRET_KEY}` },
+        baseURL: PAYSTACK_API_URL
     };
     const apiRequest = new APIRequest(option);
-    const url = `/transactions/${transactionId}/verify`;
+    const url = `/transaction/verify/${reference}`;
     const { status: responseStatus, data } = await apiRequest.get(url);
 
-    if (responseStatus != 'success') throw new ErrorHandler(400, 'unable to verify transaction status');
+    if (!responseStatus) throw new ErrorHandler(400, 'Unable to verify transaction status');
+    if (data.status != 'success') throw new ErrorHandler(400, 'Payment attempt didn\'t succeed');
 
-    if (data.status != 'successful') throw new ErrorHandler(400, 'Payment attempt didn\'t succeed');
     return data;
 }
 

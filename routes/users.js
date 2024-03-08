@@ -50,17 +50,23 @@ router.get('/earnings', async (req, res, next) => {
 
 router.get('/flight-booking/:flight_id', async (req, res, next) => {
     try {
-        const { id: userId } = req.session.user;
+        const { id: agentId } = req.session.user;
         const { flight_id: tripId } = req.params;
         const [trip, reservations, bookingLinkData] = await Promise.all([
             tripService.view(tripId),
-            reservationService.list({ tripId, userId }),
-            tripService.getAgentTripLink(userId, tripId)
+            reservationService.list({ tripId, agentId }),
+            tripService.getAgentTripLink(agentId, tripId)
         ]);
         if (!bookingLinkData.fare) {    // use trip fare if agent didn't set fare
             bookingLinkData.fare = trip.fare;
         }
-        res.render('user/trip-booking', { trip, reservations, bookingLinkData });
+        res.render('user/trip-booking', {
+            trip,
+            agent_reservations: reservations.filter(resrv => !resrv.booking_link),
+            customer_reservations: reservations.filter(resrv => resrv.booking_link),
+            bookingLinkData,
+            publicKey: process.env.PUBLIC_KEY
+        });
     } catch (err) {
         next(err);
     }
@@ -76,10 +82,21 @@ router.post('/set-fare', async (req, res, next) => {
     }
 });
 
+
+router.post('/save-reservation', async (req, res, next) => {
+    try {
+        const { id: agentId } = req.session.user;
+        const { reference } = await reservationService.createAgentReservation({ ...req.body, agentId });
+        res.json({ status: true, data: { reference } });
+    } catch (err) {
+        next(err);
+    }
+});
+
 router.post('/upload-photo', async (req, res, next) => {
     try {
-        const { id: userId } = req.session.user;
-        await userService.uploadProfilePhoto(req.files.profile_photo, userId);
+        const { id: agentId } = req.session.user;
+        await userService.uploadProfilePhoto(req.files.profile_photo, agentId);
         res.redirect('/user/profile');
     } catch (err) {
         next(err);
@@ -88,8 +105,8 @@ router.post('/upload-photo', async (req, res, next) => {
 
 router.post('/documents', async (req, res, next) => {
     try {
-        const userId = req.session.user.id;
-        await userService.uploadDocuments(req.files, userId);
+        const agentId = req.session.user.id;
+        await userService.uploadDocuments(req.files, agentId);
         res.redirect('/user/profile');
     } catch (err) {
         next(err);
@@ -98,9 +115,9 @@ router.post('/documents', async (req, res, next) => {
 
 router.post('/delete-document', async (req, res, next) => {
     try {
-        const userId = req.session.user.id;
+        const agentId = req.session.user.id;
         const { documentName } = req.body;
-        await userService.deleteDocument(documentName, userId);
+        await userService.deleteDocument(documentName, agentId);
         res.json({ status: 'success' });
     } catch (err) {
         next(err);

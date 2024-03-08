@@ -48,4 +48,32 @@ script(src='/js/app-style-switcher.js')
 script(src='/js/sidebarmenu.js')
 script(src='/js/custom.js')
 
+script. 
+    function serialize(data) {
+        let obj = {};
+        for (let [key, value] of data) {
+            if (obj[key] !== undefined) {
+                if (!Array.isArray(obj[key])) {
+                    obj[key] = [obj[key]];
+                }
+                obj[key].push(value);
+            } else {
+                obj[key] = value;
+            }
+        }
+        return obj;
+    }
+
+    async function postForm(url, data) {
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        });
+        return res.json();
+    }
+
+
 block scriptBlock

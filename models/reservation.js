@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
         name: DataTypes.STRING(60),
         phone: DataTypes.STRING(16),
         email: DataTypes.STRING(60),
+        fare: DataTypes.INTEGER,
+        booking_link: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
         status: {
             type: Sequelize.ENUM('pending', 'paid', 'canceled'),
             defaultValue: 'pending'
@@ -26,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Reservation.associate = function (models) {
-        Reservation.belongsTo(models.User, { foreignKey: 'userId' });
+        Reservation.belongsTo(models.User, { foreignKey: 'agentId' });
         Reservation.belongsTo(models.Trip, { foreignKey: 'tripId' });
     };
 

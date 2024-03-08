@@ -5,7 +5,6 @@ const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
 const { db_config } = require(__dirname + '/../config/config');
 const { database, username, password } = db_config;
 const db = {};
@@ -13,7 +12,7 @@ const db = {};
 const sequelize = new Sequelize(database, username, password, db_config);
 // sync all tables
 (async function () {
-    // await sequelize.sync({ alter: true });
+    //await sequelize.sync({ alter: true });
 })();
 
 fs

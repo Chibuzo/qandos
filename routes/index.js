@@ -3,13 +3,14 @@ const router = express.Router();
 const authenticate = require('../middlewares/authenticate');
 const isAuthenticated = require('../middlewares/isAuthenticated');
 const userService = require('../services/userService');
-// const paymentService = require('../services/paymentService');
+const paymentService = require('../services/paymentService');
 const authenticateAdmin = require('../middlewares/authenticateAdmin');
 const emailService = require('../services/emailService');
 const { ErrorHandler } = require('../helpers/errorHandler');
 const states = require('../config/states.json');
 const { sendResponse } = require('../helpers/httpResponse');
 const tripService = require('../services/tripService');
+const reservationService = require('../services/reservationService');
 
 
 router.get('/', isAuthenticated, async (req, res, next) => {
@@ -168,8 +169,9 @@ router.post('/update-user', authenticateAdmin, async (req, res, next) => {
 
 router.get('/complete-payment', isAuthenticated, async (req, res, next) => {
     try {
-        await contributionService.verifyPayment(req.query.reference);
-        res.json({ status: 'success' });
+        const { id: agentId = null } = req.session.user;
+        const payment = await paymentService.savePaymentDetails(req.query.reference, agentId);
+        res.json({ status: true, data: payment });
     } catch (err) {
         next(err);
     }
@@ -184,12 +186,24 @@ router.post('/send-email', (req, res, next) => {
     }
 });
 
+router.post('/new-reservation', async (req, res, next) => {
+    try {
+        const reservation = await reservationService.create({ ...req.body });
+        return res.json({ status: true, data: reservation });
+    } catch (err) {
+        next(err);
+    }
+});
+
 router.get('/booking-link/:code', async (req, res, next) => {
     try {
         const { code } = req.params;
-        const { fare, tripId } = await tripService.getAgentTripLinkByCode(code);
-        const trip = await tripService.view(tripId);
-        res.render('traveler-booking', { trip, fare: fare || trip.fare });
+        const { fare, tripId, agentId } = await tripService.getAgentTripLinkByCode(code);
+        const [trip, agent] = await Promise.all([
+            tripService.view(tripId),
+            userService.view({ id: agentId })
+        ]);
+        res.render('traveler-booking', { trip, agent, fare: fare || trip.fare, publicKey: process.env.PUBLIC_KEY });
     } catch (err) {
         next(err);
     }

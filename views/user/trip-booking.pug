@@ -106,37 +106,93 @@ block content
         .card-body.p-4
             .row 
                 .col-md-12 
-                    .row.mb-3
+                    .row
                         .col
                             h4 Travelers
                         .col 
                             .btn.btn-dark.float-end(data-bs-toggle='modal' data-bs-target='#newBookingModal') New Booking
-                    table.table.table-striped.table-hover
-                        thead 
-                            tr 
-                                th Name 
-                                th phone 
-                                //- th Email 
-                                th Reference #
-                                th status
-                                th.checkbox 
-                                    label.option
-                                        input#tick-all(type="checkbox") 
-                                        span.customcheckbox
-                        tbody 
-                            each resrv in reservations 
-                                tr  
-                                    td= resrv.name 
-                                    td= resrv.phone 
-                                    //- td= resrv.email 
-                                    td= resrv.reference 
-                                    td= resrv.status
-                                    td.checkbox 
-                                        label.option
-                                            input.check(type="checkbox" name="check_p")
-                                            span.customcheckbox
 
-                    button.btn.btn-danger.mx-2#make-payment.float-end Pay NGN 0
+        ul#pills-tab.nav.nav-pills.user-profile-tab(role='tablist')
+            li.nav-item(role='presentation')
+                button#pills-self-tab.nav-link.position-relative.rounded-0.active.d-flex.align-items-center.justify-content-center.bg-transparent.fs-3.py-4(data-bs-toggle='pill' data-bs-target='#pills-self' type='button' role='tab' aria-controls='pills-self' aria-selected='true')
+                    i.ti.ti-user-circle.me-2.fs-6
+                    span.d-none.d-md-block Self Booked
+            li.nav-item(role='presentation')
+                button#pills-customer-tab.nav-link.position-relative.rounded-0.d-flex.align-items-center.justify-content-center.bg-transparent.fs-3.py-4(data-bs-toggle='pill' data-bs-target='#pills-customer' type='button' role='tab' aria-controls='pills-customer' aria-selected='false')
+                    i.ti.ti-users.me-2.fs-6
+                    span.d-none.d-md-block Customer Booked
+
+        .card-body
+            #pills-tabContent.tab-content
+                #pills-self.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='pills-self-tab' tabindex='0')
+                    .row
+                        .col-12.mb-5
+                            p The customers you handled their reservations
+                            table.table.table-hover
+                                thead 
+                                    tr 
+                                        th Name 
+                                        th phone 
+                                        th Email 
+                                        th Reference #
+                                        th status
+                                        th.checkbox 
+                                            label.option
+                                                input#tick-all(type="checkbox") 
+                                                span.customcheckbox
+                                tbody 
+                                    each resrv in agent_reservations
+                                        tr()
+                                            td(data-reservationid=`${resrv.id}`)= resrv.name 
+                                            td= resrv.phone 
+                                            td= resrv.email 
+                                            td= resrv.reference 
+                                            td
+                                                if (resrv.status == 'pending') 
+                                                    span.badge.bg-light-warning.text-warning.rounded-pill
+                                                        span.round-8.bg-warning.rounded-circle.d-inline-block.me-1
+                                                        | #{resrv.status}
+                                                else if (resrv.status == 'paid') 
+                                                    span.badge.bg-light-success.text-success.rounded-pill
+                                                        span.round-8.bg-success.rounded-circle.d-inline-block.me-1  
+                                                        | #{resrv.status}
+                                            td.checkbox 
+                                                if (resrv.status == 'pending')
+                                                    label.option
+                                                        input.check(type="checkbox" name="check_p")
+                                                        span.customcheckbox
+
+                            button.btn.btn-danger.mx-2#make-payment.float-end Pay NGN 0
+
+                #pills-customer.tab-pane.fade(role='tabpanel' aria-labelledby='pills-customer-tab' tabindex='0')
+                    .row
+                        .col-12.mb-5
+                            p Travelers that booking using your #[strong referral link]
+                            table.table.table-hover
+                                thead 
+                                    tr 
+                                        th Name 
+                                        th phone 
+                                        //- th Email 
+                                        th Reference #
+                                        th status
+                                        th.checkbox 
+                                            label.option
+                                                input#tick-all(type="checkbox") 
+                                                span.customcheckbox
+                                tbody 
+                                    each resrv in customer_reservations 
+                                        tr  
+                                            td(data-reservationid=`${resrv.id}`)= resrv.name 
+                                            td= resrv.phone 
+                                            //- td= resrv.email 
+                                            td= resrv.reference 
+                                            td= resrv.status
+                                            td.checkbox 
+                                                //- if (resrv.status == 'pending')
+                                                //-     label.option
+                                                //-         input.check(type="checkbox" name="check_p")
+                                                //-         span.customcheckbox
 
 block Modals 
     #newBookingModal.modal.fade(tabindex='0' aria-hidden='true')
@@ -146,7 +202,7 @@ block Modals
                     h5.modal-title New Reservation
                     button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close') 
 
-                form.form(action='/reservation/new' method='post')
+                form.form(action='/reservation/new?json=no' method='post')
                     .modal-body.px-4
                         .mb-3 
                             label.form-lable Name 
@@ -192,6 +248,7 @@ block scriptBlock
 
         let accumulatedSum = 0;
         const fare = !{JSON.stringify(trip.fare)}
+        const tripId = !{JSON.stringify(trip.id)}
 
         const checkAll = document.getElementById("tick-all");
         const allBoxes = document.getElementsByName("check_p");
@@ -199,14 +256,16 @@ block scriptBlock
 
         for (let n = 0; n < allBoxes.length; n++) {
             allBoxes[n].addEventListener('change', function() {
-                if (allBoxes[n].checked) accumulatedSum += fare;
+                if (allBoxes[n].checked) {
+                    accumulatedSum += fare;
+                }
                 else accumulatedSum -= fare;
                 paymentBtn.innerText = `Pay NGN ${accumulatedSum.toLocaleString('en-US', { style: 'decimal' })}`;
             });
         }
 
         // check and uncheck all boxes
-        checkAll && checkAll.addEventListener('change', (e) => {
+        checkAll.addEventListener('change', (e) => {
             accumulatedSum = 0;
             if (checkAll.checked) {
                 for (let i = 0; i < allBoxes.length; i++) {
@@ -222,27 +281,41 @@ block scriptBlock
             paymentBtn.innerText = `Pay NGN ${accumulatedSum.toLocaleString('en-US', { style: 'decimal' })}`;
         });
 
-        function createContribution() {
-            fetch("/user/contribution", {
+
+        paymentBtn.addEventListener('click', async function(e) {
+            const reservationIds = [];
+            let total = 0;
+            for (let n = 0; n < allBoxes.length; n++) {
+                if (allBoxes[n].checked) {
+                    reservationIds.push(allBoxes[n].closest('tr').children[0].dataset.reservationid);
+                } 
+            }
+            const res = await saveAgentReservation(tripId, reservationIds);
+            if (!res.status) {
+                // wahala
+            }
+            payWithPaystack(accumulatedSum, res.data.reference);
+        });
+
+
+        async function saveAgentReservation(tripId, reservationIds) {
+            const res = await fetch("/user/save-reservation", {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ amount: totalPayable })
-            }).then((d) => { return d.json(); }).then(d => {
-                if (d.status.trim() == 'success') {
-                    payWithPaystack(totalPayable * 100, d.reference);
-                }
+                body: JSON.stringify({ tripId, reservationIds })
             });
+            return res.json();
         }
 
         function payWithPaystack(amount, ref) {
             const handler = PaystackPop.setup({
-                //key: !{JSON.stringify(publicKey)},
+                key: !{JSON.stringify(publicKey)},
                 email: !{JSON.stringify(user.email)},
-                amount,
+                amount: accumulatedSum * 100,
                 ref,
-                currency: 'NGN',
+                //currency: 'USD',
                 callback: function(response) {
                     const { reference, status } = response;
 
@@ -251,7 +324,9 @@ block scriptBlock
                         headers: {
                             "Content-Type": "application/json",
                         }
-                    }).then((d) => { location.reload() });
+                    }).then((d) => { 
+                        location.reload() 
+                    });
                 },
                 onClose: function(){
                     alert('Payment cancelled');
