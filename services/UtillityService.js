@@ -1,4 +1,7 @@
 const chance = require('chance').Chance();
+const cacheService = require('./cacheService');
+const apiRequest = require('../helpers/APIRequest');
+
 
 const generateUniqueValue = (length = 35, num = false, prefix = null) => {
     const pool = num ? '0123456789' : 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
@@ -19,6 +22,18 @@ module.exports = {
         if (post.length <= no_of_letters) return post;
         const intro = post.substr(0, no_of_letters - 1);
         return intro.substr(0, intro.lastIndexOf(' ')) + '...';
+    },
+
+    verifyOTP: (email, sentOTP) => {
+        const otp = cacheService.get(email);
+        return otp == sentOTP;
+    },
+
+    sendSMS: async (phone, message) => {
+        const url = `https://api.ebulksms.com:8080/sendsms?username=visionvisaltd@gmail.com&apikey=${process.env.SMS_API_KEY}&sender=vExpress&messagetext=${message}&flash=0&recipients=${phone}`;
+
+        const APIRequest = new apiRequest({});
+        const res = await APIRequest.get(url);
     },
 
     generateUniqueValue,

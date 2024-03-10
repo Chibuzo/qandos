@@ -4,10 +4,11 @@ const bcrypt = require('bcryptjs');
 const { Buffer } = require('buffer');
 const crypto = require('crypto');
 const path = require('path');
-const { generateOTP } = require('./UtillityService');
+const { generateOTP, sendSMS } = require('./UtillityService');
 const { Op } = require('sequelize');
 const saltRounds = 10;
 const { ErrorHandler } = require('../helpers/errorHandler');
+const cacheService = require('./cacheService');
 
 
 const create = async ({ fullname, email, phone, password, ...rest }) => {
@@ -54,16 +55,9 @@ const login = async ({ email, password }) => {
     }
 
     // send OTP
-    const otp = sendOtp(user);
+    const otp = await sendOtp(user);
     delete user.password;
-    return { user, otp };
-}
-
-const sendOtp = ({ fullname, email, phone }) => {
-    const otp = generateOTP();
-    // if (email) emailService.sendOTP(fullname, email, otp);
-    // if (phone) smsService.sendOTP(fullname, phone, otp);
-    return otp;
+    return { user };
 }
 
 const findOne = async criteria => {
@@ -74,6 +68,20 @@ const view = async criteria => {
     const user = await findOne(criteria);
     if (!user) throw new ErrorHandler(404, 'User not found');
     return sanitize(user);
+}
+
+const sendOtp = async ({ email, phone }) => {
+    console.log({ phone })
+    const otp = generateOTP();
+    const expiryTime = 5 * 60 * 60; // expire in 5 minutes
+    cacheService.set(email, otp, expiryTime);
+
+    const text = `Your login OTP is: ${otp} 
+    \nThis OTP expires is 5 minutes`;
+
+    if (email) emailService.emailOtp(email, otp);
+    if (phone) await sendSMS(phone, text);
+    return;
 }
 
 const activateAccount = async (email_hash, hash_string) => {

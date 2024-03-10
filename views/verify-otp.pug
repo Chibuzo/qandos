@@ -9,7 +9,7 @@ block content
         form(method="post" action="/verify-otp")
             if message 
                 .alert.alert-danger #{message} 
-            p OTP: #{otp}
+
             .form-floating
                 input#floatingInput.form-control(type='text' name="otp" placeholder='OTP' autofocus)
                 label(for='floatingInput') OTP

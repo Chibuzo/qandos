@@ -78,7 +78,7 @@ block content
                     p #[strong Flight No:] #{trip.flight_no}
                 .col-md-4 
                     p #[strong Travel Date:] #{view.formatDate(trip.travel_date)}
-                    p #[strong Dep Terminal:] #{trip.dep_terminal}
+                    p #[strong Return Date:] #{view.formatDate(trip.return_date)}
                 .col-md-4
                     p #[strong Fare:] $ #{view.formatCurrency(trip.fare)}
                     p #[strong Capacity:] #{trip.capacity}
@@ -86,7 +86,7 @@ block content
         .card-body.p-4
             .row 
                 .col-md-12 
-                    .row 
+                    .row
                         .col
                             h4.mb-0 Booking Link 
                             small Agent's booking link
@@ -178,7 +178,7 @@ block content
                                         th status
                                         th.checkbox 
                                             label.option
-                                                input#tick-all(type="checkbox") 
+                                                input#tick-all-c(type="checkbox") 
                                                 span.customcheckbox
                                 tbody 
                                     each resrv in customer_reservations 
@@ -189,11 +189,12 @@ block content
                                             td= resrv.reference 
                                             td= resrv.status
                                             td.checkbox 
-                                                //- if (resrv.status == 'pending')
-                                                //-     label.option
-                                                //-         input.check(type="checkbox" name="check_p")
-                                                //-         span.customcheckbox
+                                                if (resrv.status == 'pending')
+                                                    label.option
+                                                        input.check-c(type="checkbox" name="check_p_c")
+                                                        span.customcheckbox
 
+                            button.btn.btn-danger.mx-2#make-client-payment.float-end Pay NGN 0
 block Modals 
     #newBookingModal.modal.fade(tabindex='0' aria-hidden='true')
         .modal-dialog
@@ -253,33 +254,15 @@ block scriptBlock
         const checkAll = document.getElementById("tick-all");
         const allBoxes = document.getElementsByName("check_p");
         const paymentBtn = document.getElementById("make-payment");
+        const checkAllClient = document.getElementById("tick-all-c");
+        const allClientBoxes = document.getElementsByName("check_p_c");
+        const clientPaymentBtn = document.getElementById("make-client-payment");
 
-        for (let n = 0; n < allBoxes.length; n++) {
-            allBoxes[n].addEventListener('change', function() {
-                if (allBoxes[n].checked) {
-                    accumulatedSum += fare;
-                }
-                else accumulatedSum -= fare;
-                paymentBtn.innerText = `Pay NGN ${accumulatedSum.toLocaleString('en-US', { style: 'decimal' })}`;
-            });
-        }
+        // calculate agent fare
+        calculateAgentFare(allBoxes, paymentBtn);
 
-        // check and uncheck all boxes
-        checkAll.addEventListener('change', (e) => {
-            accumulatedSum = 0;
-            if (checkAll.checked) {
-                for (let i = 0; i < allBoxes.length; i++) {
-                    allBoxes[i].checked = true;
-                    accumulatedSum += parseInt(fare, 10);
-                }
-            } else {
-                for (let i = 0; i < allBoxes.length; i++) {
-                    allBoxes[i].checked = false;
-                }
-                accumulatedSum = 0;
-            }
-            paymentBtn.innerText = `Pay NGN ${accumulatedSum.toLocaleString('en-US', { style: 'decimal' })}`;
-        });
+        // check and uncheck all agent boxes
+        handleCheckBoxAction(checkAll, allBoxes, paymentBtn);
 
 
         paymentBtn.addEventListener('click', async function(e) {
@@ -288,6 +271,28 @@ block scriptBlock
             for (let n = 0; n < allBoxes.length; n++) {
                 if (allBoxes[n].checked) {
                     reservationIds.push(allBoxes[n].closest('tr').children[0].dataset.reservationid);
+                } 
+            }
+            const res = await saveAgentReservation(tripId, reservationIds);
+            if (!res.status) {
+                // wahala
+            }
+            payWithPaystack(accumulatedSum, res.data.reference);
+        });
+
+        // calculate all pending client fares
+        calculateAgentFare(allClientBoxes, clientPaymentBtn);
+
+        // check and uncheck all client boxes
+        handleCheckBoxAction(checkAllClient, allClientBoxes, clientPaymentBtn);
+
+
+        clientPaymentBtn.addEventListener('click', async function(e) {
+            const reservationIds = [];
+            let total = 0;
+            for (let n = 0; n < allBoxes.length; n++) {
+                if (allClientBoxes[n].checked) {
+                    reservationIds.push(allClientBoxes[n].closest('tr').children[0].dataset.reservationid);
                 } 
             }
             const res = await saveAgentReservation(tripId, reservationIds);
@@ -307,6 +312,38 @@ block scriptBlock
                 body: JSON.stringify({ tripId, reservationIds })
             });
             return res.json();
+        }
+
+
+        function calculateAgentFare(allBoxes, paymentBtn) {
+            accumulatedSum = 0;
+            for (let n = 0; n < allBoxes.length; n++) {
+                allBoxes[n].addEventListener('change', function() {
+                    if (allBoxes[n].checked) {
+                        accumulatedSum += fare;
+                    }
+                    else accumulatedSum -= fare;
+                    paymentBtn.innerText = `Pay NGN ${accumulatedSum.toLocaleString('en-US', { style: 'decimal' })}`;
+                });
+            }
+        }
+
+        function handleCheckBoxAction(checkAll, allBoxes, paymentBtn) {
+            checkAll.addEventListener('change', (e) => {
+                accumulatedSum = 0;
+                if (checkAll.checked) {
+                    for (let i = 0; i < allBoxes.length; i++) {
+                        allBoxes[i].checked = true;
+                        accumulatedSum += parseInt(fare, 10);
+                    }
+                } else {
+                    for (let i = 0; i < allBoxes.length; i++) {
+                        allBoxes[i].checked = false;
+                    }
+                    accumulatedSum = 0;
+                }
+                paymentBtn.innerText = `Pay NGN ${accumulatedSum.toLocaleString('en-US', { style: 'decimal' })}`;
+            });
         }
 
         function payWithPaystack(amount, ref) {

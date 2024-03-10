@@ -88,6 +88,15 @@ body
 
         // Main wrapper
         .body-wrapper
+            header.app-header
+                nav.navbar.navbar-expand-lg.navbar-light.mt-3
+                    ul.navbar-nav
+                        li.nav-item
+                            a#headerCollapse.nav-link.sidebartoggler.nav-icon-hover.ms-n3(href='javascript:void(0)')
+                                i.ti.ti-menu-2
+                    .d-block.d-lg-none
+                        img.dark-logo.d-none(src='/images/logo.png' width='180' alt='')
+                        img.light-logo(src='/images/logo.png' width='180' alt='')
 
             // Header End
             .container-fluid(style="margin-top: -35px")

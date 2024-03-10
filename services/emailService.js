@@ -4,13 +4,13 @@ const { Buffer } = require('buffer');
 const path = require('path');
 const nodemailer = require('nodemailer');
 var hbs = require('nodemailer-express-handlebars');
+const crypto = require('crypto');
+const { APP_NAME } = require('../config/constants');
 
 const options = {
     viewEngine: {
         extName: '.hbs',
-        partialsDir: '/views/emails/',
-        layoutsDir: '',
-        defaultLayout: '',
+        layoutsDir: path.join(__dirname, '../views/emails/'),
     },
     viewPath: path.join(__dirname, '../views/emails/')
 };
@@ -34,7 +34,7 @@ const SENT_FROM = 'support@dumena.com';
 
 const sendMail = (to, subject, template, data) => {
     let mailOptions = {
-        from: '"Vexpress" <' + SENT_FROM + '>',
+        from: APP_NAME + ' <' + SENT_FROM + '>',
         to: to,
         subject: subject,
         template: template,
@@ -53,7 +53,6 @@ module.exports = {
     sendConfirmationEmail: function (user) {
         // if (user.firstname.length > 60) return;
         const email_b64 = Buffer.from(user.email).toString('base64');
-        const crypto = require('crypto');
         const hash = crypto.createHash('md5').update(user.email + 'okirikwenEE129Okpkenakai').digest('hex');
 
         const data = {
@@ -69,7 +68,6 @@ module.exports = {
     sendPasswordResetLink: function (user) {
         if (!user) return false;
         const email_b64 = Buffer.from(user.email).toString('base64');
-        const crypto = require('crypto');
         const hash = crypto.createHash('md5').update(user.email + 'okirikwenEE129Okpkenakai').digest('hex');
 
         const data = {
@@ -77,7 +75,7 @@ module.exports = {
             url: BASE_URL + 'password-reset/' + email_b64 + '/' + hash,
             base_url: BASE_URL
         };
-        const subject = "Ifemad Password Reset Link";
+        const subject = `${APP_NAME} Password Reset Link`;
         const template = 'passwordReset';
         sendMail(user.email, subject, template, data);
     },
@@ -96,7 +94,7 @@ module.exports = {
         sendMail(user.email, subject, template, data);
     },
 
-    emailIfemad: function ({ sender_email, sender_name, sender_phone = '', subject = 'From FAQ', message }) {
+    emailIVExpress: function ({ sender_email, sender_name, sender_phone = '', subject = 'From FAQ', message }) {
         const template = 'IfemadEmail';
         const data = {
             sender_name,
@@ -121,5 +119,10 @@ module.exports = {
             }
             //console.log('Message sent: %s', info.messageId);
         });
+    },
+
+    async emailOtp(email, otp) {
+        const data = { otp };
+        return sendMail(email, 'vExpress Charter Login OTP', 'otp', data);
     }
 }

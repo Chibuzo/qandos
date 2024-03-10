@@ -11,6 +11,7 @@ const states = require('../config/states.json');
 const { sendResponse } = require('../helpers/httpResponse');
 const tripService = require('../services/tripService');
 const reservationService = require('../services/reservationService');
+const { verifyOTP } = require('../services/UtillityService');
 
 
 router.get('/', isAuthenticated, async (req, res, next) => {
@@ -57,20 +58,18 @@ router.post('/signup', async (req, res, next) => {
 
 router.post('/login', async (req, res, next) => {
     try {
-        const { user, otp } = await userService.login(req.body);
+        const { user } = await userService.login(req.body);
         if (user.status == 'inactive') {
-            console.log({ user })
             req.session.temp_email = user.email;
             return res.render('user/activate-account', { user_status: user.status });
         }
         req.session.user = user;
-        req.session.otp = otp;
         if (req.body.remember_me) {
             req.session.cookie.maxAge = 60 * 60 * 1000 * 24 * 30;   // 30 days
             req.session.user.remember_me = true;
         }
         //if (req.query.json == 'true') return res.json({ status: true });
-        res.render('verify-otp', { otp });
+        res.render('verify-otp', {});
     } catch (err) {
         next(err);
     }
@@ -83,10 +82,21 @@ router.get('/verify-otp', (req, res, next) => {
 
 router.post('/verify-otp', authenticate, (req, res, next) => {
     const { otp } = req.body;
-    if (otp == req.session.otp) {
+    const { email } = req.session.user;
+    if (verifyOTP(email, otp)) {
         return res.redirect('/user/dashboard');
     }
     res.render('verify-otp', { message: 'Wrong OTP' });
+});
+
+router.get('/resend-otp', authenticate, async (req, res, next) => {
+    try {
+        const { user } = req.session;
+        await userService.sendOtp(user);
+        res.json({ status: true, message: 'New OTP sent!' });
+    } catch (err) {
+        res.json({ status: false, message: 'Unable to send OTP' });
+    }
 });
 
 router.get('/activate/:email_hash/:hash_string', async (req, res, next) => {
