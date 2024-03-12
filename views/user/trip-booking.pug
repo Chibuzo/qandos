@@ -77,7 +77,7 @@ block content
                     p #[strong Route:] #{trip.origin} - #{trip.destination}
                     p #[strong Flight No:] #{trip.flight_no}
                 .col-md-4 
-                    p #[strong Travel Date:] #{view.formatDate(trip.travel_date)}
+                    p #[strong Travel Date:] #{view.formatDate(trip.travel_date)}: #{trip.departure_time}
                     p #[strong Return Date:] #{view.formatDate(trip.return_date)}
                 .col-md-4
                     p #[strong Fare:] $ #{view.formatCurrency(trip.fare)}
@@ -187,7 +187,15 @@ block content
                                             td= resrv.phone 
                                             //- td= resrv.email 
                                             td= resrv.reference 
-                                            td= resrv.status
+                                            td
+                                                if (resrv.status == 'pending') 
+                                                    span.badge.bg-light-warning.text-warning.rounded-pill
+                                                        span.round-8.bg-warning.rounded-circle.d-inline-block.me-1
+                                                        | #{resrv.status}
+                                                else if (resrv.status == 'paid') 
+                                                    span.badge.bg-light-success.text-success.rounded-pill
+                                                        span.round-8.bg-success.rounded-circle.d-inline-block.me-1  
+                                                        | #{resrv.status}
                                             td.checkbox 
                                                 if (resrv.status == 'pending')
                                                     label.option

@@ -5,19 +5,24 @@ block content
         .col-md-12 
             div(style='border: #ccc solid thin; border-radius: 10px').p-3.mb-4
                 .row 
-                    .col-md-4 
+                    .col-md-6 
                         p #[strong Route:] #{trip.origin} - #{trip.destination}
+                    .col-md-6
                         p #[strong Flight No:] #{trip.flight_no}
-                    .col-md-4 
-                        p #[strong Travel Date:] #{view.formatDate(trip.travel_date)}
-                        p #[strong Dep Terminal:] #{trip.dep_terminal}
-                    .col-md-4
+                    .col-md-6
+                        p #[strong Travel Date:] #{view.formatDate(trip.travel_date)}: #{trip.departure_time}
+                    .col-md-6
+                        p #[strong Return Date:] #{view.formatDate(trip.return_date)}
+                    .col-md-6
                         p #[strong Fare:] $ #{view.formatCurrency(fare)}
                         p #[strong Capacity:] #{trip.capacity}
+                    .col-md-6
+                        p #[strong Departure Terminal:] #{trip.dep_terminal}
+
         .col-md-12 
             #booking-div
-                button.btn.btn-outline-danger New Reservation 
-                button.btn.btn-danger.mx-4 Manage Reservation
+                button.btn.btn-outline-danger.d-none New Reservation 
+                button.btn.btn-danger.mx-4.d-none Manage Reservation
 
                 form.form(action='/new-reservation' method='post').mt-4#form-booking
                     .mb-3 
@@ -37,7 +42,7 @@ block content
                         button.btn.btn-dark.float-end(type='submit') Book Now 
 
             #details.d-none
-                p Your booking reference: <span id='reserv-ref'></span>
+                p Your booking reference: &nbsp;<strong><span id='reserv-ref'></span></strong>
                 p You will pay a total of: $#{view.formatCurrency(fare)} USD
 
                 button.btn.btn-danger#paymentBtn(type='button') PAY: $#{view.formatCurrency(fare)} USD
@@ -59,9 +64,11 @@ block scriptBlock
             const formData = serialize(data);
             const res = await postForm("/new-reservation", formData);
             if (res.status) {
+                const ref = res.data.reference;
                 $("#booking-div").fadeOut();
+                document.getElementById("reserv-ref").innerHTML = ref;
                 $("#details").hide().removeClass('d-none').fadeIn();
-                bookingRef = res.data.reference;
+                bookingRef = ref;
             }
         });
 
