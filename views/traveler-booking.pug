@@ -14,7 +14,7 @@ block content
                     .col-md-6
                         p #[strong Return Date:] #{view.formatDate(trip.return_date)}
                     .col-md-6
-                        p #[strong Fare:] $ #{view.formatCurrency(fare)}
+                        p #[strong Fare:] $ #{view.formatCurrency(fare + 1000)}
                         p #[strong Capacity:] #{trip.capacity}
                     .col-md-6
                         p #[strong Departure Terminal:] #{trip.dep_terminal}
@@ -42,10 +42,11 @@ block content
                         button.btn.btn-dark.float-end(type='submit') Book Now 
 
             #details.d-none
+                .alert.alert-info NOTE: The total fare is $#{view.formatCurrency(fare + 1000)}. But you'll pay $#{view.formatCurrency(fare)} now, and pay the remaining $1,000 while boarding
                 p Your booking reference: &nbsp;<strong><span id='reserv-ref'></span></strong>
                 p You will pay a total of: $#{view.formatCurrency(fare)} USD
 
-                button.btn.btn-danger#paymentBtn(type='button') PAY: $#{view.formatCurrency(fare)} USD
+                button.btn.btn-dark#paymentBtn(type='button') PAY: $#{view.formatCurrency(fare)} USD
 
 
 block scriptBlock
