@@ -71,7 +71,6 @@ const view = async criteria => {
 }
 
 const sendOtp = async ({ email, phone }) => {
-    console.log({ phone })
     const otp = generateOTP();
     const expiryTime = 5 * 60 * 60; // expire in 5 minutes
     cacheService.set(email, otp, expiryTime);
@@ -80,7 +79,7 @@ const sendOtp = async ({ email, phone }) => {
     \nThis OTP expires is 5 minutes`;
 
     if (email) emailService.emailOtp(email, otp);
-    if (phone) await sendSMS(phone, text);
+    // if (phone) await sendSMS(phone, text);
     return;
 }
 
