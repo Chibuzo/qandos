@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const userService = require('../services/userService');
-const tripService = require('../services/tripService');
-const reservationService = require('../services/reservationService');
 const paymentService = require('../services/paymentService');
 
 
@@ -30,64 +28,10 @@ router.get('/settings', async (req, res, next) => {
     }
 });
 
-router.get('/flights', async (req, res, next) => {
-    try {
-        const trips = await tripService.list({ id: req.session.user.id });
-        res.render('user/flights', { trips });
-    } catch (err) {
-        next(err);
-    }
-});
-
 router.get('/earnings', async (req, res, next) => {
     try {
         const payments = await paymentService.view({ id: req.session.user.id });
         res.render('user/earnings', { payments });
-    } catch (err) {
-        next(err);
-    }
-});
-
-router.get('/flight-booking/:flight_id', async (req, res, next) => {
-    try {
-        const { id: agentId } = req.session.user;
-        const { flight_id: tripId } = req.params;
-        const [trip, reservations, bookingLinkData] = await Promise.all([
-            tripService.view(tripId),
-            reservationService.list({ tripId, agentId }),
-            tripService.getAgentTripLink(agentId, tripId)
-        ]);
-        if (!bookingLinkData.fare) {    // use trip fare if agent didn't set fare
-            bookingLinkData.fare = trip.fare;
-        }
-        res.render('user/trip-booking', {
-            trip,
-            agent_reservations: reservations.filter(resrv => !resrv.booking_link),
-            customer_reservations: reservations.filter(resrv => resrv.booking_link),
-            bookingLinkData,
-            publicKey: process.env.PUBLIC_KEY
-        });
-    } catch (err) {
-        next(err);
-    }
-});
-
-router.post('/set-fare', async (req, res, next) => {
-    try {
-        await tripService.updateBookingLinkFare(req.body);
-        const { tripId } = req.body;
-        res.redirect(`/user/flight-booking/${tripId}`);
-    } catch (err) {
-        next(err);
-    }
-});
-
-
-router.post('/save-reservation', async (req, res, next) => {
-    try {
-        const { id: agentId } = req.session.user;
-        const { reference } = await reservationService.createAgentReservation({ ...req.body, agentId });
-        res.json({ status: true, data: { reference } });
     } catch (err) {
         next(err);
     }

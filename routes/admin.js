@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const adminService = require('../services/adminService');
 const authenticateAdmin = require('../middlewares/authenticateAdmin');
 const userService = require('../services/userService');
@@ -26,7 +26,7 @@ router.post('/create', async (req, res, next) => {
 router.post('/login', async (req, res, next) => {
     try {
         req.session.admin = await adminService.login(req.body);
-        res.redirect('/admin/dashboard');
+        res.redirect('/property/list');
     } catch (err) {
         next(err);
     }

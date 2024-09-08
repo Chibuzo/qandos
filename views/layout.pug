@@ -1,0 +1,170 @@
+doctype html
+head
+  title Qandos - Home Page
+  meta(charset='UTF-8')
+  meta(name='description' content='Qandos property listing page')
+  meta(name='keywords' content='Qandos, property, land, apartment')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(href='/img/favicon.ico' rel='shortcut icon')
+  link(href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet')
+  link(rel='stylesheet' href='/css/bootstrap.min.css')
+  link(rel='stylesheet' href='/css/font-awesome.min.css')
+  link(rel='stylesheet' href='/css/animate.css')
+  link(rel='stylesheet' href='/css/owl.carousel.css')
+  link(rel='stylesheet' href='/css/style.css')
+  //if lt IE 9
+    script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
+    script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
+
+  style. 
+    h5 a { color: #132758 }
+#preloder
+  .loader
+header.header-section
+  .header-top
+    .container
+      .row
+        .col-lg-6.header-top-left
+          .top-info
+            i.fa.fa-phone
+            | #{_phone }
+          .top-info
+            i.fa.fa-envelope
+            | #{_email}
+        .col-lg-6.text-lg-right.header-top-right
+          //- .top-social
+          //-   a(href='')
+          //-     i.fa.fa-facebook
+          //-   a(href='')
+          //-     i.fa.fa-twitter
+          //-   a(href='')
+          //-     i.fa.fa-instagram
+          //-   a(href='')
+          //-     i.fa.fa-pinterest
+          //-   a(href='')
+          //-     i.fa.fa-linkedin
+          .user-panel
+            a(href='')
+              i.fa.fa-user-circle-o
+              |  Register
+            a(href='')
+              i.fa.fa-sign-in
+              |  Login
+  .container
+    .row
+      .col-12
+        .site-navbar
+          a.site-logo(href='#')
+            img(src='/img/logo-alt.png' width='250' alt='')
+          .nav-switch
+            i.fa.fa-bars
+          ul.main-menu
+            li
+              a(href='/') Home
+            li
+              a(href='/listing') Featured Listing
+            li
+              a(href='/about') About
+            li
+              a(href='/contact') Contact
+
+block content
+
+footer.footer-section.set-bg(data-setbg='/img/footer-bg.jpg')
+  .container
+    .row
+      .col-lg-3.col-md-6.footer-widget
+        .double-menu-widget
+          h5.fw-title QANDOS
+          ul
+            li
+              a(href='/') Home
+            li
+              a(href='listing') Featured Listing
+            li
+              a(href='about') About us
+            li
+              a(href='/contact') Contact
+
+        .social(style='margin-top: 24px')
+          //- a(href='#')
+          //-   i.fa.fa-facebook
+          a(href='https://x.com/QandosHQ')
+            i.fa.fa-twitter
+          a(href='#')
+            i.fa.fa-instagram
+          a(href='https://www.linkedin.com/in/qandos-hq')
+            i.fa.fa-linkedin
+      .col-lg-3.col-md-6.footer-widget
+        .contact-widget
+          h5.fw-title CONTACT US
+          p
+            i.fa.fa-map-marker
+            | 138, Somewhere, Nigeria
+          p
+            i.fa.fa-phone
+            | #{_phone}
+          p
+            i.fa.fa-envelope
+            | #{_email}
+          p
+            i.fa.fa-clock-o
+            | Mon - Sat, 08 AM - 06 PM
+      .col-lg-3.col-md-6.footer-widget
+        .double-menu-widget
+          h5.fw-title POPULAR PLACES
+          ul
+            li
+              a(href='') Abuja
+            li
+              a(href='') Lagos
+            li
+              a(href='') Enugu
+            li
+              a(href='') Asaba
+            
+          //- ul
+          //-   li
+          //-     a(href='') St Louis
+          //-   li
+          //-     a(href='') Jacksonville
+          //-   li
+          //-     a(href='') San Jose
+          //-   li
+          //-     a(href='') San Diego
+          //-   li
+          //-     a(href='') Houston
+      .col-lg-3.col-md-6.footer-widget
+        .newslatter-widget
+          h5.fw-title NEWSLETTER
+          p Subscribe your email to get the latest news and new offer also discount
+          form.footer-newslatter-form
+            input(type='email' placeholder='Email address')
+            button
+              i.fa.fa-send
+    .footer-bottom
+      .footer-nav
+        ul
+          li
+            a(href='/') Home
+          li
+            a(href='listing') Featured Listing
+          li
+            a(href='about') About us
+          li
+            a(href='/contact') Contact
+      .copyright
+        p
+          | Copyright &copy;
+          script(data-cfasync='false' src='/js/email-decode.min.js')
+          script.
+            document.write(new Date().getFullYear());
+          |  All rights reserved 
+          
+          a(href='https://qandos.com') Qandos
+script(src='/js/jquery-3.2.1.min.js')
+script(src='/js/bootstrap.min.js')
+script(src='/js/owl.carousel.min.js')
+script(src='/js/masonry.pkgd.min.js')
+script(src='/js/magnific-popup.min.js')
+script(src='/js/main.js')

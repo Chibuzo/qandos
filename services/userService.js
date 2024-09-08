@@ -35,10 +35,6 @@ const create = async ({ fullname, email, phone, password, ...rest }) => {
     return newUser;
 }
 
-const verifyCac = async ({ company, cac_no }) => {
-
-}
-
 const login = async ({ email, password }) => {
     const user = await User.findOne({
         where: { email },
@@ -68,19 +64,6 @@ const view = async criteria => {
     const user = await findOne(criteria);
     if (!user) throw new ErrorHandler(404, 'User not found');
     return sanitize(user);
-}
-
-const sendOtp = async ({ email, phone }) => {
-    const otp = generateOTP();
-    const expiryTime = 5 * 60 * 60; // expire in 5 minutes
-    cacheService.set(email, otp, expiryTime);
-
-    const text = `Your login OTP is: ${otp} 
-    \nThis OTP expires is 5 minutes`;
-
-    if (email) emailService.emailOtp(email, otp);
-    // if (phone) await sendSMS(phone, text);
-    return;
 }
 
 const activateAccount = async (email_hash, hash_string) => {
@@ -167,5 +150,4 @@ module.exports = {
     verifyPasswordResetLink,
     changePassword,
     uploadProfilePhoto,
-    verifyCac
 }

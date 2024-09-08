@@ -1,12 +1,12 @@
-const { Admin, Payout, User, sequelize } = require('../models');
+const { Admin, sequelize } = require('../models');
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 const { ErrorHandler } = require('../helpers/errorHandler');
 
-const create = async ({ fname, lname, email, password }) => {
+const create = async ({ fullname, email, password }) => {
     const passwordHash = await bcrypt.hash(password, saltRounds);
     const data = {
-        fullname: `${lname} ${fname}`,
+        fullname,
         email,
         password: passwordHash
     };

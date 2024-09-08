@@ -1,0 +1,44 @@
+extends ../admin/layout
+
+block content
+    .card.bg-light-info.shadow-none.position-relative.overflow-hidden
+        .card-body.px-4.py-3
+            .row.align-items-center
+                .col-9
+                    h4.fw-semibold.mb-8 Property Listing
+                    nav(aria-label='breadcrumb')
+                        ol.breadcrumb
+                            li.breadcrumb-item
+                                a.text-muted(href='index.html') Home
+                            li.breadcrumb-item(aria-current='page') Properties
+                .col-3
+                    a.btn.btn-primary.float-end(href='/property/new') Add New
+    .card.w-100.position-relative.overflow-hidden
+        .px-4.py-3.border-bottom
+            .card-title.fw-semibold.mb-0.lh-sm Property List
+        .card-body.p-4
+            .table-responsive.rounded-2.mb-4
+
+                table.table
+                    thead
+                        tr
+                            th Title
+                            th Beds
+                            th Baths
+                            th Location
+                            th Age
+                            th Cost 
+                            th status
+                            th Action
+                    tbody
+                        each property in properties 
+                            tr 
+                                td=property.title
+                                td=property.bedrooms 
+                                td=property.bathrooms 
+                                td #{property.state}, #{property.city} 
+                                td=property.age 
+                                td N #{view.formatCurrency(property.cost)}
+                                td=property.status 
+                                td
+                                    a(href=`/property/${property.id}/edit`) Edit

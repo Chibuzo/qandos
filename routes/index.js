@@ -8,25 +8,25 @@ const authenticateAdmin = require('../middlewares/authenticateAdmin');
 const emailService = require('../services/emailService');
 const { ErrorHandler } = require('../helpers/errorHandler');
 const states = require('../config/states.json');
+const propertyService = require('../services/propertyService');
 const { sendResponse } = require('../helpers/httpResponse');
-const tripService = require('../services/tripService');
-const reservationService = require('../services/reservationService');
-const { verifyOTP } = require('../services/UtillityService');
 
 
 router.get('/', isAuthenticated, async (req, res, next) => {
     try {
         const userSession = req.session.user ?? null;
-        res.render('login', { title: 'Welcome' });
+        const properties = await propertyService.list();
+        console.log(properties)
+        res.render('index', { title: 'Welcome', properties });
     } catch (err) {
         next(err);
     }
 });
 
-router.post('/verify-cac', async (req, res, next) => {
+router.get('/contact', isAuthenticated, async (req, res, next) => {
     try {
-        const cac = await userService.verifyCac(req.body);
-        sendResponse(res, 200, 'Cac Registration Verified', { cac });
+        const userSession = req.session.user ?? null;
+        res.render('contact', { title: 'Contact Us' });
     } catch (err) {
         next(err);
     }
@@ -75,29 +75,6 @@ router.post('/login', async (req, res, next) => {
     }
 });
 
-router.get('/verify-otp', (req, res, next) => {
-    const { otp } = req.query;
-    res.render('verify-otp', { otp });
-});
-
-router.post('/verify-otp', authenticate, (req, res, next) => {
-    const { otp } = req.body;
-    const { email } = req.session.user;
-    if (verifyOTP(email, otp)) {
-        return res.redirect('/user/dashboard');
-    }
-    res.render('verify-otp', { message: 'Wrong OTP' });
-});
-
-router.get('/resend-otp', authenticate, async (req, res, next) => {
-    try {
-        const { user } = req.session;
-        await userService.sendOtp(user);
-        res.json({ status: true, message: 'New OTP sent!' });
-    } catch (err) {
-        res.json({ status: false, message: 'Unable to send OTP' });
-    }
-});
 
 router.get('/activate/:email_hash/:hash_string', async (req, res, next) => {
     try {
@@ -196,28 +173,6 @@ router.post('/send-email', (req, res, next) => {
     }
 });
 
-router.post('/new-reservation', async (req, res, next) => {
-    try {
-        const reservation = await reservationService.create({ ...req.body });
-        return res.json({ status: true, data: reservation });
-    } catch (err) {
-        next(err);
-    }
-});
-
-router.get('/booking-link/:code', async (req, res, next) => {
-    try {
-        const { code } = req.params;
-        const { fare, tripId, agentId } = await tripService.getAgentTripLinkByCode(code);
-        const [trip, agent] = await Promise.all([
-            tripService.view(tripId),
-            userService.view({ id: agentId })
-        ]);
-        res.render('traveler-booking', { trip, agent, fare: fare || trip.fare, publicKey: process.env.PUBLIC_KEY });
-    } catch (err) {
-        next(err);
-    }
-});
 
 router.get('/logout', (req, res, next) => {
     req.session.destroy();

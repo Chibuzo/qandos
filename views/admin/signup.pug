@@ -1,53 +1,80 @@
-extends layout 
+doctype html
+head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    meta(name='description' content='')
+    title #{_app_name} Admin
+    // Bootstrap core CSS
+    link(href='/css/style.min.css' rel='stylesheet')
+    meta(name='theme-color' content='#7952b3')
+    style.
+        html,
+        body {
+            height: 100%;
+        }
 
-block content
-    .container-fluid.primary-bg.text-white
-        .row
-            .col.text-center
-                h1.mt-5 Create New Administrator
-                br
-                br
-        .row 
-            .col
-                .container
-                    .row.mb-4.justify-content-md-center
-                        .col-md-7
-                            if newUser 
-                                .alert.alert-success.text-center
-                                    i.fa.fa-check-circle.fa-4x
-                                    br/ 
-                                    | Thank you for signing up with Invest"N"Farm. 
-                                    br/ A mail has been sent to you to verify your email address
-                            else
-                                form(action="/admin/create" method="post")#signupForm
-                                    .row.gx-5
-                                        .col-md-6.col-sm-12.col-xs-12.mb-3
-                                            input.form-control.form-control-lg(type="text" name="fname" placeholder="First name" aria-label="First name" required=true)
-                                        .col-md-6.col-sm-12.col-xs-12.mb-3
-                                            input.form-control.form-control-lg(type="text" name="lname" placeholder="Last name" aria-label="Last name" required=true)
-                                    .row.gx-5
-                                        .col-md-12.col-sm-12.col-xs-12.mb-3
-                                            input.form-control.form-control-lg(type="email" name="email" placeholder="Email" aria-label="Email" required=true)
-                                    .row.gx-5
-                                        .col-md-6.col-sm-12.col-xs-12.mb-3
-                                            input.form-control.form-control-lg#password(type="password" name="password" placeholder="Password" aria-label="Password" required=true)
-                                        .col-md-6.col-sm-12.col-xs-12.mb-3
-                                            input.form-control.form-control-lg#confirm_password(type="password" name="confirm_password" placeholder="Confirm Password" aria-label="Confirm Password" required=true)    
-                                    .row.gy-3.justify-content-md-center.mb-5
-                                        .col-md-5.d-grid 
-                                            br/
-                                            button.btn.btn-success.btn-lg.btn-block(type="submit") Create New Admin 
+        body {
+            display: flex;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+        }
 
-    script. 
-        document.querySelector("#signupForm").addEventListener("submit", function(e) {
-            const password = document.querySelector("#password").value;
-            const confirm_password = document.querySelector("#confirm_password").value;
+        .form-signin {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
 
-            if (password != confirm_password) {
-                e.preventDefault();
-                alert("Paswword doesn't match!");
-                document.querySelector("#confirm_password").focus();
+        .form-signin .checkbox {
+            font-weight: 400;
+        }
+
+        .form-signin .form-floating:focus-within {
+            z-index: 2;
+        }
+
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
             }
-            return;
-        });            
+        }
 
+main.form-signin.text-center
+    form(method="post" action="/admin/create")
+        h1.h3.mb-3.fw-normal Create Admin
+        .form-floating
+            input#floatingInput.form-control(type='text' name="fullname" placeholder='name@example.com')
+            label(for='floatingInput') Full name
+        .form-floating
+            input#floatingInput.form-control(type='email' name="email" placeholder='name@example.com')
+            label(for='floatingInput') Email address
+        .form-floating
+            input#floatingPassword.form-control(type='password' name="password" placeholder='Password')
+            label(for='floatingPassword') Password
+       
+        button.w-100.btn.btn-lg.btn-secondary(type='submit') Create Admin
+        p.mt-5.mb-3.text-muted &copy; 
+            script.
+                document.write(new Date().getFullYear());

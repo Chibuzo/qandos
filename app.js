@@ -8,11 +8,12 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const authenticate = require('./middlewares/authenticate');
 const formatView = require('./middlewares/formatView');
+const { APP_NAME, EMAIL, PHONE } = require('./config/constants');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const adminRouter = require('./routes/admin');
-const reservationRouter = require('./routes/reservation');
+const propertyRouter = require('./routes/property');
 
 var app = express();
 
@@ -39,7 +40,7 @@ app.use(formatView);
 app.use('/', indexRouter);
 app.use('/user', authenticate, usersRouter);
 app.use('/admin', adminRouter);
-app.use('/reservation', authenticate, reservationRouter);
+app.use('/property', propertyRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -57,5 +58,10 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+// app level locals
+app.locals._app_name = APP_NAME;
+app.locals._email = EMAIL;
+app.locals._phone = PHONE;
 
 module.exports = app;

@@ -1,0 +1,195 @@
+
+extends layout 
+
+block content
+    section.page-top-section.set-bg(data-setbg='img/page-top-bg.jpg')
+    .container.text-white
+        h2 SINGLE LISTING
+        .site-breadcrumb
+        .container
+            a(href='')
+            i.fa.fa-home
+            | Home
+            span
+            i.fa.fa-angle-right
+            | Single Listing
+
+    section.page-section
+    .container
+        .row
+        .col-lg-8.single-list-page
+            #sl-slider.single-list-slider.owl-carousel
+            .sl-item.set-bg(data-setbg='img/single-list-slider/1.jpg')
+                .sale-notic FOR SALE
+            
+            #sl-slider-thumb.owl-carousel.sl-thumb-slider
+            .sl-thumb.set-bg(data-setbg='img/single-list-slider/1.jpg')
+            
+            .single-list-content
+            .row
+                .col-xl-8.sl-title
+                h2 305 North Palm Drive
+                p
+                    i.fa.fa-map-marker
+                    | Beverly Hills, CA 90210
+                .col-xl-4
+                a.price-btn(href='#') $4,500,000
+            h3.sl-sp-title Property Details
+            .row.property-details-list
+                .col-md-4.col-sm-6
+                p
+                    i.fa.fa-th-large
+                    |  1500 Square foot
+                p
+                    i.fa.fa-bed
+                    |  16 Bedrooms
+                p
+                    i.fa.fa-user
+                    |  Gina Wesley
+                .col-md-4.col-sm-6
+                p
+                    i.fa.fa-car
+                    |  2 Garages
+                p
+                    i.fa.fa-building-o
+                    |  Family Villa
+                p
+                    i.fa.fa-clock-o
+                    |  1 days ago
+                .col-md-4
+                p
+                    i.fa.fa-bath
+                    |  8 Bathrooms
+                p
+                    i.fa.fa-trophy
+                    |  5 years age
+            h3.sl-sp-title Description
+            .description
+                p
+                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus egestas fermentum ornareste. Donec index lorem. Vestibulum aliquet odio, eget tempor libero. Cras congue cursus tincidunt. Nullam venenatis dui id orci egestas tincidunt id elit. Nullam ut vuputate justo. Integer lacnia pharetra pretium. Casan ante ipsum primis in faucibus orci luctus et ultrice.
+            h3.sl-sp-title Property Details
+            .row.property-details-list
+                .col-md-4.col-sm-6
+                p
+                    i.fa.fa-check-circle-o
+                    |  Air conditioning
+                p
+                    i.fa.fa-check-circle-o
+                    |  Telephone
+                p
+                    i.fa.fa-check-circle-o
+                    |  Laundry Room
+                .col-md-4.col-sm-6
+                p
+                    i.fa.fa-check-circle-o
+                    |  Central Heating
+                p
+                    i.fa.fa-check-circle-o
+                    |  Family Villa
+                p
+                    i.fa.fa-check-circle-o
+                    |  Metro Central
+                .col-md-4
+                p
+                    i.fa.fa-check-circle-o
+                    |  City views
+                p
+                    i.fa.fa-check-circle-o
+                    |  Internet
+                p
+                    i.fa.fa-check-circle-o
+                    |  Electric Range
+            h3.sl-sp-title.bd-no Floorplans
+            #accordion.plan-accordion
+                .panel
+                #headingOne.panel-header
+                    button.panel-link.active(data-toggle='collapse' data-target='#collapse1' aria-expanded='false' aria-controls='collapse1')
+                    | First Floor: 
+                    span 660 sq ft
+                    i.fa.fa-angle-down
+                #collapse1.collapse.show(aria-labelledby='headingOne' data-parent='#accordion')
+                    .panel-body
+                    img(src='img/plan-sketch.jpg' alt='')
+                .panel
+                #headingTwo.panel-header
+                    button.panel-link(data-toggle='collapse' data-target='#collapse2' aria-expanded='true' aria-controls='collapse2')
+                    | Second Floor:
+                    span 610 sq ft.
+                    i.fa.fa-angle-down
+                #collapse2.collapse(aria-labelledby='headingTwo' data-parent='#accordion')
+                    .panel-body
+                    img(src='img/plan-sketch.jpg' alt='')
+                .panel
+                #headingThree.panel-header
+                    button.panel-link(data-toggle='collapse' data-target='#collapse3' aria-expanded='false' aria-controls='collapse3')
+                    | Third Floor :
+                    span 580 sq ft
+                    i.fa.fa-angle-down
+                #collapse3.collapse(aria-labelledby='headingThree' data-parent='#accordion')
+                    .panel-body
+                    img(src='img/plan-sketch.jpg' alt='')
+            h3.sl-sp-title.bd-no Video
+            .perview-video
+                img(src='img/video.jpg' alt='')
+                a.video-link(href='https://www.youtube.com/watch?v=v13nSVp6m5I')
+                img(src='img/video-btn.png' alt='')
+            h3.sl-sp-title.bd-no Location
+            #map-canvas.pos-map
+        .col-lg-4.col-md-7.sidebar
+            .author-card
+            .author-img.set-bg(data-setbg='img/author.jpg')
+            .author-info
+                h5 Gina Wesley
+                p Real Estate Agent
+            .author-contact
+                p
+                i.fa.fa-phone
+                | (567) 666 121 2233
+                p
+                i.fa.fa-envelope
+                a.__cf_email__(href='/cdn-cgi/l/email-protection' data-cfemail='9cfbf5f2fdebf9eff0f9e5aeaadcfbf1fdf5f0b2fff3f1') [email&nbsp;protected]
+            .contact-form-card
+            h5 Do you have any question?
+            form
+                input(type='text' placeholder='Your name')
+                input(type='text' placeholder='Your email')
+                textarea(placeholder='Your question')
+                button SEND
+            .related-properties
+            h2 Related Property
+            .rp-item
+                .rp-pic.set-bg(data-setbg='img/feature/1.jpg')
+                .sale-notic FOR SALE
+                .rp-info
+                h5 1963 S Crescent Heights Blvd
+                p
+                    i.fa.fa-map-marker
+                    | Los Angeles, CA 90034
+                a.rp-price(href='#') $1,200,000
+            .rp-item
+                .rp-pic.set-bg(data-setbg='img/feature/2.jpg')
+                .rent-notic FOR Rent
+                .rp-info
+                h5 17 Sturges Road, Wokingham
+                p
+                    i.fa.fa-map-marker
+                    |  Newtown, CT 06470
+                a.rp-price(href='#') $2,500/month
+            .rp-item
+                .rp-pic.set-bg(data-setbg='img/feature/4.jpg')
+                .sale-notic FOR SALE
+                .rp-info
+                h5 28 Quaker Ridge Road, Manhasset
+                p
+                    i.fa.fa-map-marker
+                    | 28 Quaker Ridge Road, Manhasset
+                a.rp-price(href='#') $5,600,000
+            .rp-item
+                .rp-pic.set-bg(data-setbg='img/feature/5.jpg')
+                .rent-notic FOR Rent
+                .rp-info
+                h5 Sofi Berryessa 750 N King Road
+                p
+                    i.fa.fa-map-marker
+                    | Sofi Berryessa 750 N King Road
+                a.rp-price(href='#') $1,600/month

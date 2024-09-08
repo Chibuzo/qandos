@@ -1,0 +1,118 @@
+extends ../admin/layout 
+
+block content
+    .card.bg-light-info.shadow-none.position-relative.overflow-hidden
+        .card-body.px-4.py-3
+            .row.align-items-center
+                .col-9
+                    h4.fw-semibold.mb-8 Edit Property
+                    nav(aria-label='breadcrumb')
+                        ol.breadcrumb
+                            li.breadcrumb-item
+                                a(href='#') Home
+                            li.breadcrumb-item
+                                a(href='/admin/campaigns') Properties
+                            li.breadcrumb-item(aria-current='page') Edit
+                .col-3
+                    .text-center.mb-n5
+
+    .row 
+        .col-md-7
+            .card.w-100.position-relative.overflow-hidden
+                .card-body.p-4
+                    h4.fw-semibold.mb-4 Property Details 
+
+                    form(action=`/property/${property.id}/update` method='post')
+                        .form-group.mb-3
+                            label.form-label Property Title 
+                            input.form-control(name="title" value=`${property.title}` type="text" required)
+                        .form-group.mb-3 
+                            label.form-label Description
+                            textarea.form-control(name="description" type="text" required)
+                               | #{property.description}
+                        .form-group.mb-3 
+                            label.form-label Category 
+                            select.form-control(name="category" required)  
+                                option(value='') -- Category --
+                                option(value='house') Apartment 
+                                option(value='land') Land
+                        .form-group.mb-3.row 
+                            .col-md-6
+                                label.form-label Bedrooms 
+                                select.form-control(name="bedrooms" required)  
+                                    option(value='') -- No of Bedrooms --
+                                    option(value='1') 1 
+                                    option(value='2') 2
+                                    option(value='3') 3
+                                    option(value='4') 4
+                                    option(value='5') 5
+                                    option(value='6') 6
+                                    option(value='7') 7
+                            .col-md-6
+                                label.form-label Bathrooms 
+                                select.form-control(name="bathrooms" required)  
+                                    option(value='') -- No of Bathrooms --
+                                    option(value='1') 1 
+                                    option(value='2') 2
+                                    option(value='3') 3
+                                    option(value='4') 4
+                                    option(value='5') 5
+                                    option(value='6') 6
+                                    option(value='7') 7
+
+                        .form-group.mb-3.row
+                            .col-md-6
+                                label.form-label Age (months)
+                                input.form-control(name="age" value=`${property.age}` type='number' required)  
+
+                            .col-md-6
+                                label.form-label Asking Price 
+                                input.form-control(name="cost" value=`${property.cost}` type='text' required)  
+
+                        .form-group.mb-4.row
+                            .col-md-6
+                                label.form-label State 
+                                select.form-control(name="state" required)  
+                                    option(value='') -- State --
+                                    option(value='abuja') Abuja
+
+                            .col-md-6
+                                label.form-label City 
+                                select.form-control(name="city" required)  
+                                    option(value='') -- City --
+                                    option(value='lugbe') Lugbe
+
+                        .mb-3 
+                            button.btn.btn-primary.float-end.ms-3(type='submit') Save Property
+                            a.btn.btn-light.float-end(href=`/propert/list`) Cancel
+
+
+        .col-md-5 
+            .card.w-100.position-relative.overflow-hidden
+                .card-body.p-4
+                    h4.fw-semibold.mb-4 Property Photos 
+
+                    if photos.length
+                        .photos.row
+                            each photo in photos
+                                .col-md-6.mb-3
+                                    .photo(style=`background-image:url(/${photo.location})`)
+
+                    form(method='post' enctype="multipart/form-data" action=`/property/${property.id}/upload-photos`)#form-photos
+                        input.form-control.d-none#input-property-upload(type='file' multiple name='property_photos')
+
+                        button.btn.btn-primary.mt-5#btn-upload-photo(type='button') Upload Photos
+
+
+block scriptBlock 
+    script.
+
+        const btnUploadPhoto = document.getElementById("btn-upload-photo");
+
+        btnUploadPhoto.addEventListener('click', function() {
+            document.getElementById("input-property-upload").click();
+        });
+
+        document.getElementById("input-property-upload").addEventListener('change', function() {
+            document.getElementById("form-photos").submit();
+        });

@@ -1,40 +1,47 @@
 doctype html
 head
     // Title
-    title Ifemad Admin
+    title Qandos Admin
     // Required Meta Tag
     meta(http-equiv='Content-Type' content='text/html; charset=UTF-8')
     meta(name='viewport' content='width=device-width, initial-scale=1')
     meta(name='handheldfriendly' content='true')
     meta(name='MobileOptimized' content='width')
-    meta(name='description' content='Mordenize')
+    meta(name='description' content='Qandos')
     meta(name='author' content='')
-    meta(name='keywords' content='Mordenize')
+    meta(name='keywords' content='Qandos')
     meta(http-equiv='X-UA-Compatible' content='IE=edge')
     // Favicon
     link(rel='shortcut icon' type='image/png' href='/images/logos/favicon.png')
     // Core Css
     link#themeColors(rel='stylesheet' href='/css/style.min.css')
-    link(rel='stylesheet' href='/css/owl.carousel.min.css')
+    style. 
+        .fw-semibold {
+            font-weight: 400!important;
+            font-size: 1.25rem;
+        }
+
+        .photo { height: 169px; background-size: cover }
+
     block styleBlock
 
 body
     // Preloader
     .preloader
-        img.lds-ripple.img-fluid(src='/images/logos/favicon.png' alt='loader')
+        img.lds-ripple.img-fluid(src='/img/favicon.png' alt='loader')
     // Preloader
     .preloader
-        img.lds-ripple.img-fluid(src='/images/logos/favicon.png' alt='loader')
+        img.lds-ripple.img-fluid(src='/img/favicon.png' alt='loader')
     // Body Wrapper
     #main-wrapper.page-wrapper(data-layout='vertical' data-sidebartype='full' data-sidebar-position='fixed' data-header-position='fixed')
         // Sidebar Start
         aside.left-sidebar
             // Sidebar scroll
             div
-                .brand-logo.d-flex.align-items-center.justify-content-between
-                    a.text-nowrap.logo-img(href='index.html')
-                        img.dark-logo(src='/images/logo.png' wdth='180' alt='')
-                        img.light-logo(src='/images/logo.png' wdth='180' alt='')
+                .brand-logo.d-flex.align-items-center.justify-content-between.mb-4
+                    a.text-nowrap.logo-img(href='/admin')
+                         img.dark-logo(src='/img/logo-alt.png' width='200' style='margin-top:22px' alt='')
+                         img.light-logo(src='/img/logo-alt.png' wdth='180' alt='')
                     #sidebarCollapse.close-btn.d-lg-none.d-block.sidebartoggler.cursor-pointer
                         i.ti.ti-x.fs-8
                 // Sidebar navigation
@@ -46,20 +53,16 @@ body
                                     i.ti.ti-activity-heartbeat
                                 span.hide-menu Dashboard
                         li.sidebar-item
-                            a.sidebar-link(href='/admin/users' aria-expanded='false')
+                            a.sidebar-link(href='/property/list' aria-expanded='false')
                                 span
                                     i.ti.ti-users
-                                span.hide-menu Users
+                                span.hide-menu Properties
                         li.sidebar-item
-                            a.sidebar-link(href='/admin/contributions' aria-expanded='false')
+                            a.sidebar-link(href='/admin/transactions' aria-expanded='false')
                                 span
                                     i.ti.ti-file-text
-                                span.hide-menu Contributions
-                        li.sidebar-item
-                            a.sidebar-link(href='/admin/payouts' aria-expanded='false')
-                                span
-                                    i.ti.ti-cash
-                                span.hide-menu Payouts
+                                span.hide-menu Transactions
+
                         //- li.sidebar-item
                         //-     a.sidebar-link(href='/admin/profile' aria-expanded='false')
                         //-         span
@@ -70,15 +73,15 @@ body
                                 span
                                     i.ti.ti-logout
                                 span.hide-menu Logout
-                .fixed-profile.p-3.bg-light-secondary.rounded.sidebar-ad.mt-3
-                    .hstack.gap-3
-                        .john-img
-                            img.rounded-circle(src='/images/profile/user-6.jpg' width='40' height='40' alt='')
-                        .john-title
-                            h6.mb-0.fs-4.fw-semibold Mathew
-                            span.fs-2.text-dark Designer
-                        button.border-0.bg-transparent.text-primary.ms-auto(tabindex='0' type='button' aria-label='logout' data-bs-toggle='tooltip' data-bs-placement='top' data-bs-title='logout')
-                            i.ti.ti-power.fs-6
+                //- .fixed-profile.p-3.bg-light-secondary.rounded.sidebar-ad.mt-3
+                //-     .hstack.gap-3
+                //-         .john-img
+                //-             img.rounded-circle(src='/images/profile/user-6.jpg' width='40' height='40' alt='')
+                //-         .john-title
+                //-             h6.mb-0.fs-4.fw-semibold Mathew
+                //-             span.fs-2.text-dark Designer
+                //-         button.border-0.bg-transparent.text-primary.ms-auto(tabindex='0' type='button' aria-label='logout' data-bs-toggle='tooltip' data-bs-placement='top' data-bs-title='logout')
+                //-             i.ti.ti-power.fs-6
                 // End Sidebar navigation
                 // End Sidebar scroll
                 // Sidebar End
@@ -93,8 +96,7 @@ body
                             a#headerCollapse.nav-link.sidebartoggler.nav-icon-hover.ms-n3(href='javascript:void(0)')
                                 i.ti.ti-menu-2
                     .d-block.d-lg-none
-                        img.dark-logo(src='https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/logos/dark-logo.svg' width='180' alt='')
-                        img.light-logo(src='https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/logos/light-logo.svg' width='180' alt='')
+                        img.dark-logo(src='/img/logo-alt.png' width='250' alt='')
                     button.navbar-toggler.p-0.border-0(type='button' data-bs-toggle='collapse' data-bs-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
                         span.p-2
                             i.ti.ti-dots.fs-7
@@ -102,35 +104,7 @@ body
                         .d-flex.align-items-center.justify-content-between
                             a.nav-link.d-flex.d-lg-none.align-items-center.justify-content-center(href='javascript:void(0)' type='button' data-bs-toggle='offcanvas' data-bs-target='#mobilenavbar' aria-controls='offcanvasWithBothOptions')
                                 i.ti.ti-align-justified.fs-7
-                            ul.navbar-nav.flex-row.ms-auto.align-items-center.justify-content-center
-                                li.nav-item.dropdown
-                                    a#drop1.nav-link.pe-0(href='javascript:void(0)' data-bs-toggle='dropdown' aria-expanded='false')
-                                        .d-flex.align-items-center
-                                            .user-profile-img
-                                                img.rounded-circle(src='/images/profile/user-6.jpg' width='35' height='35' alt='')
-                                    .dropdown-menu.content-dd.dropdown-menu-end.dropdown-menu-animate-up(aria-labelledby='drop1')
-                                        .profile-dropdown.position-relative(data-simplebar='')
-                                            .py-3.px-7.pb-0
-                                                h5.mb-0.fs-5.fw-semibold User Profile
-                                            .d-flex.align-items-center.py-9.mx-7.border-bottom
-                                                img.rounded-circle(src='/images/profile/user-6.jpg' width='80' height='80' alt='')
-                                                .ms-3
-                                                    h5.mb-1.fs-3 Emeka Johnathan
-                                                    span.mb-1.d-block.text-dark Administrator
-                                                    p.mb-0.d-flex.text-dark.align-items-center.gap-2
-                                                        i.ti.ti-mail.fs-4
-                                                        |  Johnathan@gmail.com
-                                            .message-body
-                                                a.py-8.px-7.mt-8.d-flex.align-items-center(href='/admin/profile')
-                                                    span.d-flex.align-items-center.justify-content-center.bg-light.rounded-1.p-6
-                                                        img(src='https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/svgs/icon-account.svg' alt='' width='24' height='24')
-                                                    .w-75.d-inline-block.v-middle.ps-3
-                                                        h6.mb-1.bg-hover-primary.fw-semibold  My Profile 
-                                                        span.d-block.text-dark Account Settings
-                                            .d-grid.py-4.px-7.pt-8
-                                                a.btn.btn-outline-primary(href='/logout')
-                                                    | Log
-                                                    | Out
+                            
 
             // Header End
             .container-fluid
