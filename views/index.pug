@@ -1,22 +1,28 @@
 extends layout
 
+block styleBlock 
+    style.
+        .over-lay { background-color: rgba(0, 0, 0, 0.6) !important; }
+
 block content 
-    section.hero-section.set-bg(data-setbg='/img/bg.jpg')
-        .container.hero-text.text-white
-            h2 Invest for the Future
-            p Easy, reliable and secure real estate investments
-            br
-            
-            a.site-btn(href='#') START INVESTING
-    .filter-search
-        .container
-            form.filter-form
-                input(type='text' placeholder='Enter a street name, address number or keyword')
-                select
-                    option(value='City') City
-                select
-                    option(value='City') State
-                button.site-btn.fs-submit SEARCH
+    section.hero-section.set-bg(data-setbg='/img/bg1.jpg')
+        .over-lay
+            .container.hero-text.text-white
+                h2 Invest for the Future
+                p Easy, reliable and secure real estate investments
+                br
+                
+                a.site-btn(href='#') START INVESTING
+    
+            .filter-search
+                .container
+                    form.filter-form
+                        input(type='text' placeholder='Enter a street name, address number or keyword')
+                        select
+                            option(value='City') City
+                        select
+                            option(value='City') State
+                        button.site-btn.fs-submit SEARCH
 
     section.properties-section.spad
         .container

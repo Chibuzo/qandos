@@ -276,13 +276,14 @@ ul {
 
 .hero-section {
 	position: relative;
-	height: 870px;
-	margin-bottom: -54px;
+	height: 660px;
+	/* margin-bottom: -54px; */
 }
 
 .hero-text {
-	padding-top: 340px;
+	padding-top: 250px;
 	text-align: center;
+	margin-bottom: 100px;
 }
 
 .hero-text h2 {
@@ -302,6 +303,7 @@ ul {
 .filter-search {
 	position: relative;
 	z-index: 2;
+	top: 30px;
 }
 
 .filter-form {
