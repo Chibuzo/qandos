@@ -1,19 +1,19 @@
 [Unit]
-Description=Node.js VEXPRESS Service   	#vexpress-server service
+Description=Node.js Qandos Service   	#qandos-server service
 After=network.target
 Requires=After=mysql.service       # Requires the mysql service to run first
 
 [Service]
-WorkingDirectory=/home/ubuntu/vexpress
+WorkingDirectory=/home/ubuntu/qandos
 ExecStart=npm start
 Restart=on-failure
 
-Environment=NODE_ENV=production PORT=4000 DB_USER=chibuzo DB_PASSWORD=my+s3cretDb# DB_HOST=localhost DB_NAME=vexpress
+Environment=NODE_ENV=production PORT=80 DB_USER=root DB_PASSWORD=qandox+P@s1# DB_HOST=localhost DB_NAME=qandos
 
 
 [Install]
 WantedBy=multi-user.target
 
-#sudo nano /lib/systemd/system/vexpress.service
+#sudo nano /lib/systemd/system/qandos.service
 #sudo systemctl daemon-reload
-#sudo systemctl enable vexpress
+#sudo systemctl enable qandos
