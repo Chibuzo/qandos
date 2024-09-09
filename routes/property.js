@@ -42,7 +42,7 @@ router.get('/:id/edit', async (req, res, next) => {
 router.post('/:id/update', async (req, res, next) => {
     try {
         const { id } = req.params;
-        await propertyService.uodate(id, req.body);
+        await propertyService.update(id, req.body);
         res.redirect(`/property/${id}/edit`);
     } catch(err) {
         next(err);
