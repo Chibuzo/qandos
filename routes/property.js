@@ -62,8 +62,9 @@ router.post('/:id/upload-photos', async (req, res, next) => {
 router.get('/:id/:title', async (req, res, next) => {
     try {
         const { id } = req.params;
-        const property = await propertyService.view(id);
-        res.render('property', { property });
+        const property = await propertyService.view(id)
+        const relatedProperties = await propertyService.fetchRelatedProperties(property);
+        res.render('property', { property, relatedProperties });
     } catch(err) {
         next(err);
     }
@@ -72,7 +73,7 @@ router.get('/:id/:title', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
     try {
         const { id } = req.query;
-        await propertyService.uodate(id, { deleted: true });
+        await propertyService.update(id, { deleted: true });
         res.redirect(`/property/list`);
     } catch(err) {
         next(err);

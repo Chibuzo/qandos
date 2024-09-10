@@ -1,20 +1,29 @@
 const { Property, PropertyPhoto } = require('../models');
 const { ErrorHandler } = require('../helpers/errorHandler');
 const { uploadFiles } = require('../helpers/fileUpload');
+const { Op } = require("sequelize");
 
 const create = async data => {
     return Property.create(data);
 }
 
-const list = async (criteria = {}, includePhoto = false) => {
+const list = async (criteria = {}, limit = 9) => {
     return Property.findAll({ 
         where: criteria, 
         include: {
             model: PropertyPhoto,
             limit: 1
         },
+        limit,
         order: [['createdAt', 'desc']] 
     });
+}
+
+const fetchRelatedProperties = async property => {
+    const { bedrooms = 2, bathrooms = 2, state, city, age = 1 } = property;
+    const criteria = { [Op.or]: [{ bedrooms }, { bathrooms }, { state }, { city }, { age }] };
+
+    return list(criteria, 5);
 }
 
 const findOne = async criteria => {
@@ -47,5 +56,6 @@ module.exports = {
     view,
     findOne,
     update,
-    uploadPropertyPhotos
+    uploadPropertyPhotos,
+    fetchRelatedProperties
 }
