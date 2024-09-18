@@ -7,6 +7,7 @@ head
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
   link(href='/img/favicon.ico' rel='shortcut icon')
   link(href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet')
+  link(href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel='stylesheet' integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous")
   link(rel='stylesheet' href='/css/bootstrap.min.css')
   link(rel='stylesheet' href='/css/font-awesome.min.css')
   link(rel='stylesheet' href='/css/animate.css')
@@ -18,7 +19,7 @@ head
 
   style. 
     h5 a { color: #132758 }
-
+  
   block styleBlock
 #preloder
   .loader
@@ -56,7 +57,7 @@ header.header-section
     .row
       .col-12
         .site-navbar
-          a.site-logo(href='#')
+          a.site-logo(href='/')
             img(src='/img/logo-alt.png' width='250' alt='')
           .nav-switch
             i.fa.fa-bars
@@ -66,9 +67,11 @@ header.header-section
             li
               a(href='#/listing') Featured Listing
             li
-              a(href='#/about') About
+              a(href='#/about') About Us
             li
-              a(href='#/contact') Contact
+              a(href='#/how-it-works') How it works
+            li
+              a(href='#/resources') Resources
 
 block content
 
@@ -170,3 +173,32 @@ script(src='/js/owl.carousel.min.js')
 script(src='/js/masonry.pkgd.min.js')
 script(src='/js/magnific-popup.min.js')
 script(src='/js/main.js')
+
+script. 
+    function serialize(data) {
+        let obj = {};
+        for (let [key, value] of data) {
+            if (obj[key] !== undefined) {
+                if (!Array.isArray(obj[key])) {
+                    obj[key] = [obj[key]];
+                }
+                obj[key].push(value);
+            } else {
+                obj[key] = value;
+            }
+        }
+        return obj;
+    }
+
+    async function postForm(url, data) {
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        });
+        return res.json();
+    }
+    
+block scriptBlock

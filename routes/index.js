@@ -9,7 +9,8 @@ const emailService = require('../services/emailService');
 const { ErrorHandler } = require('../helpers/errorHandler');
 const states = require('../config/states.json');
 const propertyService = require('../services/propertyService');
-const { sendResponse } = require('../helpers/httpResponse');
+const wishlistService = require('../services/wishlistService');
+const appointmentService = require('../services/appointmentService');
 
 
 router.get('/', isAuthenticated, async (req, res, next) => {
@@ -46,11 +47,20 @@ router.get('/login', (req, res) => {
 
 router.post('/signup', async (req, res, next) => {
     try {
-        const newUser = await userService.create(req.body);
+        const { propertyId: PropertyId, datetime, ...userData } = req.body;
+        const newUser = await userService.create(userData);
         if (req.query.json == 'no') {
             return res.render('signup', { title: 'Sign Up', newUser });
         }
-        sendResponse(res, 201, 'Sign up Successful', { newUser });
+
+        if (PropertyId) {
+            const data = { PropertyId, UserId: newUser.id };
+            await Promise.all([
+                wishlistService.create(data),
+                appointmentService.create({ ...data, datetime })
+            ]);
+        }
+        res.json({ status: 'success'});
     } catch (err) {
         next(err);
     }

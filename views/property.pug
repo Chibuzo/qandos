@@ -157,11 +157,19 @@ block content
                         //-         a.__cf_email__(href='/cdn-cgi/l/email-protection' data-cfemail='9cfbf5f2fdebf9eff0f9e5aeaadcfbf1fdf5f0b2fff3f1') [email&nbsp;protected]
                     .contact-form-card
                         h5 Interested in this property?
-                        form(method='post')
-                            input(type='text' placeholder='Your name')
-                            input(type='text' placeholder='Your email')
-                            textarea(placeholder='Your question')
-                            button CONTACT US
+                        #userPane.d-none
+                            .alert.alert-info An appointment has been successfully booked for this property!
+                            h6 DETAILS 
+                            p Date: <span id='date'></span>
+                            p Time: <span id='time'></span>
+
+                        form#form-signup(method='post')
+                            input(type='text' name='fullname' placeholder='Your name' required)
+                            input(type='email' name='email' placeholder='Your email' required)
+                            input(type='tel' name='phone' placeholder='Your Phone')
+                            input(type='datetime-local' name='datetime' required)
+                            input(type='hidden' name='propertyId' value=`${property.id}`)
+                            button BOOK APPOINTMENT
                     .related-properties
                         h2 Related Property
                         each property in relatedProperties
@@ -175,3 +183,25 @@ block content
                                         | #{property.state}, #{property.city}
                                 a.rp-price(href=`/property/${property.id}/${property.title.split(' ').join('-')}`) N#{view.formatCurrency(property.cost)}
                         
+block scriptBlock 
+    script.
+
+        const signupForm = document.getElementById("form-signup");
+        let appointmentTime;
+
+        signupForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            appointmentTime = document.querySelector('input[type="datetime-local"]').value;
+            const data = new FormData(this);
+            const formData = serialize(data);
+            const res = await postForm("/signup", formData);
+            if (res.status.trim() == 'success') {
+                document.getElementById('form-signup').classList.add('d-none');
+                document.getElementById('date').innerHTML = new Date(appointmentTime).toLocaleDateString('en-GB');
+                document.getElementById('time').innerHTML = new Date(appointmentTime).toLocaleTimeString('en-GB');
+                document.getElementById('userPane').classList.remove('d-none');
+            } else {
+                console.log(res);
+                alert('Error')
+            }
+        });

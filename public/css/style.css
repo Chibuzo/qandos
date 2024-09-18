@@ -281,9 +281,9 @@ ul {
 }
 
 .hero-text {
-	padding-top: 250px;
+	padding-top: 190px;
 	text-align: center;
-	margin-bottom: 100px;
+	margin-bottom: 50px;
 }
 
 .hero-text h2 {
@@ -303,13 +303,14 @@ ul {
 .filter-search {
 	position: relative;
 	z-index: 2;
-	top: 30px;
+	/* top: 30px; */
 }
 
 .filter-form {
 	padding: 31px;
 	background: #bdab2d;
 	border-radius: 3px;
+	background-color: rgba(0, 0, 0, 0.4) !important;
 }
 
 .filter-form input {
@@ -335,9 +336,10 @@ ul {
 }
 
 .filter-form .fs-submit {
-	background: #333;
+	background: #e0e0e0;
 	width: 16%;
 	border-radius: 2px;
+	color: #333
 }
 
 .propertie-item {

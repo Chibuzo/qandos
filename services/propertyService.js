@@ -20,8 +20,11 @@ const list = async (criteria = {}, limit = 9) => {
 }
 
 const fetchRelatedProperties = async property => {
-    const { bedrooms = 2, bathrooms = 2, state, city, age = 1 } = property;
-    const criteria = { [Op.or]: [{ bedrooms }, { bathrooms }, { state }, { city }, { age }] };
+    const { bedrooms = 2, bathrooms = 2, state, city, age = 1, id } = property;
+    const criteria = { 
+        [Op.or]: [{ bedrooms }, { bathrooms }, { state }, { city }, { age }],
+        id: { [Op.not]: id }
+    };
 
     return list(criteria, 5);
 }

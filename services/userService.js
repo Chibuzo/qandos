@@ -4,29 +4,28 @@ const bcrypt = require('bcryptjs');
 const { Buffer } = require('buffer');
 const crypto = require('crypto');
 const path = require('path');
-const { generateOTP, sendSMS } = require('./UtillityService');
 const { Op } = require('sequelize');
 const saltRounds = 10;
 const { ErrorHandler } = require('../helpers/errorHandler');
-const cacheService = require('./cacheService');
+// const cacheService = require('./cacheService');
 
 
 const create = async ({ fullname, email, phone, password, ...rest }) => {
     if (!fullname) throw new ErrorHandler(400, 'Full name is required');
     if (!phone) throw new ErrorHandler(400, 'Phone number is required');
     if (!email) throw new ErrorHandler(400, 'Email is required');
-    if (!password) throw new ErrorHandler(400, 'Password is required');
 
-    const existingEmail = await User.findOne({ where: { [Op.or]: [{ email }, { phone }] } });
+    const existingUser = await User.findOne({ where: { [Op.or]: [{ email }, { phone }] } });
 
-    if (existingEmail) throw new ErrorHandler(400, `A user already exist with this email or phone`);
+    if (existingUser) 
+        return existingUser
 
-    const passwordHash = await bcrypt.hash(password, saltRounds);
+    // const passwordHash = await bcrypt.hash(password, saltRounds);
     const data = {
         fullname,
         email,
         phone,
-        password: passwordHash,
+        // password: passwordHash,
         ...rest
     };
     const newUser = await User.create(data);

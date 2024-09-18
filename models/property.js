@@ -7,19 +7,25 @@ module.exports = (sequelize, DataTypes) => {
         title: DataTypes.STRING(60),
         description: DataTypes.TEXT,
         category: {
-            type: Sequelize.ENUM('house', 'land'),
-            defaultValue: 'house'
+            type: Sequelize.ENUM('fully built', 'land', 'uncompleted'),
+            defaultValue: 'fully built'
         },
         bedrooms: DataTypes.INTEGER,
-        bathrooms: DataTypes.INTEGER,
-        size: DataTypes.STRING(15),
+        toilets: DataTypes.INTEGER,
+        plot_size: DataTypes.STRING(15), 
         garage: DataTypes.INTEGER,
         age: DataTypes.INTEGER,
         cost: DataTypes.INTEGER,
         state: DataTypes.STRING(50),
         city: DataTypes.STRING(50),
-        address: DataTypes.STRING,
+        coordinate: DataTypes.GEOMETRY('POINT'),
+        available_units: DataTypes.INTEGER,
+        closest_landmark: DataTypes.STRING,
         featured: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
+        occupied: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
         },

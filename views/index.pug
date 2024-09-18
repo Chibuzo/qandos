@@ -9,15 +9,15 @@ block content
         .over-lay
             .container.hero-text.text-white
                 h2 Invest for the Future
-                p Easy, reliable and secure real estate investments
+                p Safe and easy real estate investment
                 br
                 
-                a.site-btn(href='#') START INVESTING
+                a.site-btn(href='#/listing') START INVESTING
     
             .filter-search
                 .container
                     form.filter-form
-                        input(type='text' placeholder='Enter a street name, address number or keyword')
+                        input(type='text' placeholder='Search for property type (e.g 3 bedroom terrace duplex)')
                         select
                             option(value='City') City
                         select
@@ -27,7 +27,7 @@ block content
     section.properties-section.spad
         .container
             .section-title.text-center
-                h3 RECENT PROPERTIES
+                h3 FEATURED PROPERTIES
                 p Discover great properties in top cities
             .row
                 each property in properties
@@ -52,7 +52,7 @@ block content
                     .section-title.text-white
                         h3 why qandos
                         
-                    .services
+                    .services.mb-5
                         .service-item
                             i.fa.fa-briefcase
                             .service-text
@@ -67,17 +67,19 @@ block content
                                 p
                                     | We ensure that only safe and legitimate properties are listed through our network of real estate development partners.
 
-                        .service-item
+                        .service-item.mb-5
                             i.fa.fa-comments
                             .service-text
                                 h5 Tailored Services for Diaspora
                                 p
                                     | We provide specialized services for the Diaspora Community
 
+                    a.site-btn.float-right.mt-4(href='#/listing') START INVESTING
+
     section.feature-section.spad
         .container
             .section-title.text-center
-                h3 Featured Listings
+                h3 Recent Listings
                 p Browse houses and flats for sale and to rent in your area
             .row
                 each property in properties

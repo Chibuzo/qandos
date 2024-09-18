@@ -28,14 +28,6 @@ router.get('/settings', async (req, res, next) => {
     }
 });
 
-router.get('/earnings', async (req, res, next) => {
-    try {
-        const payments = await paymentService.view({ id: req.session.user.id });
-        res.render('user/earnings', { payments });
-    } catch (err) {
-        next(err);
-    }
-});
 
 router.post('/upload-photo', async (req, res, next) => {
     try {
