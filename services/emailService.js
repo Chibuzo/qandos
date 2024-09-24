@@ -45,7 +45,7 @@ const sendMail = (to, subject, template, data) => {
         if (error) {
             return console.log(error);
         }
-        // console.log('Message sent: %s', info.messageId);
+        console.log('Message sent: %s', info.messageId);
     });
 }
 
@@ -57,7 +57,7 @@ module.exports = {
 
         const data = {
             user: user.fullname.split(' ')[0],
-            url: BASE_URL + 'activate/' + email_b64 + '/' + hash,
+            url: BASE_URL + 'password-reset/' + email_b64 + '/' + hash,
             base_url: BASE_URL
         };
         const subject = "Verify your email address";

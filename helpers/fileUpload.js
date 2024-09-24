@@ -8,7 +8,7 @@ const uploadFiles = async files => {
     const uploadedFileNames = [];
     const allFiles = Array.isArray(files.property_photos) ? [...files.property_photos] : [files.property_photos];
     for (const file of allFiles) {
-        const acceptableFileTypes = ['image/png', 'image/jpeg'];
+        const acceptableFileTypes = ['image/png', 'image/jpeg', 'video/mp4'];
         if (!acceptableFileTypes.includes(file.mimetype)) {
             continue;
         }

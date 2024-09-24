@@ -30,12 +30,21 @@ block content
                             label.form-label Description
                             textarea.form-control(name="description" type="text" required)
                                | #{property.description}
-                        .form-group.mb-3 
-                            label.form-label Category 
-                            select.form-control(name="category" required)  
-                                option(value='') -- Category --
-                                option(value='house') Apartment 
-                                option(value='land') Land
+                        
+                        .form-group.mb-3.row
+                            .col-md-6
+                                label.form-label Category 
+                                select.form-control(name="category" required)  
+                                    option(value='') -- Category --
+                                    option(value='fully built') Fully built 
+                                    option(value='land') Land
+                                    option(value='uncompleted') Uncompleted
+                            .col-md-6
+                                label.form-label Currently Occupied 
+                                select.form-control(name="occupied")  
+                                    option(value='0') No 
+                                    option(value='1') Yes
+
                         .form-group.mb-3.row 
                             .col-md-6
                                 label.form-label Bedrooms 
@@ -49,9 +58,9 @@ block content
                                     option(value='6') 6
                                     option(value='7') 7
                             .col-md-6
-                                label.form-label Bathrooms 
-                                select.form-control(name="bathrooms" required)  
-                                    option(value='') -- No of Bathrooms --
+                                label.form-label Toilets 
+                                select.form-control(name="toilets" required)  
+                                    option(value='') -- No of Toilets --
                                     option(value='1') 1 
                                     option(value='2') 2
                                     option(value='3') 3
@@ -82,6 +91,30 @@ block content
                                     option(value='') -- City --
                                     option(value='lugbe') Lugbe
 
+                        .form-group.mb-4.row
+                            .col-md-6
+                                label.form-label Available Units 
+                                input.form-control(type='number' value=`${property.available_units}` name="available_units" required)  
+                            .col-md-6
+                                label.form-label Plot Size 
+                                input.form-control(name="size" type='text' value=`${property.size || ''}`)  
+
+                        .form-group.mb-4.row
+                            .col-md-6
+                                label.form-label Closest Landmark 
+                                input.form-control(type='text' name="closest_landmark" value=`${property.closest_landmark || ''}`)  
+                            .col-md-6
+                                label.form-label Garage/Parking Space
+                                input.form-control(name="garage" type='text' value=`${property.garage || ''}`)  
+
+                        .form-group.mb-4.row
+                            .col-md-6
+                                label.form-label Longitude
+                                input.form-control(type='text' name="longitude" value=`${property.longitude || ''}`)  
+                            .col-md-6
+                                label.form-label Latitude 
+                                input.form-control(name="latitude" type='text' value=`${property.latitude || ''}`)  
+
                         .mb-3 
                             button.btn.btn-primary.float-end.ms-3(type='submit') Save Property
                             a.btn.btn-light.float-end(href=`/property/list`) Cancel
@@ -95,24 +128,83 @@ block content
                     if photos.length
                         .photos.row
                             each photo in photos
-                                .col-md-6.mb-3
-                                    .photo(style=`background-image:url(/${photo.location})`)
+                                if photo.mediaType == 'photo'
+                                    .col-md-6.mb-3
+                                        .photo(style=`background-image:url(/${photo.location})`)
 
                     form(method='post' enctype="multipart/form-data" action=`/property/${property.id}/upload-photos`)#form-photos
                         input.form-control.d-none#input-property-upload(type='file' multiple name='property_photos')
+                        input(type='hidden' name='mediaType' value='photo')
 
                         button.btn.btn-primary.mt-5#btn-upload-photo(type='button') Upload Photos
+
+            .card.w-100.position-relative.overflow-hidden
+                .card-body.p-4
+                    h4.fw-semibold.mb-4 Video Tour 
+
+                    if photos.length
+                        .photos.row
+                            each photo in photos
+                                if photo.mediaType == 'video'
+                                    .col-md-6.mb-3
+                                        .photo
+                                            video(width='250' controls)
+                                                source(src=`/${photo.location}` type='video/mp4')
+
+                    form(method='post' enctype="multipart/form-data" action=`/property/${property.id}/upload-photos`)#form-video
+                        input.form-control.d-none#input-video-upload(type='file' multiple name='property_photos')
+                        input(type='hidden' name='mediaType' value='video')
+
+                        button.btn.btn-primary.mt-5#btn-upload-video(type='button') Upload Videos
+
+            .card.w-100.position-relative.overflow-hidden
+                .card-body.p-4
+                    h4.fw-semibold.mb-4 Floor Plans
+
+                    if photos.length
+                        .photos.row
+                            each photo in photos
+                                if photo.mediaType == 'floor plan'
+                                    .col-md-6.mb-3
+                                        .photo(style=`background-image:url(/${photo.location})`)
+
+                    form(method='post' enctype="multipart/form-data" action=`/property/${property.id}/upload-photos`)#form-floor
+                        input.form-control.d-none#input-floor-upload(type='file' multiple name='property_photos')
+                        input(type='hidden' name='mediaType' value='floor plan')
+
+                        button.btn.btn-primary.mt-5#btn-upload-floor(type='button') Upload Floor Plans
 
 
 block scriptBlock 
     script.
 
         const btnUploadPhoto = document.getElementById("btn-upload-photo");
+        const btnVideoPhoto = document.getElementById("btn-upload-video");
+        const btnFloorPhoto = document.getElementById("btn-upload-floor");
 
+        // handle photos
         btnUploadPhoto.addEventListener('click', function() {
             document.getElementById("input-property-upload").click();
         });
 
         document.getElementById("input-property-upload").addEventListener('change', function() {
             document.getElementById("form-photos").submit();
+        });
+
+        // handle video
+        btnVideoPhoto.addEventListener('click', function() {
+            document.getElementById("input-video-upload").click();
+        });
+
+        document.getElementById("input-video-upload").addEventListener('change', function() {
+            document.getElementById("form-video").submit();
+        });
+
+        // handle floor
+        btnFloorPhoto.addEventListener('click', function() {
+            document.getElementById("input-floor-upload").click();
+        });
+
+        document.getElementById("input-floor-upload").addEventListener('change', function() {
+            document.getElementById("form-floor").submit();
         });

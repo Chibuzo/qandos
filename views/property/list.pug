@@ -24,7 +24,7 @@ block content
                         tr
                             th Title
                             th Beds
-                            th Baths
+                            th toilets
                             th Location
                             th Age
                             th Cost 
@@ -35,7 +35,7 @@ block content
                             tr 
                                 td=property.title
                                 td=property.bedrooms 
-                                td=property.bathrooms 
+                                td=property.toilets 
                                 td #{property.state}, #{property.city} 
                                 td=property.age 
                                 td N #{view.formatCurrency(property.cost)}

@@ -18,7 +18,9 @@ module.exports = (sequelize, DataTypes) => {
         cost: DataTypes.INTEGER,
         state: DataTypes.STRING(50),
         city: DataTypes.STRING(50),
-        coordinate: DataTypes.GEOMETRY('POINT'),
+        //coordinate: DataTypes.GEOMETRY('POINT'),
+        longitude: DataTypes.STRING,
+        latitude: DataTypes.STRING,
         available_units: DataTypes.INTEGER,
         closest_landmark: DataTypes.STRING,
         featured: {
@@ -43,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Property.associate = function (models) {
-        Property.hasMany(models.PropertyPhoto);
+        Property.hasMany(models.PropertyMedia);
     };
 
     return Property;

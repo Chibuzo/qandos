@@ -48,10 +48,6 @@ const login = async ({ email, password }) => {
     if (user.status === 'inactive') {
         return { user };
     }
-
-    // send OTP
-    const otp = await sendOtp(user);
-    delete user.password;
     return { user };
 }
 
@@ -99,7 +95,7 @@ const changePassword = async (newPassword, user_id) => {
     if (!newPassword) throw new ErrorHandler(400, 'Password can not be empty');
     const passwordHash = await bcrypt.hash(newPassword, saltRounds);
 
-    return User.update({ password: passwordHash }, { where: { id: user_id } });
+    return User.update({ password: passwordHash, status: 'active' }, { where: { id: user_id } });
 }
 
 const find = async (criteria = {}) => {

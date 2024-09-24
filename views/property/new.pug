@@ -29,12 +29,20 @@ block content
                         .form-group.mb-3 
                             label.form-label Description
                             textarea.form-control(name="description" type="text" required)
-                        .form-group.mb-3 
-                            label.form-label Category 
-                            select.form-control(name="category" required)  
-                                option(value='') -- Category --
-                                option(value='house') Apartment 
-                                option(value='land') Land
+                        
+                        .form-group.mb-3.row
+                            .col-md-6
+                                label.form-label Category 
+                                select.form-control(name="category" required)  
+                                    option(value='') -- Category --
+                                    option(value='fully built') Fully built 
+                                    option(value='land') Land
+                                    option(value='uncompleted') Uncompleted
+                            .col-md-6
+                                label.form-label Currently Occupied 
+                                select.form-control(name="occupied")  
+                                    option(value='0') No 
+                                    option(value='1') Yes
                         .form-group.mb-3.row 
                             .col-md-6
                                 label.form-label Bedrooms 
@@ -48,9 +56,9 @@ block content
                                     option(value='6') 6
                                     option(value='7') 7
                             .col-md-6
-                                label.form-label Bathrooms 
-                                select.form-control(name="bathrooms" required)  
-                                    option(value='') -- No of Bathrooms --
+                                label.form-label Toilets 
+                                select.form-control(name="toilets" required)  
+                                    option(value='') -- No of Toilets --
                                     option(value='1') 1 
                                     option(value='2') 2
                                     option(value='3') 3
@@ -80,6 +88,30 @@ block content
                                 select.form-control(name="city" required)  
                                     option(value='') -- City --
                                     option(value='lugbe') Lugbe
+
+                        .form-group.mb-4.row
+                            .col-md-6
+                                label.form-label Available Units 
+                                input.form-control(type='number' name="available_units" value='1' required)  
+                            .col-md-6
+                                label.form-label Plot Size 
+                                input.form-control(name="size" type='text')  
+
+                        .form-group.mb-4.row
+                            .col-md-6
+                                label.form-label Closest Landmark 
+                                input.form-control(type='text' name="closest_landmark")  
+                            .col-md-6
+                                label.form-label Garage/Parking Space
+                                input.form-control(name="garge" type='text')  
+
+                        .form-group.mb-4.row
+                            .col-md-6
+                                label.form-label Longitude
+                                input.form-control(type='text' name="longitude")  
+                            .col-md-6
+                                label.form-label Latitude 
+                                input.form-control(name="latitude" type='text')  
 
                         .mb-3 
                             button.btn.btn-primary.float-end(type='submit') Save Property

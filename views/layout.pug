@@ -19,6 +19,8 @@ head
 
   style. 
     h5 a { color: #132758 }
+
+    video { width: 100% }
   
   block styleBlock
 #preloder
@@ -28,31 +30,31 @@ header.header-section
     .container
       .row
         .col-lg-6.header-top-left
-          .top-info
-            i.fa.fa-phone
-            | #{_phone }
-          .top-info
-            i.fa.fa-envelope
-            | #{_email}
+            .top-info
+                i.fa.fa-phone
+                | #{_phone }
+            .top-info
+                i.fa.fa-envelope
+                | #{_email}
         .col-lg-6.text-lg-right.header-top-right
-          //- .top-social
-          //-   a(href='')
-          //-     i.fa.fa-facebook
-          //-   a(href='')
-          //-     i.fa.fa-twitter
-          //-   a(href='')
-          //-     i.fa.fa-instagram
-          //-   a(href='')
-          //-     i.fa.fa-pinterest
-          //-   a(href='')
-          //-     i.fa.fa-linkedin
-          .user-panel
-            a(href='')
-              i.fa.fa-user-circle-o
-              |  Register
-            a(href='')
-              i.fa.fa-sign-in
-              |  Login
+            .top-social
+                //- a(href='')
+                //-     i.fa.fa-facebook
+                a(href='https://x.com/QandosHQ')
+                    i.fa.fa-twitter
+                a(href='')
+                    i.fa.fa-instagram
+                a(href='https://www.linkedin.com/in/qandos-hq')
+                    i.fa.fa-linkedin
+            .user-panel
+                if (user)
+                    a(href='/user/wishlist') 
+                        i.fa.fa-user 
+                        | Account
+                else
+                    a(href='/login')
+                        i.fa.fa-sign-in
+                        |  Login
   .container
     .row
       .col-12
@@ -64,8 +66,8 @@ header.header-section
           ul.main-menu
             li
               a(href='/') Home
-            li
-              a(href='#/listing') Featured Listing
+            //- li
+            //-   a(href='#/listing') Featured Listing
             li
               a(href='#/about') About Us
             li
@@ -84,19 +86,21 @@ footer.footer-section.set-bg(data-setbg='/img/footer-bg.jpg')
           ul
             li
               a(href='/') Home
-            li
-              a(href='#listing') Featured Listing
+            //- li
+            //-   a(href='#listing') Featured Listing
             li
               a(href='#about') About us
             li
               a(href='#/contact') Contact
+            li 
+                a(href='/faq') FAQ
 
         .social(style='margin-top: 24px')
           //- a(href='#')
           //-   i.fa.fa-facebook
           a(href='https://x.com/QandosHQ')
             i.fa.fa-twitter
-          a(href='#')
+          a(href='')
             i.fa.fa-instagram
           a(href='https://www.linkedin.com/in/qandos-hq')
             i.fa.fa-linkedin
@@ -117,16 +121,17 @@ footer.footer-section.set-bg(data-setbg='/img/footer-bg.jpg')
             | Mon - Sat, 08 AM - 06 PM
       .col-lg-3.col-md-6.footer-widget
         .double-menu-widget
-          h5.fw-title POPULAR PLACES
+          h5.fw-title MORE
           ul
             li
-              a(href='') Abuja
+              a(href='') QANDOS for Nigerians in Diaspora
             li
-              a(href='') Lagos
+              a(href='') QANDOS for Nigerians in Nigeria
             li
-              a(href='') Enugu
+              a(href='') How it Works
             li
-              a(href='') Asaba
+              a(href='') Media Mentions
+
             
           //- ul
           //-   li
@@ -151,13 +156,8 @@ footer.footer-section.set-bg(data-setbg='/img/footer-bg.jpg')
       .footer-nav
         ul
           li
-            a(href='/') Home
-          li
-            a(href='#listing') Featured Listing
-          li
-            a(href='#about') About us
-          li
-            a(href='#/contact') Contact
+            a(href='/terms-of-service') Terms of Service
+          
       .copyright
         p
           | Copyright &copy;

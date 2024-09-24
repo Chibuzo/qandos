@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         deleted: {
             type: DataTypes.BOOLEAN,
-            toDefaultValue: false
+            defaultValue: false
         }
     }, {
         timestamps: true,

@@ -52,7 +52,8 @@ router.post('/:id/update', async (req, res, next) => {
 router.post('/:id/upload-photos', async (req, res, next) => {
     try {
         const { id: propertyId } = req.params;
-        await propertyService.uploadPropertyPhotos(propertyId, req.files);
+        const { mediaType } = req.body;
+        await propertyService.uploadPropertyPhotos(propertyId, req.files, mediaType);
         res.redirect(`/property/${propertyId}/edit`);
     } catch (err) {
         next(err);

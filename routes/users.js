@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const userService = require('../services/userService');
+const wishlistService = require('../services/wishlistService');
+const appointmentService = require('../services/appointmentService');
 const paymentService = require('../services/paymentService');
 
 
@@ -19,42 +21,30 @@ router.get('/dashboard', async (req, res, next) => {
     }
 });
 
-router.get('/settings', async (req, res, next) => {
+router.get('/wishlist', async (req, res, next) => {
     try {
-        const user = await userService.view({ id: req.session.user.id });
-        res.render('user/profile', { user });
+        const criteria = { UserId: req.session.user.id }
+        const wishlist = await wishlistService.list(criteria);
+        res.render('user/wishlist', { wishlist });
     } catch (err) {
         next(err);
     }
 });
 
-
-router.post('/upload-photo', async (req, res, next) => {
+router.get('/appointments', async (req, res, next) => {
     try {
-        const { id: agentId } = req.session.user;
-        await userService.uploadProfilePhoto(req.files.profile_photo, agentId);
-        res.redirect('/user/profile');
+        const appointments = await appointmentService.list({ UserId: req.session.user.id });
+        res.render('user/appointments', { appointments });
     } catch (err) {
         next(err);
     }
 });
 
-router.post('/documents', async (req, res, next) => {
+router.get('/transactions', async (req, res, next) => {
     try {
-        const agentId = req.session.user.id;
-        await userService.uploadDocuments(req.files, agentId);
-        res.redirect('/user/profile');
-    } catch (err) {
-        next(err);
-    }
-});
-
-router.post('/delete-document', async (req, res, next) => {
-    try {
-        const agentId = req.session.user.id;
-        const { documentName } = req.body;
-        await userService.deleteDocument(documentName, agentId);
-        res.json({ status: 'success' });
+        const criteria = { UserId: req.session.user.id }
+        const transactions = await paymentService.listPayments({});
+        res.render('user/transactions', { transactions });
     } catch (err) {
         next(err);
     }

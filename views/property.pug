@@ -21,12 +21,14 @@ block content
                 .col-lg-8.single-list-page
                     #sl-slider.single-list-slider.owl-carousel
                         each photo in property.photos
-                            .sl-item.set-bg(data-setbg=`/${photo.location}`)
+                            if photo.mediaType == 'photo'
+                                .sl-item.set-bg(data-setbg=`/${photo.location}`)
                             
                     
                     #sl-slider-thumb.owl-carousel.sl-thumb-slider
                         each photo in property.photos
-                            .sl-thumb.set-bg(data-setbg=`/${photo.location}`)
+                            if photo.mediaType == 'photo'
+                                .sl-thumb.set-bg(data-setbg=`/${photo.location}`)
                     
                     .single-list-content
                         .row
@@ -42,7 +44,7 @@ block content
                             .col-md-4.col-sm-6
                                 p
                                     i.fa.fa-th-large
-                                    |  1500 Square foot
+                                    |  #{property.size} Square foot
                                 p
                                     i.fa.fa-bed
                                     |  #{property.bedrooms} Bedrooms
@@ -62,10 +64,10 @@ block content
                             .col-md-4
                                 p
                                     i.fa.fa-bath
-                                    |  #{property.bathrooms} Bathrooms
+                                    |  #{property.toilets} Toilets
                                 p
                                     i.fa.fa-trophy
-                                    |  5 years age
+                                    |  #{property.age} years age
                         h3.sl-sp-title Description
                         .description
                             p
@@ -134,11 +136,13 @@ block content
                         //-         .panel-body
                         //-         img(src='img/plan-sketch.jpg' alt='')
 
-                        h3.sl-sp-title.bd-no Video
-                        .perview-video
-                            img(src='img/video.jpg' alt='')
-                            a.video-link(href='https://www.youtube.com/watch?v=v13nSVp6m5I')
-                            img(src='img/video-btn.png' alt='')
+                        - const video = property.photos.find(media => media.mediaType == 'video');
+                        if (video)
+                            h3.sl-sp-title.bd-no Video
+                            .perview-video
+                                video(controls)
+                                    source(src=`/${video.location}` type='video/mp4')
+                        
                         h3.sl-sp-title.bd-no Location
                         #map-canvas.pos-map
 
@@ -174,7 +178,7 @@ block content
                         h2 Related Property
                         each property in relatedProperties
                             .rp-item
-                                .rp-pic.set-bg(data-setbg=`/${property.PropertyPhotos[0].location}`)
+                                .rp-pic.set-bg(data-setbg=`/${property.PropertyMedia[0] && property.PropertyMedia[0].location}`)
                                     .sale-notic FOR SALE
                                 .rp-info
                                     h5 #{property.title}

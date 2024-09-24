@@ -2,10 +2,10 @@ extends layout
 
 block styleBlock 
     style.
-        .over-lay { background-color: rgba(0, 0, 0, 0.6) !important; }
+        .over-lay { background-color: rgba(0, 0, 0, 0.5) !important; height: 100vh }
 
 block content 
-    section.hero-section.set-bg(data-setbg='/img/bg1.jpg')
+    section.hero-section.set-bg(data-setbg='/img/rei.jpg')
         .over-lay
             .container.hero-text.text-white
                 h2 Invest for the Future
@@ -32,7 +32,7 @@ block content
             .row
                 each property in properties
                     .col-md-6
-                        .propertie-item.set-bg(data-setbg=`${property.PropertyPhotos[0].location}`)
+                        .propertie-item.set-bg(data-setbg=`${property.PropertyMedia[0] &&   property.PropertyMedia[0].location}`)
                             //- .sale-notic FOR SALE
                             .propertie-info.text-white
                                 .info-warp
@@ -85,7 +85,7 @@ block content
                 each property in properties
                     .col-lg-4.col-md-6
                         .feature-item
-                            .feature-pic.set-bg(data-setbg=`${property.PropertyPhotos[0].location}`)
+                            .feature-pic.set-bg(data-setbg=`${property.PropertyMedia[0] && property.PropertyMedia[0].location}`)
                                 //- .sale-notic FOR SALE
                             .feature-text
                                 .text-center.feature-title
@@ -109,7 +109,7 @@ block content
                                                 |  2 Garages
                                             p
                                                 i.fa.fa-bath
-                                                |  #{property.bathrooms} Bathrooms
+                                                |  #{property.bathrooms} Toilets
                                     .room-info
                                         .rf-left
                                             p
@@ -124,21 +124,25 @@ block content
     section.feature-category-section.spad
         .container
             .section-title.text-center
-                h3 LOOKING PROPERTY
-                p What kind of property are you looking for? We will help you
-            .row
-                .col-lg-3.col-md-6.f-cata
-                    img(src='/img/1.jpg' alt='')
-                    h5 Apartment for rent
-                .col-lg-3.col-md-6.f-cata
-                    img(src='/img/2.jpg' alt='')
-                    h5 Family Home
-                .col-lg-3.col-md-6.f-cata
-                    img(src='/img/3.jpg' alt='')
-                    h5 Commercial Space
-                .col-lg-3.col-md-6.f-cata
-                    img(src='/img/4b.jpg' alt='')
-                    h5 Land
+                h3 How QANDOS Works
+
+    section.review-section.set-bg(data-setbg='img/review-bg.jpg')
+        .container
+            .review-slider.owl-carousel
+                .review-item.text-white
+                    .rating
+                    i.fa.fa-star
+                    i.fa.fa-star
+                    i.fa.fa-star
+                    i.fa.fa-star
+                    i.fa.fa-star
+                    p
+                    | &ldquo;Qandos was quick to understand my needs and steer me in the right direction. Their professionalism and warmth made the process of finding a suitable home a lot less stressful than it could have been. Thanks, agent Tony Holland.&rdquo;
+                    h5 Stacy Mc Neeley
+                    span CEP&rsquo;s Director
+                    .clint-pic.set-bg(data-setbg='img/review/1.jpg')
+                        
+            
     section.gallery-section.spad
         .container
             .section-title.text-center
@@ -149,37 +153,16 @@ block content
                 a.gallery-item.grid-long.set-bg(href='#' data-setbg='/img/gallery/1.jpg')
                     .gi-info
                         h3 FCT, Abuja
-                        p 18 Properties
+                        p 3 Properties
                 a.gallery-item.grid-wide.set-bg(href='#' data-setbg='/img/gallery/2.jpg')
                     .gi-info
                         h3 Lagos
-                        p 112 Properties
+                        p 0 Properties
                 a.gallery-item.set-bg(href='#' data-setbg='/img/gallery/3.jpg')
                     .gi-info
                         h3 Enugu
-                        p 72 Properties
+                        p 0 Properties
                 a.gallery-item.set-bg(href='#' data-setbg='/img/gallery/4.jpg')
                     .gi-info
                         h3 Asaba
-                        p 50 Properties
-
-    //- section.review-section.set-bg(data-setbg='/img/review-bg.jpg').mb-5
-    //-     .container
-    //-         .review-slider.owl-carousel
-    //-             .review-item.text-white
-    //-                 .rating
-    //-                     i.fa.fa-star
-    //-                     i.fa.fa-star
-    //-                     i.fa.fa-star
-    //-                     i.fa.fa-star
-    //-                     i.fa.fa-star
-    //-                 p
-    //-                 | &ldquo;Leramiz was quick to understand my needs and steer me in the right direction. Their
-    //-                 | professionalism and
-    //-                 | warmth made the process of finding a suitable home a lot less stressful than it could have been.
-    //-                 | Thanks,
-    //-                 | agent Tony Holland.&rdquo;
-    //-                 h5 Stacy Mc Neeley
-    //-                 span CEP&rsquo;s Director
-    //-                 .clint-pic.set-bg(data-setbg='/img/review/1.jpg')
-            
+                        p 0 Properties

@@ -17,7 +17,6 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     try {
         const userSession = req.session.user ?? null;
         const properties = await propertyService.list();
-        console.log(properties)
         res.render('index', { title: 'Welcome', properties });
     } catch (err) {
         next(err);
@@ -78,8 +77,7 @@ router.post('/login', async (req, res, next) => {
             req.session.cookie.maxAge = 60 * 60 * 1000 * 24 * 30;   // 30 days
             req.session.user.remember_me = true;
         }
-        //if (req.query.json == 'true') return res.json({ status: true });
-        res.render('verify-otp', {});
+        res.redirect('/user/appointments')
     } catch (err) {
         next(err);
     }
