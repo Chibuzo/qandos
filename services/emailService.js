@@ -29,7 +29,7 @@ let transporter = nodemailer.createTransport({
 transporter.use('compile', hbs(options));
 
 const BASE_URL = process.env.BASE_URL;
-const SENT_FROM = 'info@qandos.com';
+const SENT_FROM = process.env.AWS_SES_USER;
 
 const sendMail = (to, subject, template, data) => {
     let mailOptions = {
