@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const propertyService = require('../services/propertyService');
+const states = require('../config/data/states');
+const utilityService = require('../services/UtillityService');
+
 
 router.get('/list', async (req, res, next) => {
     try {
@@ -13,7 +16,7 @@ router.get('/list', async (req, res, next) => {
 
 router.get('/new', async (req, res, next) => {
     try {
-        res.render('property/new');
+        res.render('property/new', { states });
     } catch(err) {
         next(err);
     }
@@ -33,7 +36,8 @@ router.get('/:id/edit', async (req, res, next) => {
         const { id } = req.params;
         const foundProperty = await propertyService.view(id);
         const { photos = [], ...property } = foundProperty;
-        res.render('property/edit', { property, photos });
+        const cities = utilityService.filterCitiesByState(property.state);
+        res.render('property/edit', { property, photos, states, cities });
     } catch(err) {
         next(err);
     }

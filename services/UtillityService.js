@@ -1,6 +1,7 @@
 const chance = require('chance').Chance();
 const cacheService = require('./cacheService');
 const apiRequest = require('../helpers/APIRequest');
+const cities = require('../config/data/cities.json');
 
 
 const generateUniqueValue = (length = 35, num = false, prefix = null) => {
@@ -67,5 +68,7 @@ module.exports = {
             return interval + " minutes";
         }
         return Math.floor(seconds) + " seconds";
-    }
+    },
+
+    filterCitiesByState: state => cities.filter(city => city.State == state)
 }

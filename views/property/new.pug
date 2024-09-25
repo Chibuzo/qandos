@@ -17,7 +17,7 @@ block content
                     .text-center.mb-n5
 
     .row 
-        .col-md-7
+        .col-md-12
             .card.w-100.position-relative.overflow-hidden
                 .card-body.p-4
                     h4.fw-semibold.mb-4 Property Details 
@@ -79,13 +79,14 @@ block content
                         .form-group.mb-4.row
                             .col-md-6
                                 label.form-label State 
-                                select.form-control(name="state" required)  
+                                select.form-control#state(name="state" required)  
                                     option(value='') -- State --
-                                    option(value='abuja') Abuja
+                                    each state in states 
+                                        option(value=`${state.name}`)= state.name
 
                             .col-md-6
                                 label.form-label City 
-                                select.form-control(name="city" required)  
+                                select.form-control#city(name="city" required)  
                                     option(value='') -- City --
                                     option(value='lugbe') Lugbe
 
@@ -95,7 +96,7 @@ block content
                                 input.form-control(type='number' name="available_units" value='1' required)  
                             .col-md-6
                                 label.form-label Plot Size 
-                                input.form-control(name="size" type='text')  
+                                input.form-control(name="plot_size" type='text')  
 
                         .form-group.mb-4.row
                             .col-md-6
@@ -103,7 +104,7 @@ block content
                                 input.form-control(type='text' name="closest_landmark")  
                             .col-md-6
                                 label.form-label Garage/Parking Space
-                                input.form-control(name="garge" type='text')  
+                                input.form-control(name="garage" type='text')  
 
                         .form-group.mb-4.row
                             .col-md-6
@@ -117,7 +118,20 @@ block content
                             button.btn.btn-primary.float-end(type='submit') Save Property
 
 
-        .col-md-5 
-            .card.w-100.position-relative.overflow-hidden
-                .card-body.p-4
-                    h4.fw-semibold.mb-4 Property Photos 
+        //- .col-md-5 
+        //-     .card.w-100.position-relative.overflow-hidden
+        //-         .card-body.p-4
+        //-             h4.fw-semibold.mb-4 Property Photos 
+
+block scriptBlock
+    script. 
+
+        let state;
+        document.getElementById('state').addEventListener('change', async function() {
+            state = this.value;
+            const resp = await fetch('/cities?state=' + state);
+            const cities = await resp.json();
+            let opts = "<option value=''>-- City --</option>";
+            opts += cities.data.cities.map(city => `<option value=${city.name}>${city.name}</option>`);
+            document.getElementById('city').innerHTML = opts;
+        });

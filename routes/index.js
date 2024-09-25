@@ -7,10 +7,10 @@ const paymentService = require('../services/paymentService');
 const authenticateAdmin = require('../middlewares/authenticateAdmin');
 const emailService = require('../services/emailService');
 const { ErrorHandler } = require('../helpers/errorHandler');
-const states = require('../config/states.json');
 const propertyService = require('../services/propertyService');
 const wishlistService = require('../services/wishlistService');
 const appointmentService = require('../services/appointmentService');
+const utilityService = require('../services/UtillityService');
 
 
 router.get('/', isAuthenticated, async (req, res, next) => {
@@ -176,6 +176,16 @@ router.post('/send-email', (req, res, next) => {
     try {
         emailService.emailEcoBlue(req.body);
         res.status(200).json({ status: 'success' });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/cities', (req, res, next) => {
+    try {
+        const { state } = req.query;
+        const cities = utilityService.filterCitiesByState(state);
+        res.status(200).json({ status: 'success', data: { cities }});
     } catch (err) {
         next(err);
     }

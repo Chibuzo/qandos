@@ -1,0 +1,2034 @@
+[
+    {
+      "name": "Aba",
+      "slug": "aba",
+      "State": "Abia",
+      "abbreviation": "AB",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Arochukwu",
+      "slug": "arochukwu",
+      "State": "Abia",
+      "abbreviation": "AB",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Umuahia",
+      "slug": "umuahia",
+      "State": "Abia",
+      "abbreviation": "AB",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Yola",
+      "slug": "yola",
+      "State": "Adamawa",
+      "abbreviation": "AD",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Uyo",
+      "slug": "uyo",
+      "State": "Akaw-ibom",
+      "abbreviation": "AK",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Eket",
+      "slug": "eket",
+      "State": "Akaw-ibom",
+      "abbreviation": "AK",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ikot Ekpene",
+      "slug": "ikot-ekpene",
+      "State": "Akaw-ibom",
+      "abbreviation": "AK",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Awka",
+      "slug": "awka",
+      "State": "Anambra",
+      "abbreviation": "AN",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Nnewi",
+      "slug": "nnewi",
+      "State": "Anambra",
+      "abbreviation": "AN",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Onitsha",
+      "slug": "onitsha",
+      "State": "Anambra",
+      "abbreviation": "AN",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Abeokuta",
+      "slug": "abeokuta",
+      "State": "Ogun",
+      "abbreviation": "OG",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ijebu-Ode",
+      "slug": "ijebu-ode",
+      "State": "Ogun",
+      "abbreviation": "OG",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ilaro",
+      "slug": "ilaro",
+      "State": "Ogun",
+      "abbreviation": "OG",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Shagamu",
+      "slug": "shagamu",
+      "State": "Ogun",
+      "abbreviation": "OG",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Akure",
+      "slug": "akure",
+      "State": "Ondo",
+      "abbreviation": "ON",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Owo",
+      "slug": "owo",
+      "State": "Ondo",
+      "abbreviation": "ON",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Idanre",
+      "slug": "idanre",
+      "State": "Ondo",
+      "abbreviation": "ON",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Port Harcourt",
+      "slug": "port harcourt",
+      "State": "Rivers",
+      "abbreviation": "RI",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Eleme",
+      "slug": "eleme",
+      "State": "Rivers",
+      "abbreviation": "RI",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Bonny",
+      "slug": "bonny",
+      "State": "Rivers",
+      "abbreviation": "RI",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Calabar",
+      "slug": "calabar",
+      "State": "Cross River",
+      "abbreviation": "CR",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ogoja",
+      "slug": "ogoja",
+      "State": "Cross River",
+      "abbreviation": "CR",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Asaba",
+      "slug": "asaba",
+      "State": "Delta",
+      "abbreviation": "DE",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Warri",
+      "slug": "warri",
+      "State": "Delta",
+      "abbreviation": "DE",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Agbor",
+      "slug": "agbor",
+      "State": "Delta",
+      "abbreviation": "DE",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Enugu",
+      "slug": "enugu",
+      "State": "Enugu",
+      "abbreviation": "EN",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Nsuka",
+      "slug": "nsuka",
+      "State": "Enugu",
+      "abbreviation": "EN",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ibadan",
+      "slug": "ibadan",
+      "State": "Oyo",
+      "abbreviation": "OY",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Iseyin",
+      "slug": "iseyin",
+      "State": "Oyo",
+      "abbreviation": "OY",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ogbomosho",
+      "slug": "ogbomosho",
+      "State": "Oyo",
+      "abbreviation": "OY",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Oyo",
+      "slug": "oyo",
+      "State": "Oyo",
+      "abbreviation": "OY",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Saki",
+      "slug": "saki",
+      "State": "Oyo",
+      "abbreviation": "OY",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Owerri",
+      "slug": "owerri",
+      "State": "Imo",
+      "abbreviation": "IM",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Okigwe",
+      "slug": "okigwe",
+      "State": "Imo",
+      "abbreviation": "IM",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Mbaise",
+      "slug": "mbaise",
+      "State": "Imo",
+      "abbreviation": "IM",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kaduna",
+      "slug": "kaduna",
+      "State": "Kaduna",
+      "abbreviation": "KD",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kafanchan",
+      "slug": "kafanchan",
+      "State": "Kaduna",
+      "abbreviation": "KD",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Zaria",
+      "slug": "zaria",
+      "State": "Kaduna",
+      "abbreviation": "KD",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Birnin Kebbi",
+      "slug": "birnin kebbi",
+      "State": "kebbi",
+      "abbreviation": "KE",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Argungu",
+      "slug": "argungu",
+      "State": "kebbi",
+      "abbreviation": "KE",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Zuru",
+      "slug": "zuru",
+      "State": "kebbi",
+      "abbreviation": "KE",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kano",
+      "slug": "kano",
+      "State": "kano",
+      "abbreviation": "KN",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Dala",
+      "slug": "dala",
+      "State": "kano",
+      "abbreviation": "KN",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ungogo",
+      "slug": "ungogo",
+      "State": "kano",
+      "abbreviation": "KN",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Osogbo",
+      "slug": "osogbo",
+      "State": "Osun",
+      "abbreviation": "OS",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ile-Ife",
+      "slug": "ile-ife",
+      "State": "Osun",
+      "abbreviation": "OS",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ila",
+      "slug": "ila",
+      "State": "Osun",
+      "abbreviation": "OS",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Sokoto",
+      "slug": "sokoto",
+      "State": "Sokoto",
+      "abbreviation": "SO",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Tambuwal",
+      "slug": "tambuwal",
+      "State": "Sokoto",
+      "abbreviation": "SO",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Wamakko",
+      "slug": "wamakko",
+      "State": "Sokoto",
+      "abbreviation": "SO",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Jos",
+      "slug": "jos",
+      "State": "Plateau",
+      "abbreviation": "PL",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Bukuru",
+      "slug": "bukuru",
+      "State": "Plateau",
+      "abbreviation": "PL",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Pankshin",
+      "slug": "pankshin",
+      "State": "Plateau",
+      "abbreviation": "PL",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Jalingo",
+      "slug": "jalingo",
+      "State": "Taraba",
+      "abbreviation": "TA",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Gashaka",
+      "slug": "gashaka",
+      "State": "Taraba",
+      "abbreviation": "TA",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Bali",
+      "slug": "bali",
+      "State": "Taraba",
+      "abbreviation": "TA",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Damaturu",
+      "slug": "damaturu",
+      "State": "Yobe",
+      "abbreviation": "YO",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Postiskum",
+      "slug": "postiskum",
+      "State": "Yobe",
+      "abbreviation": "YO",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Geidam",
+      "slug": "geidam",
+      "State": "Yobe",
+      "abbreviation": "YO",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Gasua",
+      "slug": "gasua",
+      "State": "Zamfarawa",
+      "abbreviation": "ZA",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Talata Mafara",
+      "slug": "talata mafara",
+      "State": "Zamfarawa",
+      "abbreviation": "ZA",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Maradi",
+      "slug": "maradi",
+      "State": "Zamfarawa",
+      "abbreviation": "ZA",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Badagry",
+      "slug": "badagry",
+      "State": "Lagos",
+      "abbreviation": "LA",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Epe",
+      "slug": "epe",
+      "State": "Lagos",
+      "abbreviation": "LA",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ikeja",
+      "slug": "ikeja",
+      "State": "Lagos",
+      "abbreviation": "LA",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ikorodu",
+      "slug": "ikorodu",
+      "State": "Lagos",
+      "abbreviation": "LA",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Lagos",
+      "slug": "lagos",
+      "State": "Lagos",
+      "abbreviation": "LA",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Mushin",
+      "slug": "mushin",
+      "State": "Lagos",
+      "abbreviation": "LA",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Somolu",
+      "slug": "somolu",
+      "State": "Lagos",
+      "abbreviation": "LA",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Katsina",
+      "slug": "katsina",
+      "State": "Kastina",
+      "abbreviation": "KT",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Dutsin Ma",
+      "slug": "dutsin ma",
+      "State": "Kastina",
+      "abbreviation": "KT",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Funtua",
+      "slug": "funtua",
+      "State": "Kastina",
+      "abbreviation": "KT",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ilorin",
+      "slug": "ilorin",
+      "State": "Kwara",
+      "abbreviation": "KW",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Lafiagi",
+      "slug": "lafiagi",
+      "State": "Kwara",
+      "abbreviation": "KW",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Lafia",
+      "slug": "lafia",
+      "State": "Kwara",
+      "abbreviation": "KW",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Offa",
+      "slug": "offa",
+      "State": "Kwara",
+      "abbreviation": "KW",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Karu",
+      "slug": "karu",
+      "State": "Nasarawa",
+      "abbreviation": "NA",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Obi",
+      "slug": "obi",
+      "State": "Nasarawa",
+      "abbreviation": "NA",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kontagora",
+      "slug": "kontagora",
+      "State": "Niger",
+      "abbreviation": "NI",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Minna",
+      "slug": "minna",
+      "State": "Niger",
+      "abbreviation": "NI",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Suleja",
+      "slug": "suleja",
+      "State": "Niger",
+      "abbreviation": "NI",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Alkaleri",
+      "slug": "alkaleri",
+      "State": "Bauchi",
+      "abbreviation": "BS",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Bauchi",
+      "slug": "bauchi",
+      "State": "Bauchi",
+      "abbreviation": "BS",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Bogoro",
+      "slug": "bogoro",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Damban",
+      "slug": "damban",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Darazo",
+      "slug": "darazo",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Dass",
+      "slug": "dass",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Gamawa",
+      "slug": "gamawa",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ganjuwa",
+      "slug": "ganjuwa",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Giade",
+      "slug": "giade",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Itas Gadau",
+      "slug": "itas gadau",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Jama'are",
+      "slug": "jama'are",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Katagum",
+      "slug": "katagum",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kirfi",
+      "slug": "kirfi",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Misau",
+      "slug": "misau",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ningi",
+      "slug": "ningi",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Shira",
+      "slug": "shira",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Tafawa Balewa",
+      "slug": "tafawa balewa",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Toro",
+      "slug": "toro",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Warji",
+      "slug": "warji",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Zaki",
+      "slug": "zaki",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Zaki",
+      "slug": "zaki",
+      "abbreviation": "BS",
+      "State": "Bauchi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Agatu",
+      "slug": "agatu",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Apa",
+      "slug": "apa",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ado",
+      "slug": "ado",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Buruku",
+      "slug": "buruku",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Gboko",
+      "slug": "gboko",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Guma",
+      "slug": "guma",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Gwer East",
+      "slug": "gwer east",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Gwer West",
+      "slug": "gwer west",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Katsina Ala",
+      "slug": "katsina ala",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Konshisha",
+      "slug": "konshisha",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kwande",
+      "slug": "kwande",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Logo",
+      "slug": "logo",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Makurdi",
+      "slug": "makurdi",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Obi",
+      "slug": "obi",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ogbadibo",
+      "slug": "ogbadibo",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ohimini",
+      "slug": "ohimini",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Oju",
+      "slug": "oju",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Okpokwu",
+      "slug": "okpokwu",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Oturkpo",
+      "slug": "oturkpo",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Tarka",
+      "slug": "tarka",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ukum",
+      "slug": "ukum",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ushongo",
+      "slug": "ushongo",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Vandeikya",
+      "slug": "vandeikya",
+      "abbreviation": "BE",
+      "State": "Benue",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Abadam",
+      "slug": "abadam",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Askira Uba",
+      "slug": "askira uba",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Bama",
+      "slug": "bama",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Bayo",
+      "slug": "bayo",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Biu",
+      "slug": "biu",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Chibok",
+      "slug": "chibok",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Damboa",
+      "slug": "damboa",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Dikwa",
+      "slug": "dikwa",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Guzamala",
+      "slug": "guzamala",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Gubio",
+      "slug": "gubio",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Hawul",
+      "slug": "hawul",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Gwoza",
+      "slug": "gwoza",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Jere",
+      "slug": "jere",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kaga",
+      "slug": "kaga",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kala Balge",
+      "slug": "kala balge",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Konduga",
+      "slug": "konduga",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kukawa",
+      "slug": "kukawa",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kwaya Kusar",
+      "slug": "kwaye kusar",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Mafa",
+      "slug": "mafa",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Magumeri",
+      "slug": "magumeri",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Maiduguri",
+      "slug": "maiduguri",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Mobbar",
+      "slug": "mobbar",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Marte",
+      "slug": "marte",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Monguno",
+      "slug": "monguno",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ngala",
+      "slug": "ngala",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Nganzai",
+      "slug": "nganzai",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Shani",
+      "slug": "shani",
+      "abbreviation": "BO",
+      "State": "Borno",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Brass",
+      "slug": "brass",
+      "abbreviation": "BY",
+      "State": "Bayelsa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ekeremor",
+      "slug": "ekeremor",
+      "abbreviation": "BY",
+      "State": "Bayelsa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kolokuma Opokuma",
+      "slug": "kolokuma opokuma",
+      "abbreviation": "BY",
+      "State": "Bayelsa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Nembe",
+      "slug": "nembe",
+      "abbreviation": "BY",
+      "State": "Bayelsa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ogbia",
+      "slug": "ogbia",
+      "abbreviation": "BY",
+      "State": "Bayelsa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Sagbama",
+      "slug": "sagbama",
+      "abbreviation": "BY",
+      "State": "Bayelsa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Southern Ijaw",
+      "slug": "southern ijaw",
+      "abbreviation": "BY",
+      "State": "Bayelsa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Yenagoa",
+      "slug": "yenegoa",
+      "abbreviation": "BY",
+      "State": "Bayelsa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Abakaliki",
+      "slug": "abakaliki",
+      "abbreviation": "EB",
+      "State": "Ebonyi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Afikpo North",
+      "slug": "afikpo north",
+      "abbreviation": "EB",
+      "State": "Ebonyi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ebonyi",
+      "slug": "ebonyi",
+      "abbreviation": "EB",
+      "State": "Ebonyi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Afikpo South",
+      "slug": "afikpo south",
+      "abbreviation": "EB",
+      "State": "Ebonyi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ezza North",
+      "slug": "ezza north",
+      "abbreviation": "EB",
+      "State": "Ebonyi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ikwo",
+      "slug": "ikwo",
+      "abbreviation": "EB",
+      "State": "Ebonyi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ezza South",
+      "slug": "ezza south",
+      "abbreviation": "EB",
+      "State": "Ebonyi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ivo",
+      "slug": "ivo",
+      "abbreviation": "EB",
+      "State": "Ebonyi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ishielu",
+      "slug": "ishielu",
+      "abbreviation": "EB",
+      "State": "Ebonyi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Izzi",
+      "slug": "izzi",
+      "abbreviation": "EB",
+      "State": "Ebonyi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ohaozara",
+      "slug": "ohaozara",
+      "abbreviation": "EB",
+      "State": "Ebonyi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ohaukwu",
+      "slug": "ohaukwu",
+      "abbreviation": "EB",
+      "State": "Ebonyi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Onicha",
+      "slug": "onicha",
+      "abbreviation": "EB",
+      "State": "Ebonyi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ado Ekiti",
+      "slug": "ado ekiti",
+      "abbreviation": "EK",
+      "State": "Ekiti",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Efon",
+      "slug": "efon",
+      "abbreviation": "EK",
+      "State": "Ekiti",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ekiti East",
+      "slug": "ekiti east",
+      "abbreviation": "EK",
+      "State": "Ekiti",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ekiti South-West",
+      "slug": "ekiti south-west",
+      "abbreviation": "EK",
+      "State": "Ekiti",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ekiti West",
+      "slug": "ekiti west",
+      "abbreviation": "EK",
+      "State": "Ekiti",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Emure",
+      "slug": "emure",
+      "abbreviation": "EK",
+      "State": "Ekiti",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Aiyekire",
+      "slug": "aiyekire",
+      "abbreviation": "EK",
+      "State": "Ekiti",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ido Osi",
+      "slug": "ido osi",
+      "abbreviation": "EK",
+      "State": "Ekiti",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ijero",
+      "slug": "ijero",
+      "abbreviation": "EK",
+      "State": "Ekiti",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ikere",
+      "slug": "ikere",
+      "abbreviation": "EK",
+      "State": "Ekiti",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ilejemeje",
+      "slug": "ilejemeje",
+      "abbreviation": "EK",
+      "State": "Ekiti",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Irepodun Ifelodun",
+      "slug": "irepodun ifelodun",
+      "abbreviation": "EK",
+      "State": "Ekiti",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ikole",
+      "slug": "ikole",
+      "abbreviation": "EK",
+      "State": "Ekiti",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ise Orun",
+      "slug": "ise orun",
+      "abbreviation": "EK",
+      "State": "Ekiti",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Moba",
+      "slug": "moba",
+      "abbreviation": "EK",
+      "State": "Ekiti",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Oye",
+      "slug": "oye",
+      "abbreviation": "EK",
+      "State": "Ekiti",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Abaji",
+      "slug": "abaji",
+      "abbreviation": "FCT",
+      "State": "Federal capital Territory",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Bwari",
+      "slug": "bwari",
+      "abbreviation": "FCT",
+      "State": "Federal capital Territory",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Gwagwalada",
+      "slug": "gwagwalada",
+      "abbreviation": "FCT",
+      "State": "Federal capital Territory",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kuje",
+      "slug": "kuje",
+      "abbreviation": "FCT",
+      "State": "Federal capital Territory",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kwali",
+      "slug": "kwali",
+      "abbreviation": "FCT",
+      "State": "Federal capital Territory",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Municipal Area Council",
+      "slug": "municipal area council",
+      "abbreviation": "FCT",
+      "State": "Federal capital Territory",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Akko",
+      "slug": "akko",
+      "abbreviation": "GO",
+      "State": "Gombe",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Balanga",
+      "slug": "balanga",
+      "abbreviation": "GO",
+      "State": "Gombe",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Billiri",
+      "slug": "billiri",
+      "abbreviation": "GO",
+      "State": "Gombe",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Dukku",
+      "slug": "dukku",
+      "abbreviation": "GO",
+      "State": "Gombe",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Funakaye",
+      "slug": "funakaye",
+      "abbreviation": "GO",
+      "State": "Gombe",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Gombe",
+      "slug": "gombe",
+      "abbreviation": "GO",
+      "State": "Gombe",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kaltungo",
+      "slug": "kaltungo",
+      "abbreviation": "GO",
+      "State": "Gombe",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kwami",
+      "slug": "kwami",
+      "abbreviation": "GO",
+      "State": "Gombe",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Nafada",
+      "slug": "nafada",
+      "abbreviation": "GO",
+      "State": "Gombe",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Shongom",
+      "slug": "shongom",
+      "abbreviation": "GO",
+      "State": "Gombe",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Yamaltu Deba",
+      "slug": "yamaltu deba",
+      "abbreviation": "GO",
+      "State": "Gombe",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Auyo",
+      "slug": "auyo",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Babura",
+      "slug": "babura",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Buji",
+      "slug": "buji",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Biriniwa",
+      "slug": "biriniwa",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Birnin Kudu",
+      "slug": "birnin kudu",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Dutse",
+      "slug": "dutse",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Gagarawa",
+      "slug": "gagarawa",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Garki",
+      "slug": "garki",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Gumel",
+      "slug": "gumel",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Guri",
+      "slug": "guri",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Gwaram",
+      "slug": "gwaram",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Gwiwa",
+      "slug": "gwiwa",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Hadejia",
+      "slug": "hadejia",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Jahun",
+      "slug": "jahun",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kafin Hausa",
+      "slug": "kafin hausa",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kazaura",
+      "slug": "kazaura",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kiri Kasama",
+      "slug": "kiri kasama",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kiyawa",
+      "slug": "kiyama",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kaugama",
+      "slug": "kaugama",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Maigatari",
+      "slug": "maigatari",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Malam Madori",
+      "slug": "malam madori",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Miga",
+      "slug": "miga",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Sule Tankarkar",
+      "slug": "sula tankarkar",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Roni",
+      "slug": "roni",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ringim",
+      "slug": "ringim",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Taura",
+      "slug": "taura",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Yankwashi",
+      "slug": "yankwashi",
+      "abbreviation": "JI",
+      "State": "Jigawa",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ajaokuta",
+      "slug": "ajaokuta",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Adavi",
+      "slug": "adavi",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ankpa",
+      "slug": "ankpa",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Bassa",
+      "slug": "bassa",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Dekina",
+      "slug": "dekina",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ibaji",
+      "slug": "ibaji",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Idah",
+      "slug": "idah",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Igalamela Odolu",
+      "slug": "igalamela",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ijumu",
+      "slug": "ijumu",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kogi",
+      "slug": "kogi",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Kabba Bunu",
+      "slug": "kabba bunu",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Lokoja",
+      "slug": "lokoja",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ofu",
+      "slug": "ofu",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Mopa Muro",
+      "slug": "mopa muro",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Ogori Magongo",
+      "slug": "ogori magonga",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Okehi",
+      "slug": "okehi",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Okene",
+      "slug": "okene",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Olamaboro",
+      "slug": "olamaboro",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Omala",
+      "slug": "omala",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Yagba East",
+      "slug": "yagba east",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    },
+    {
+      "name": "Yagba West",
+      "slug": "yagba west",
+      "abbreviation": "KO",
+      "State": "Kogi",
+      "latitude": "",
+      "longitude": ""
+    }
+  ]

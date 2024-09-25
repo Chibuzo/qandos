@@ -21,7 +21,19 @@ head
             font-size: 1.25rem;
         }
 
-        .photo { height: 169px; background-size: cover }
+        .photo { 
+            height: 169px; 
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .delete-media { display: none }
+
+        .photo:hover > .delete-media {
+            display: block
+        }
 
     block styleBlock
 
