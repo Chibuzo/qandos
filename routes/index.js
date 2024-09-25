@@ -191,6 +191,16 @@ router.get('/cities', (req, res, next) => {
     }
 });
 
+router.get('/delete-media', async (req, res, next) => {
+    try {
+        const { id } = req.query;
+        await propertyService.deleteMedia(id);
+        res.status(200).json({ status: 'success' });
+    } catch (err) {
+        next(err);
+    }
+})
+
 
 router.get('/logout', (req, res, next) => {
     req.session.destroy();

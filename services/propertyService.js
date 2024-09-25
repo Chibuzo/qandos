@@ -53,6 +53,13 @@ const uploadPropertyPhotos = async (PropertyId, files, mediaType = 'photo') => {
     );
 }
 
+const deleteMedia = async id => {
+    const media = await PropertyMedia.findOne({
+        where: { id }
+    });
+    return PropertyMedia.destroy({ where: { id }});
+}
+
 module.exports = {
     create,
     list,
@@ -60,5 +67,6 @@ module.exports = {
     findOne,
     update,
     uploadPropertyPhotos,
-    fetchRelatedProperties
+    fetchRelatedProperties,
+    deleteMedia
 }

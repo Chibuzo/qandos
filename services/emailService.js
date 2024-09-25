@@ -16,7 +16,6 @@ const options = {
 };
 
 let transporter = nodemailer.createTransport({
-    // host: 'email-smtp.us-east-1.amazonaws.com',
     host: 'smtp.zoho.com',
     port: 465,
     secure: true, // true for 465, false for other ports,
@@ -30,7 +29,7 @@ let transporter = nodemailer.createTransport({
 transporter.use('compile', hbs(options));
 
 const BASE_URL = process.env.BASE_URL;
-const SENT_FROM = 'support@dumena.com';
+const SENT_FROM = 'info@qandos.com';
 
 const sendMail = (to, subject, template, data) => {
     let mailOptions = {
@@ -45,7 +44,7 @@ const sendMail = (to, subject, template, data) => {
         if (error) {
             return console.log(error);
         }
-        console.log('Message sent: %s', info.messageId);
+        // console.log('Message sent: %s', info.messageId);
     });
 }
 
@@ -119,10 +118,5 @@ module.exports = {
             }
             //console.log('Message sent: %s', info.messageId);
         });
-    },
-
-    async emailOtp(email, otp) {
-        const data = { otp };
-        return sendMail(email, 'vExpress Charter Login OTP', 'otp', data);
     }
 }
