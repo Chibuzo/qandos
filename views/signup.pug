@@ -1,163 +1,84 @@
 doctype html
 head
-  // Title
-  title Vexpress Sign up
-  // Required Meta Tag
-  meta(http-equiv='Content-Type' content='text/html; charset=UTF-8')
-  meta(name='viewport' content='width=device-width, initial-scale=1')
-  meta(name='handheldfriendly' content='true')
-  meta(name='MobileOptimized' content='width')
-  meta(name='description' content='Mordenize')
-  meta(name='author' content='')
-  meta(name='keywords' content='Mordenize')
-  meta(http-equiv='X-UA-Compatible' content='IE=edge')
-  // Favicon
-  link(rel='shortcut icon' type='image/png' href='/images/logos/favicon.png')
-  // Core Css
-  link#themeColors(rel='stylesheet' href='/css/style.min.css')
-// Preloader
-.preloader
-  img.lds-ripple.img-fluid(src='/images/logos/favicon.png' alt='loader')
-// Preloader
-.preloader
-  img.lds-ripple.img-fluid(src='/images/logos/favicon.png' alt='loader')
-// Body Wrapper
-#main-wrapper.page-wrapper(data-layout='vertical' data-sidebartype='full' data-sidebar-position='fixed' data-header-position='fixed')
-  .position-relative.overflow-hidden.radial-gradient.min-vh-100.d-flex.align-items-center.justify-content-center
-    .d-flex.align-items-center.justify-content-center.w-100
-      .row.justify-content-center.w-100
-        .col-md-5.col-lg-5.col-xxl-3
-          .card.mb-0
-            .card-body
-              a.text-nowrap.logo-img.text-center.d-none.mb-4.w-100(href='/')
-                img(src='/images/logo.png' wdth='180' alt='')
-              if newUser 
-                .alert.alert-success.text-center.mt-4
-                  i.fa.fa-check-circle.fa-4x
-                  br/ 
-                  | Thank you for signing up with V express. 
-                  br/ A mail has been sent to you to verify your email address
-
-                a.text-primary.fw-medium.ms-2(href='/login') Click here to Login
-              else
-                .form-cac
-                  form(method="post" action="/signup")#form-cac
-                    .mb-3.form-floating
-                      input.form-control#company(type='text' name="company" placeholder='Company Name' required)
-                      label Company Name
-                    .mb-3.form-floating
-                      input.form-control#cac_no(type='text' name="cac_no" placeholder='CAC No.')
-                      label CAC No.
-                    .mb-3 
-                      .alert.alert-danger.d-none Your company details are invalid
-                    button.btn.btn-dark.btn-lg.w-100.py-8.mb-4.rounded-2(type='submit') Verify CAC
-                    .d-flex.align-items-center
-                      p.fs-4.mb-0.text-dark Already have an Account?
-                      a.text-primary.fw-medium.ms-2(href='/login') Login
-
-                .form-agent-details.d-none
-                  form(method="post" action="/signup")#form-cac-details
-                    .mb-3.form-floating
-                      textarea.form-control#addr(placeholder='Office Address' required)
-                      label Office Address
-                    .mb-3.form-floating
-                      select.form-control#state_(placeholder='State')
-                        option(value='') -- Select State --
-                        each state in states 
-                          option(value=`${state.state_name}`)= state.state_name
-                      label State
-
-                    button.btn.btn-dark.btn-lg.w-100.py-8.mb-4.rounded-2(type='submit') Save Address
-                    .d-flex.align-items-center
-                      p.fs-4.mb-0.text-dark Already have an Account?
-                      a.text-primary.fw-medium.ms-2(href='/login') Login
-
-                .form-contact-person.d-none
-                  form(method="post" action="/signup?json=no")
-                    h3.mb-3.fw-normal Contact Person
-                    .mb-3.form-floating
-                      input.form-control(type='text' name="fullname" placeholder='Full Name' required)
-                      label Full name
-                    .mb-3.form-floating
-                      input.form-control(type='email' name="email" placeholder='Email')
-                      label Email
-                    .mb-3.form-floating
-                      input.form-control(type='text' name="phone" placeholder='Phone')
-                      label Phone
-                    .mb-3.form-floating
-                      input.form-control(type='password' name="password" placeholder='Password')
-                      label Password
-                      input(type="hidden" name='address' id='address')
-                      input(type='hidden' name='state' id='state')
-                      input(type='hidden' name='cac' id='cac')
-                      input(type='hidden' name='agency' id='coy')
-                    .mb-3 
-                      .alert.alert-danger.d-none 
-                    button.btn.btn-dark.btn-lg.w-100.py-8.mb-4.rounded-2(type='submit') Sign Up
-                    .d-flex.align-items-center
-                      p.fs-4.mb-0.text-dark Already have an Account?
-                      a.text-primary.fw-medium.ms-2(href='/login') Login
-
-// Import Js Files
-script(src='/libs/jquery/dist/jquery.min.js')
-script(src='/libs/simplebar/dist/simplebar.min.js')
-script(src='/libs/bootstrap/dist/js/bootstrap.bundle.min.js')
-// core files
-script(src='/js/app.min.js')
-script(src='/js/app.init.js')
-script(src='/js/app-style-switcher.js')
-script(src='/js/sidebarmenu.js')
-script(src='/js/custom.js')
-
-script. 
-  $(document).ready(function() {
-    $("#form-cac").submit(async function(e) {
-      e.preventDefault();
-
-      const data = new FormData(this);
-      const formData = serialize(data);
-      const res = await postForm("/verify-cac", formData);
-      if (res.status == true) {
-        $(".form-cac").hide();
-        $(".form-agent-details").hide().removeClass('d-none').show();
-        $('#coy').val($('#company').val());
-        $('#cac').val($('#cac_no').val());
-      }
-    });
-
-    $("#form-cac-details").submit(async function(e) {
-      e.preventDefault();
-      $("#address").val($('#addr').val());
-      $("#state").val($("#state_ :selected").val());
-
-      $(".form-agent-details").hide();
-      $(".form-contact-person").hide().removeClass('d-none').show();
-    });
-  });
-
-
-  function serialize(data) {
-    let obj = {};
-    for (let [key, value] of data) {
-      if (obj[key] !== undefined) {
-        if (!Array.isArray(obj[key])) {
-          obj[key] = [obj[key]];
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    meta(name='description' content='')
+    title #{_app_name} Qandos Sign up
+    // Bootstrap core CSS
+    link(href='/css/style.min.css' rel='stylesheet')
+    meta(name='theme-color' content='#7952b3')
+    style.
+        html,
+        body {
+            height: 100%;
         }
-        obj[key].push(value);
-      } else {
-        obj[key] = value;
-      }
-    }
-    return obj;
-  }
 
-  async function postForm(url, data) {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data)
-    });
-    return res.json();
-  }
+        body {
+            display: flex;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+        }
+
+        .form-signin {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+
+
+        .form-signin .form-floating:focus-within {
+            z-index: 2;
+        }
+
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+main.form-signin.text-center
+    //- img(src='/img/logo.png' wdth='180' alt='')
+
+    if newUser 
+        .alert.alert-success.text-center.mt-4
+            i.fa.fa-check-circle.fa-4x
+            br/ 
+            | Thank you for signing up with Qandos. 
+            br/ A mail has been sent to you to verify your email address
+
+        a.text-primary.fw-medium.ms-2(href='/login') Click here to Login
+    else
+        form(method="post" action="/signup")
+            h1.h3.mb-3.fw-normal Sign Up
+            .form-floating.mb-3
+                input#floatingInput.form-control(type='text' name="fullname" placeholder='Your name' required)
+                label(for='floatingInput') Name
+            .form-floating.mb-3
+                input#floatingInput.form-control(type='email' name="email" placeholder='name@example.com' required)
+                label(for='floatingInput') Email address
+            .form-floating.mb-3
+                input#floatingInput.form-control(type='tel' name="phone" placeholder='Your phone number')
+                label(for='floatingInput') Phone
+            .form-floating.mb-3
+                input#floatingPassword.form-control(type='password' name="password" placeholder='Password' required)
+                label(for='floatingPassword') Password
+            
+            button.w-100.btn.btn-lg.btn-secondary.mb-3(type='submit') Sign Up
+            p Already have an account? <a href='/login'>Login</a>
+            p.mt-5.mb-3.text-muted &copy; 
+                script.
+                    document.write(new Date().getFullYear());
+
+             
+            
+                

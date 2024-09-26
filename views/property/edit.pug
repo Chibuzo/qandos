@@ -249,7 +249,7 @@ block scriptBlock
                 if(confirm('Are you sure you want to delete this file?')) {
                     const id = this.id;
                     await fetch('/delete-media?id=' + id);
-                    location.reload();
+                    location.reload();  
                 }
             });
         });

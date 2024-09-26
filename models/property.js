@@ -10,18 +10,33 @@ module.exports = (sequelize, DataTypes) => {
             type: Sequelize.ENUM('fully built', 'land', 'uncompleted'),
             defaultValue: 'fully built'
         },
-        bedrooms: DataTypes.INTEGER,
-        toilets: DataTypes.INTEGER,
+        bedrooms: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
+        toilets: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
+        },
         plot_size: DataTypes.STRING(15), 
-        garage: DataTypes.INTEGER,
-        age: DataTypes.INTEGER,
+        garage: {
+            type: DataTypes.INTEGER,
+            defaultValue: 1
+        },
+        age: {
+            type: DataTypes.INTEGER,
+            defaultValue: 1
+        },
         cost: DataTypes.INTEGER,
         state: DataTypes.STRING(50),
         city: DataTypes.STRING(50),
         //coordinate: DataTypes.GEOMETRY('POINT'),
         longitude: DataTypes.STRING,
         latitude: DataTypes.STRING,
-        available_units: DataTypes.INTEGER,
+        available_units: {
+            type: DataTypes.INTEGER,
+            defaultValue: 1
+        },
         closest_landmark: DataTypes.STRING,
         featured: {
             type: DataTypes.BOOLEAN,

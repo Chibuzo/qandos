@@ -7,7 +7,7 @@ const create = async data => {
     return Property.create(data);
 }
 
-const list = async (criteria = {}, limit = 9) => {
+const list = async (criteria = {}, limit = 6) => {
     return Property.findAll({ 
         where: criteria, 
         include: {
@@ -16,6 +16,17 @@ const list = async (criteria = {}, limit = 9) => {
         },
         limit,
         order: [['createdAt', 'desc']] 
+    });
+}
+
+const fetchFeatured = async () => {
+    return Property.findAll({ 
+        order: Sequelize.literal('rand()'), 
+        include: {
+            model: PropertyMedia,
+            limit: 1
+        },
+        limit: 4 
     });
 }
 
@@ -63,6 +74,7 @@ const deleteMedia = async id => {
 module.exports = {
     create,
     list,
+    fetchFeatured,
     view,
     findOne,
     update,

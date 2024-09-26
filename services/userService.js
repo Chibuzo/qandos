@@ -7,29 +7,30 @@ const path = require('path');
 const { Op } = require('sequelize');
 const saltRounds = 10;
 const { ErrorHandler } = require('../helpers/errorHandler');
-// const cacheService = require('./cacheService');
 
 
-const create = async ({ fullname, email, phone, password, ...rest }) => {
+const create = async ({ fullname, email, phone, password }) => {
     if (!fullname) throw new ErrorHandler(400, 'Full name is required');
-    if (!phone) throw new ErrorHandler(400, 'Phone number is required');
+    // if (!phone) throw new ErrorHandler(400, 'Phone number is required');
     if (!email) throw new ErrorHandler(400, 'Email is required');
 
-    const existingUser = await User.findOne({ where: { [Op.or]: [{ email }, { phone }] } });
+    const existingUser = await User.findOne({ where: { [Op.or]: [{ email }] } });
 
     if (existingUser) 
         return existingUser
 
-    // const passwordHash = await bcrypt.hash(password, saltRounds);
     const data = {
         fullname,
         email,
         phone,
-        // password: passwordHash,
-        ...rest
     };
+    let emailPath = 'password-reset';
+    if (password) {
+        data.password = await bcrypt.hash(password, saltRounds);
+        emailPath = 'activate';
+    }
     const newUser = await User.create(data);
-    emailService.sendConfirmationEmail(newUser);
+    emailService.sendConfirmationEmail(newUser, emailPath);
     delete newUser.password;
     return newUser;
 }

@@ -18,10 +18,12 @@ block content
                 .container
                     form.filter-form
                         input(type='text' placeholder='Search for property type (e.g 3 bedroom terrace duplex)')
-                        select
-                            option(value='City') City
-                        select
-                            option(value='City') State
+                        select#state(name="state")
+                            option(value='') -- State --
+                                each state in states 
+                                    option(value=`${state.name}`)= state.name
+                        select#city(name="city")
+                            option(value='') -- City --
                         button.site-btn.fs-submit SEARCH
 
     section.properties-section.spad
@@ -30,7 +32,7 @@ block content
                 h3 FEATURED PROPERTIES
                 p Discover great properties in top cities
             .row
-                each property in properties
+                each property in featured
                     .col-md-6
                         .propertie-item.set-bg(data-setbg=`${property.PropertyMedia[0] &&   property.PropertyMedia[0].location}`)
                             //- .sale-notic FOR SALE
@@ -102,14 +104,14 @@ block content
                                                 |  800 Square foot
                                             p
                                                 i.fa.fa-bed
-                                                |  #{property.bedroom} Bedrooms
+                                                |  #{property.bedrooms} Bedrooms
                                         .rf-right
                                             p
                                                 i.fa.fa-car
                                                 |  2 Garages
                                             p
                                                 i.fa.fa-bath
-                                                |  #{property.bathrooms} Toilets
+                                                |  #{property.toilets} Toilets
                                     .room-info
                                         .rf-left
                                             p
@@ -166,3 +168,16 @@ block content
                     .gi-info
                         h3 Asaba
                         p 0 Properties
+
+block scriptBlock
+    script. 
+
+        let state;
+        document.getElementById('state').addEventListener('change', async function() {
+            state = this.value;
+            const resp = await fetch('/cities?state=' + state);
+            const cities = await resp.json();
+            let opts = "<option value=''>-- City --</option>";
+            opts += cities.data.cities.map(city => `<option value=${city.name}>${city.name}</option>`);
+            document.getElementById('city').innerHTML = opts;
+        });

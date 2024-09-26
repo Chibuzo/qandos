@@ -49,14 +49,14 @@ const sendMail = (to, subject, template, data) => {
 }
 
 module.exports = {
-    sendConfirmationEmail: function (user) {
-        // if (user.firstname.length > 60) return;
+    sendConfirmationEmail: function (user, path) {
+        if (user.fullname.length > 60) return;
         const email_b64 = Buffer.from(user.email).toString('base64');
         const hash = crypto.createHash('md5').update(user.email + 'okirikwenEE129Okpkenakai').digest('hex');
 
         const data = {
             user: user.fullname.split(' ')[0],
-            url: BASE_URL + 'password-reset/' + email_b64 + '/' + hash,
+            url: BASE_URL + path + '/' + email_b64 + '/' + hash,
             base_url: BASE_URL
         };
         const subject = "Verify your email address";

@@ -11,13 +11,17 @@ const propertyService = require('../services/propertyService');
 const wishlistService = require('../services/wishlistService');
 const appointmentService = require('../services/appointmentService');
 const utilityService = require('../services/UtillityService');
+const states = require('../config/data/states');
 
 
 router.get('/', isAuthenticated, async (req, res, next) => {
     try {
         const userSession = req.session.user ?? null;
-        const properties = await propertyService.list();
-        res.render('index', { title: 'Welcome', properties });
+        const [properties, featured] = await Promise.all([
+            propertyService.list(),
+            propertyService.fetchFeatured()
+        ]);
+        res.render('index', { title: 'Welcome', states, properties, featured });
     } catch (err) {
         next(err);
     }
@@ -34,7 +38,7 @@ router.get('/contact', isAuthenticated, async (req, res, next) => {
 
 router.get('/signup', async (req, res, next) => {
     try {
-        res.render('signup', { title: 'Sign Up', states });
+        res.render('signup', { title: 'Sign Up' });
     } catch (err) {
         next(err);
     }
