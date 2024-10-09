@@ -7,7 +7,7 @@ const utilityService = require('../services/UtillityService');
 
 router.get('/list', async (req, res, next) => {
     try {
-        const properties = await propertyService.list();
+        const properties = await propertyService.list({}, 15);
         res.render('property/list', { properties });
     } catch(err) {
         next(err);
@@ -64,6 +64,16 @@ router.post('/:id/upload-photos', async (req, res, next) => {
     }
 });
 
+router.get('/:id/delete', async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        await propertyService.update(id, { deleted: true });
+        res.redirect(`/property/list`);
+    } catch(err) {
+        next(err);
+    }
+});
+
 router.get('/:id/:title', async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -75,15 +85,16 @@ router.get('/:id/:title', async (req, res, next) => {
     }
 });
 
-router.delete('/:id', async (req, res, next) => {
-    try {
-        const { id } = req.query;
-        await propertyService.update(id, { deleted: true });
-        res.redirect(`/property/list`);
-    } catch(err) {
-        next(err);
-    }
-});
+
+// router.delete('/:id', async (req, res, next) => {
+//     try {
+//         const { id } = req.query;
+//         await propertyService.update(id, { deleted: true });
+//         res.redirect(`/property/list`);
+//     } catch(err) {
+//         next(err);
+//     }
+// });
 
 
 module.exports = router;

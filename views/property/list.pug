@@ -41,4 +41,22 @@ block content
                                 td N #{view.formatCurrency(property.cost)}
                                 td=property.status 
                                 td
-                                    a(href=`/property/${property.id}/edit`) Edit
+                                    a(href=`/property/${property.id}/edit`).me-2
+                                        span(style='font-size: 16px')    
+                                            i.ti.ti-pencil
+                                    
+                                    a(href=`#` onClick=`deleteProperty(${property.id})`) 
+                                        span(style='font-size: 16px')
+                                            i.ti.ti-trash
+
+
+
+block scriptBlock 
+    script.
+
+        async function deleteProperty(propertyId) {
+            if (confirm('Are you sure you want to delete this property?')) {
+                await fetch(`/property/${propertyId}/delete`);
+                location.reload(); 
+            }
+        }

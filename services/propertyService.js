@@ -7,9 +7,9 @@ const create = async data => {
     return Property.create(data);
 }
 
-const list = async (criteria = {}, limit = 6) => {
+const list = async (criteria = {}, limit = 15) => {
     return Property.findAll({ 
-        where: criteria, 
+        where: { ...criteria, deleted: false }, 
         include: {
             model: PropertyMedia,
             limit: 1
@@ -21,6 +21,7 @@ const list = async (criteria = {}, limit = 6) => {
 
 const fetchFeatured = async () => {
     return Property.findAll({ 
+        where: { deleted: false },
         order: Sequelize.literal('rand()'), 
         include: {
             model: PropertyMedia,
@@ -41,7 +42,7 @@ const fetchRelatedProperties = async property => {
 }
 
 const findOne = async criteria => {
-    const property = await Property.findOne({ where: criteria });
+    const property = await Property.findOne({ where: { ...criteria, deleted: false } });
     if (!property) return null;
     const photos = await property.getPropertyMedia({ raw: true });
     return { ...property.toJSON(), photos };

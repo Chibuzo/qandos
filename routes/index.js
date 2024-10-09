@@ -18,7 +18,7 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     try {
         const userSession = req.session.user ?? null;
         const [properties, featured] = await Promise.all([
-            propertyService.list(),
+            propertyService.list({}, 6),
             propertyService.fetchFeatured()
         ]);
         res.render('index', { title: 'Welcome', states, properties, featured });
