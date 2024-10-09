@@ -44,7 +44,7 @@ block content
                             .col-md-4.col-sm-6
                                 p
                                     i.fa.fa-th-large
-                                    |  #{property.size} Square foot
+                                    |  #{property.plot_size} Square foot
                                 p
                                     i.fa.fa-bed
                                     |  #{property.bedrooms} Bedrooms
@@ -57,7 +57,7 @@ block content
                                     |  2 Garages
                                 p
                                     i.fa.fa-building-o
-                                    |  Family Villa
+                                    |  #{view.capitalizeFirstLetter(property.category)}
                                 p
                                     i.fa.fa-clock-o
                                     |  #{view.formatDateSince(property.createdAt)} ago

@@ -39,6 +39,10 @@ module.exports = {
 
     generateUniqueValue,
 
+    capitalizeFirstLetter(word) {
+        return word[0].toUpperCase() + word.slice(1);
+    },
+
     formatDate: date => new Date(date).toLocaleDateString('en-GB'),
 
     formatTime: date => new Date(date).toLocaleTimeString('en-US'),
