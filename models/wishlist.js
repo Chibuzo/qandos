@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
             type: Sequelize.ENUM('active', 'purchased', 'sold', 'dropped'),
             defaultValue: 'active'
         },
+        referral_code: DataTypes.STRING(15),
         deleted: {
             type: DataTypes.BOOLEAN,
             defaultValue: false

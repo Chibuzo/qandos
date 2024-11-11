@@ -1,0 +1,121 @@
+
+extends layout 
+
+block content
+    section.page-top-section.set-bg(data-setbg='/img/page-top-bg.jpg')
+        .container.text-white
+            h2 Recent Property LISTING
+
+    .site-breadcrumb
+        .container
+            a(href='')
+                i.fa.fa-home
+                | Home
+            span
+                i.fa.fa-angle-right
+                | Recent Property Listing
+
+    section.feature-section.spad
+        .container
+            .section-title.text-center
+                h3 Recent Listings
+                p Browse houses and flats for sale and to rent in your area
+            .row
+                each property in properties
+                    .col-lg-4.col-md-6
+                        .feature-item
+                            .feature-pic.set-bg(data-setbg=`${property.PropertyMedia[0] && property.PropertyMedia[0].location}`)
+                                //- .sale-notic FOR SALE
+                            .feature-text
+                                .text-center.feature-title
+                                    h5 
+                                        a(href=`/property/${property.id}/${property.title.split(' ').join('-')}`)=property.title
+                                    p
+                                        i.fa.fa-map-marker
+                                        |  #{property.state}, #{property.city}
+                                .room-info-warp
+                                    .room-info
+                                        .rf-left
+                                            p
+                                                i.fa.fa-th-large
+                                                |  #{property.plot_size} Square foot
+                                            p
+                                                i.fa.fa-bed
+                                                |  #{property.bedrooms} Bedrooms
+                                        .rf-right
+                                            p
+                                                i.fa.fa-car
+                                                |  #{property.garage} Garages
+                                            p
+                                                i.fa.fa-bath
+                                                |  #{property.toilets} Toilets
+                                    .room-info
+                                        .rf-left
+                                            p
+                                                i.fa.fa-user
+                                                |  Qandos
+                                        .rf-right
+                                            p
+                                                i.fa.fa-clock-o
+                                                |  #{view.formatDateSince(property.createdAt)} ago
+                                a.room-price(href=`/property/${property.id}/${property.title.split(' ').join('-')}`) N#{view.formatCurrency(property.cost)}
+                                //- .row
+                                //-     .col-md-8
+                                //-         .input-group.mb-2
+                                //-             input.form-control#agentCode(value=`${referralLink}` readonly)
+                                //-     .col-md-2
+                                //-         button.btn.btn-custom(onclick='copyToClipboard()') 
+                                //-             i.ti.ti-clipboard-text 
+                                //-             | Copy Link
+
+block scriptBlock 
+    script.
+
+        const signupForm = document.getElementById("form-signup");
+        const appointmentForm = document.getElementById("form-appointment");
+        const addToWishlistBtn = document.getElementById("add-to-wishlist");
+        let appointmentTime;
+
+        signupForm && signupForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            appointmentTime = document.querySelector('input[type="datetime-local"]').value;
+            const data = new FormData(this);
+            const formData = serialize(data);
+            const res = await postForm("/signup", formData);
+            if (res.status.trim() == 'success') {
+                document.getElementById('form-signup').classList.add('d-none');
+                document.getElementById('date').innerHTML = new Date(appointmentTime).toLocaleDateString('en-GB');
+                document.getElementById('time').innerHTML = new Date(appointmentTime).toLocaleTimeString('en-GB');
+                document.getElementById('userPane').classList.remove('d-none');
+            } else {
+                alert('Error')
+            }
+        });
+
+        appointmentForm && appointmentForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            appointmentTime = document.querySelector('input[type="datetime-local"]').value;
+            const data = new FormData(this);
+            const formData = serialize(data);
+            const res = await postForm("/book-appointment", formData);
+            if (res.status.trim() == 'success') {
+                document.getElementById('form-appointment').classList.add('d-none');
+                document.getElementById('date').innerHTML = new Date(appointmentTime).toLocaleDateString('en-GB');
+                document.getElementById('time').innerHTML = new Date(appointmentTime).toLocaleTimeString('en-GB');
+                document.getElementById('userPane').classList.remove('d-none');
+            } else {
+                alert('Error')
+            }
+        });
+
+        addToWishlistBtn && addToWishlistBtn.addEventListener('click', async function() {
+            const PropertyId = this.dataset.propertyid;
+            const referralCode = this.dataset.referral_code;
+            const res = await fetch('/add-to-wishlist', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ PropertyId, referralCode })
+            });
+        })

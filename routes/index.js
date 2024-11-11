@@ -38,7 +38,23 @@ router.get('/contact', isAuthenticated, async (req, res, next) => {
 
 router.get('/signup', async (req, res, next) => {
     try {
-        res.render('signup', { title: 'Sign Up' });
+        res.render('signup', { title: 'Sign Up Option' });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/buyer-signup', async (req, res, next) => {
+    try {
+        res.render('buyer-signup', { title: 'Sign Up as Buyer' });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/partner-signup', async (req, res, next) => {
+    try {
+        res.render('partner-signup', { title: 'Sign Up as Partner', states });
     } catch (err) {
         next(err);
     }
@@ -50,20 +66,43 @@ router.get('/login', (req, res) => {
 
 router.post('/signup', async (req, res, next) => {
     try {
-        const { propertyId: PropertyId, datetime, ...userData } = req.body;
+        const { PropertyId, datetime, referral_code = null, ...userData } = req.body;
         const newUser = await userService.create(userData);
         if (req.query.json == 'no') {
+            if (newUser.role == 'partner') {
+                return res.render('partner-signup', { title: 'Sign Up', newUser });
+            }
             return res.render('signup', { title: 'Sign Up', newUser });
         }
 
         if (PropertyId) {
-            const data = { PropertyId, UserId: newUser.id };
-            await Promise.all([
+            const data = { PropertyId, UserId: newUser.id, referral_code };
+            await Promise.all([ 
                 wishlistService.create(data),
                 appointmentService.create({ ...data, datetime })
             ]);
         }
         res.json({ status: 'success'});
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.post('/book-appointment', authenticate, async (req, res, next) => {
+    try {
+        const { id: UserId } = req.session.user;
+        await appointmentService.create({ ...req.body, UserId });
+        res.json({ status: 'success'});
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.post('/add-to-wishlist', authenticate, async (req, res, next) => {
+    try {
+        const { id: UserId } = req.session.user;
+        await wishlistService.create({ ...req.body, UserId });
+        res.json({ status: 'success' });
     } catch (err) {
         next(err);
     }
@@ -81,8 +120,14 @@ router.post('/login', async (req, res, next) => {
             req.session.cookie.maxAge = 60 * 60 * 1000 * 24 * 30;   // 30 days
             req.session.user.remember_me = true;
         }
-        res.redirect('/user/appointments')
+        const userPage = {
+            user: '/user/appointments',
+            partner: '/partner/appointments',
+            agent: ''
+        };
+        res.redirect(userPage[user.role]);
     } catch (err) {
+        console.log(err)
         next(err);
     }
 });

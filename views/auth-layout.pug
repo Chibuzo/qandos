@@ -1,84 +1,56 @@
 doctype html
 head
-    // Title
-    title V Express - #{title}
-    // Required Meta Tag
-    meta(http-equiv='Content-Type' content='text/html; charset=UTF-8')
+    meta(charset='utf-8')
     meta(name='viewport' content='width=device-width, initial-scale=1')
-    meta(name='handheldfriendly' content='true')
-    meta(name='MobileOptimized' content='width')
-    meta(name='description' content='Chartered Flight')
-    meta(name='author' content='')
-    meta(name='keywords' content='Flight, Charter')
-    meta(http-equiv='X-UA-Compatible' content='IE=edge')
-    // Favicon
-    link(rel='shortcut icon' type='image/png' href='/images/logos/favicon.png')
-    // Core Css
-    link#themeColors(rel='stylesheet' href='/css/style.min.css')
-    style. 
-        .radial-gradient::before {
-            background: #FF6347;
-            opacity: 1
+    meta(name='description' content='')
+    title #{_app_name} Qandos Sign up Options
+    // Bootstrap core CSS
+    link(href='/css/style.min.css' rel='stylesheet')
+    meta(name='theme-color' content='#7952b3')
+    style.
+        html,
+        body {
+            height: 100%;
         }
-// Preloader
-.preloader
-    img.lds-ripple.img-fluid(src='/images/logos/favicon.png' alt='loader')
-// Preloader
-.preloader
-    img.lds-ripple.img-fluid(src='/images/logos/favicon.png' alt='loader')
-// Body Wrapper
-#main-wrapper.page-wrapper(data-layout='vertical' data-sidebartype='full' data-sidebar-position='fixed' data-header-position='fixed')
-    .position-relative.overflow-hidden.radial-gradient.min-vh-100
-        .position-relative.z-index-5
-            .row
-                .col-xl-7.col-xxl-8
-                    a.text-nowrap.logo-img.d-block.px-4.py-9.w-100(href='/')
-                        img(src='/images/logo.png' width='180' alt='')
-                    //- .d-none.d-xl-flex.align-items-center.justify-content-center(stle='height: calc(100vh - 80px);')
-                    //-     img.img-fluid(src='/images/airplane.png' alt='' width='500')
-                .col-xl-5.col-xxl-4
-                    .authentication-login.min-vh-100.bg-body.row.justify-content-center.align-items-center.p-4
 
+        body {
+            display: flex;
+            align-items: center;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+        }
 
-                        block content 
+        .form-signin {
+            width: 100%;
+            max-width: 400px;
+            padding: 15px;
+            margin: auto;
+        }
 
-// Import Js Files
-script(src='/libs/jquery/dist/jquery.min.js')
-script(src='/libs/simplebar/dist/simplebar.min.js')
-script(src='/libs/bootstrap/dist/js/bootstrap.bundle.min.js')
-// core files
-script(src='/js/app.min.js')
-script(src='/js/app.init.js')
-script(src='/js/app-style-switcher.js')
-script(src='/js/sidebarmenu.js')
-script(src='/js/custom.js')
+        .pane {
+            border: 2px solid #666;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 20px
+        }
 
-script. 
-    function serialize(data) {
-        let obj = {};
-        for (let [key, value] of data) {
-            if (obj[key] !== undefined) {
-                if (!Array.isArray(obj[key])) {
-                    obj[key] = [obj[key]];
-                }
-                obj[key].push(value);
-            } else {
-                obj[key] = value;
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
             }
         }
-        return obj;
-    }
 
-    async function postForm(url, data) {
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data)
-        });
-        return res.json();
-    }
+main.form-signin.text-center
+    img(src='/img/logo.png' width='180' alt='')
+
+    block content
 
 
 block scriptBlock

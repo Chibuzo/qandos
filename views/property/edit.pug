@@ -122,6 +122,14 @@ block content
                                 label.form-label Latitude 
                                 input.form-control(name="latitude" type='text' value=`${property.latitude || ''}`)  
 
+                        .form-group.mb-4.row
+                            .col-md-6
+                                label.form-label Featured
+                                select.form-control#city(name="featured" required)  
+                                    option(value='') -- Featured --
+                                    option(value='0' selected) No 
+                                    option(value='1') Yes
+                         
                         .mb-3 
                             button.btn.btn-primary.float-end.ms-3(type='submit') Save Property
                             a.btn.btn-light.float-end(href=`/property/list`) Cancel

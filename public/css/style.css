@@ -134,6 +134,22 @@ ul {
 	color: #fff;
 }
 
+.btn-custom {
+	color: #fff;
+	background-color: #bdab2d;
+	border-radius: 3px !important;
+	padding: 7px 15px;
+}
+
+.btn-lg {
+	padding: 12px;
+	font-size: 16px !important
+}
+
+.btn-custom:hover {
+	background-color: #aa9915 !important;
+	color: #fff !important;
+}
 /* Preloder */
 
 #preloder {
@@ -1342,7 +1358,7 @@ ul {
 	font-weight: 600;
 	border: none;
 	min-width: 80px;
-	height: 30px;
+	/* height: 30px; */
 	border-radius: 1px;
 	cursor: pointer;
 }

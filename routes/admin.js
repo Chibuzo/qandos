@@ -3,7 +3,7 @@ const router = express.Router();
 const adminService = require('../services/adminService');
 const authenticateAdmin = require('../middlewares/authenticateAdmin');
 const userService = require('../services/userService');
-const { User, sequelize } = require('../models');
+const paymentService = require('../services/paymentService');
 
 
 router.get('/', function (req, res) {
@@ -26,7 +26,7 @@ router.post('/create', async (req, res, next) => {
 router.post('/login', async (req, res, next) => {
     try {
         req.session.admin = await adminService.login(req.body);
-        res.redirect('/property/list');
+        res.redirect('/admin/dashboard');
     } catch (err) {
         next(err);
     }
@@ -34,24 +34,38 @@ router.post('/login', async (req, res, next) => {
 
 router.get('/dashboard', authenticateAdmin, async (req, res, next) => {
     try {
-        const data = await adminService.fetchDashboardData();
-        res.render('admin/dashboard', { ...data });
+        const partners = await userService.list({ role: 'partner', agent_status: 'pending' });
+        res.render('admin/dashboard', { partners });
     } catch (err) {
         next(err);
     }
 });
 
 
-
+router.post('/update-partner', async (req, res, next) => {
+    try {
+        const { userId, status } = req.body;
+        await userService.updateUser({ agent_status: status == 'accept' ? 'verified' : 'rejected' }, userId);
+        res.status(200).json({ status: 'success' });
+    } catch (err) {
+        next(err);
+    }
+});
 
 router.get('/users', authenticateAdmin, async (req, res, next) => {
     try {
-        const users = await userService.find({
-            order: [
-                ['createdAt', 'DESC']
-            ]
-        });
+        const users = await userService.list();
         res.render('admin/members', { users });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/transactions', async (req, res, next) => {
+    try {
+        // const criteria = { UserId: req.session.user.id }
+        const transactions = await paymentService.listPayments({});
+        res.render('partner/transactions', { transactions });
     } catch (err) {
         next(err);
     }

@@ -3,7 +3,7 @@ head
     meta(charset='utf-8')
     meta(name='viewport' content='width=device-width, initial-scale=1')
     meta(name='description' content='')
-    title #{_app_name} Qandos Sign up
+    title #{_app_name} Qandos Sign up Options
     // Bootstrap core CSS
     link(href='/css/style.min.css' rel='stylesheet')
     meta(name='theme-color' content='#7952b3')
@@ -23,14 +23,16 @@ head
 
         .form-signin {
             width: 100%;
-            max-width: 330px;
+            max-width: 400px;
             padding: 15px;
             margin: auto;
         }
 
-
-        .form-signin .form-floating:focus-within {
-            z-index: 2;
+        .pane {
+            border: 2px solid #666;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 20px
         }
 
         .bd-placeholder-img {
@@ -49,35 +51,12 @@ head
 main.form-signin.text-center
     //- img(src='/img/logo.png' wdth='180' alt='')
 
-    if newUser 
-        .alert.alert-success.text-center.mt-4
-            i.fa.fa-check-circle.fa-4x
-            br/ 
-            | Thank you for signing up with Qandos. 
-            br/ A mail has been sent to you to verify your email address
+    h4.mb-4 Sign up as:
 
-        a.text-primary.fw-medium.ms-2(href='/login') Click here to Login
-    else
-        form(method="post" action="/signup")
-            h1.h3.mb-3.fw-normal Sign Up
-            .form-floating.mb-3
-                input#floatingInput.form-control(type='text' name="fullname" placeholder='Your name' required)
-                label(for='floatingInput') Name
-            .form-floating.mb-3
-                input#floatingInput.form-control(type='email' name="email" placeholder='name@example.com' required)
-                label(for='floatingInput') Email address
-            .form-floating.mb-3
-                input#floatingInput.form-control(type='tel' name="phone" placeholder='Your phone number')
-                label(for='floatingInput') Phone
-            .form-floating.mb-3
-                input#floatingPassword.form-control(type='password' name="password" placeholder='Password' required)
-                label(for='floatingPassword') Password
-            
-            button.w-100.btn.btn-lg.btn-secondary.mb-3(type='submit') Sign Up
-            p Already have an account? <a href='/login'>Login</a>
-            p.mt-5.mb-3.text-muted Qandos &copy; 
-                script.
-                    document.write(new Date().getFullYear());
+    .d-grid.gap-3
+        a.btn.btn-lg.btn-primary.btn-block(href="/buyer-signup") BUYER
+
+        a.btn.btn-lg.btn-primary.btn-block(href="/partner-signup") PARTNER
 
              
             

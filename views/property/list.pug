@@ -28,6 +28,7 @@ block content
                             th Location
                             th Age
                             th Cost 
+                            th Feat.
                             th status
                             th Action
                     tbody
@@ -39,6 +40,11 @@ block content
                                 td #{property.state}, #{property.city} 
                                 td=property.age 
                                 td N #{view.formatCurrency(property.cost)}
+                                td 
+                                    if property.featured == '1'
+                                        | Yes
+                                    else 
+                                        | No
                                 td=property.status 
                                 td
                                     a(href=`/property/${property.id}/edit`).me-2

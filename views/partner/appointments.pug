@@ -5,18 +5,18 @@ block content
         .card-body.px-4.py-3
             .row.align-items-center
                 .col-9
-                    h4.fw-semibold.mb-8 WishList
+                    h4.fw-semibold.mb-8 Appointments
                     nav(aria-label='breadcrumb')
                         ol.breadcrumb
                             li.breadcrumb-item
                                 a.text-muted(href='index.html') Home
-                            li.breadcrumb-item(aria-current='page') Wishlist
+                            li.breadcrumb-item(aria-current='page') Appointments
                 .col-3
                     .text-center.mb-n5
                         img.img-fluid.mb-n4(src='../../dist/images/breadcrumb/ChatBc.png' alt='')
     .card.w-100.position-relative.overflow-hidden
         .px-4.py-3.border-bottom
-            .card-title.fw-semibold.mb-0.lh-sm Wishlist
+            .card-subtitle Your Referals' Appointments
         .card-body.p-4
             .table-responsive.rounded-2.mb-4
                 table.table
@@ -26,14 +26,17 @@ block content
                             th Property
                             th Location
                             th Cost
-                            th 
+                            th Appointment Date 
+                            th Interested Buyer
 
                     tbody
-                        each list in wishlist 
+                        each appointment in appointments 
                             tr
-                                td= view.formatDate(list.createdAt)
-                                td= list.Property.title
-                                td #{list.Property.state}, #{list.Property.city}
-                                td= '₦' + view.formatCurrency(list.Property.cost) 
+                                td= view.formatDate(appointment.createdAt)
+                                td= appointment.Property.title  
+                                td #{appointment.Property.state}, #{appointment.Property.city}
+                                td= '₦' + view.formatCurrency(appointment.Property.cost) 
+                                td #{view.formatDate(appointment.datetime)}: #{view.formatTime(appointment.datetime)}
+                                td= appointment.User.fullname
                                 
 

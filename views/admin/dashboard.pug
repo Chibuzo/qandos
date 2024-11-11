@@ -1,49 +1,49 @@
 extend layout 
 
 block content
-    .row
-        .col
-            .item
-                .card.border-0.zoom-in.bg-light-warning.shadow-none
-                    .card-body
-                        .text-center
-                            img.mb-3(src='https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/svgs/icon-briefcase.svg' width='50' height='50' alt='')
-                            p.fw-semibold.fs-3.text-warning.mb-1 Active Users
-                            h5.fw-semibold.text-warning.mb-0 #{activeUsers}
-        .col
-            .item
-                .card.border-0.zoom-in.bg-light-info.shadow-none
-                    .card-body
-                        .text-center
-                            img.mb-3(src='https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/svgs/icon-mailbox.svg' width='50' height='50' alt='')
-                            p.fw-semibold.fs-3.text-info.mb-1 Total Contributions
-                            h5.fw-semibold.text-info.mb-0 #{view.formatCurrency(totalContribution)}
-        .col
-            .item
-                .card.border-0.zoom-in.bg-light-danger.shadow-none
-                    .card-body
-                        .text-center
-                            img.mb-3(src='https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/svgs/icon-favorites.svg' width='50' height='50' alt='')
-                            p.fw-semibold.fs-3.text-danger.mb-1 No of Contributions
-                            h5.fw-semibold.text-danger.mb-0 #{totalNumOfContributions}
-        .col
-            .item
-                .card.border-0.zoom-in.bg-light-success.shadow-none
-                    .card-body
-                        .text-center
-                            img.mb-3(src='https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/svgs/icon-speech-bubble.svg' width='50' height='50' alt='')
-                            p.fw-semibold.fs-3.text-success.mb-1 Total Payouts
-                            h5.fw-semibold.text-success.mb-0 #{view.formatCurrency(totalPayouts)}
+    //- .row
+    //-     .col
+    //-         .item
+    //-             .card.border-0.zoom-in.bg-light-warning.shadow-none
+    //-                 .card-body
+    //-                     .text-center
+    //-                         img.mb-3(src='https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/svgs/icon-briefcase.svg' width='50' height='50' alt='')
+    //-                         p.fw-semibold.fs-3.text-warning.mb-1 Active Users
+    //-                         h5.fw-semibold.text-warning.mb-0 #{activeUsers}
+    //-     .col
+    //-         .item
+    //-             .card.border-0.zoom-in.bg-light-info.shadow-none
+    //-                 .card-body
+    //-                     .text-center
+    //-                         img.mb-3(src='https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/svgs/icon-mailbox.svg' width='50' height='50' alt='')
+    //-                         p.fw-semibold.fs-3.text-info.mb-1 Total Contributions
+    //-                         h5.fw-semibold.text-info.mb-0 #{view.formatCurrency(totalContribution)}
+    //-     .col
+    //-         .item
+    //-             .card.border-0.zoom-in.bg-light-danger.shadow-none
+    //-                 .card-body
+    //-                     .text-center
+    //-                         img.mb-3(src='https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/svgs/icon-favorites.svg' width='50' height='50' alt='')
+    //-                         p.fw-semibold.fs-3.text-danger.mb-1 No of Contributions
+    //-                         h5.fw-semibold.text-danger.mb-0 #{totalNumOfContributions}
+    //-     .col
+    //-         .item
+    //-             .card.border-0.zoom-in.bg-light-success.shadow-none
+    //-                 .card-body
+    //-                     .text-center
+    //-                         img.mb-3(src='https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/svgs/icon-speech-bubble.svg' width='50' height='50' alt='')
+    //-                         p.fw-semibold.fs-3.text-success.mb-1 Total Payouts
+    //-                         h5.fw-semibold.text-success.mb-0 #{view.formatCurrency(totalPayouts)}
 
-    .row.mt-3
-        .col.d-flex.align-items-stretch
-            .w-100
-                .d-md-flex.align-items-start.gap-3
-                    div
-                        h6.mb-0 Monthly Contribution
+    //- .row.mt-3
+    //-     .col.d-flex.align-items-stretch
+    //-         .w-100
+    //-             .d-md-flex.align-items-start.gap-3
+    //-                 div
+    //-                     h6.mb-0 Monthly Contribution
 
-                .mt-2.mb-5
-                    #financial
+    //-             .mt-2.mb-5
+    //-                 #financial
 
     .row 
         .col
@@ -51,98 +51,112 @@ block content
                 .card-body
                     .d-flex.mb-1.align-items-center
                         div 
-                            h5.mb-0 Contributions
-                    .card-subtitle.mb-3 Recent Contributions
+                            h5.mb-0 Partners
+                    .card-subtitle.mb-3 Pending Partner Sign ups
                     .table-responsive
                         table.table
                             thead
                                 tr
                                     th Date
-                                    th Member
-                                    th Channel
-                                    th Amount
+                                    th Fullname
+                                    th State
+                                    th Email
+                                    th Phone
                                     th Status
+                                    th Action
 
                             tbody
-                                each trnx in recentContributions
+                                each partner in partners
                                     tr
-                                        td= view.formatDate(trnx.createdAt)
-                                        td= trnx.User.fullname
-                                        td= trnx.channel 
-                                        td= '₦' + view.formatCurrency(trnx.amount) 
-                                        td
-                                            if (trnx.status == 'pending') 
-                                                span.badge.bg-light-warning.text-warning.rounded-pill
-                                                    span.round-8.bg-warning.rounded-circle.d-inline-block.me-1
-                                                    | #{trnx.status}
-                                            else if (trnx.status == 'success') 
-                                                span.badge.bg-light-success.text-success.rounded-pill
-                                                    span.round-8.bg-success.rounded-circle.d-inline-block.me-1  
-                                                    | #{trnx.status}
-                                            else if (trnx.status == 'failed') 
-                                                span.badge.bg-light-danger.text-danger.rounded-pill
-                                                    span.round-8.bg-danger.rounded-circle.d-inline-block.me-1  
-                                                    | #{trnx.status}
+                                        td= view.formatDate(partner.createdAt)
+                                        td= partner.fullname
+                                        td= partner.state 
+                                        td= partner.email
+                                        td= partner.phone
+                                        td= partner.status
+                                        td  
+                                            a(href='#' onClick=`changePartnerStatus('${partner.id}', 'accept')` title='Confirm Partner').me-2
+                                                span(style='font-size: 16px')    
+                                                    i.ti.ti-check
+                                            
+                                            a(href=`#` onClick=`changePartnerStatus('${partner.id}', 'reject')` title='Reject Partner') 
+                                                span(style='font-size: 16px')
+                                                    i.ti.ti-ban
 
 
 block scriptBlock 
-    script(src='/libs/apexcharts/dist/apexcharts.min.js')
+    //- script(src='/libs/apexcharts/dist/apexcharts.min.js')
     script. 
-        const chart_data = !{JSON.stringify(chartData)};
-        $(function () {
-            var chart = {
-                series: [
-                    {
-                        name: "Monthl contribution",
-                        data: chart_data.data,
-                    }
-                ],
-                chart: {
-                    toolbar: {
-                        show: false,
-                    },
-                    type: "line",
-                    fontFamily: "DM Sans,sans-serif",
-                    foreColor: "#adb0bb",
-                    height: 200,
-                },
-                colors: ["#fa896b", "#615dff", "#3dd9eb"],
-                dataLabels: {
-                    enabled: false,
-                },
-                legend: {
-                    show: false,
-                },
-                stroke: {
-                    curve: "smooth",
-                    width: 3,
-                },
-                grid: {
-                    borderColor: 'rgba(0,0,0,0.1)' 
-                    ,strokeDashArray: 3,
-                    xaxis: {
-                        lines: {
-                            show: false,
-                        },
-                    },
-                    padding: {
-                        top: 0,
-                        right: 0,
-                        bottom: 0,
-                        left: 0,
-                    },
-                },
-                xaxis: {
-                    categories: chart_data.categories,
-                },
-                yaxis: {
-                    tickAmount: 4,
-                },
-                tooltip: {
-                    theme: "dark",
-                },
-            };
 
-            var chart = new ApexCharts(document.querySelector("#financial"), chart);
-            chart.render();
-        });
+        async function changePartnerStatus(userId, status) {
+            // const action = status == 'accept'
+            if (confirm(`Are you sure you want to ${status} this partner membership?`)) {
+                const res = await fetch('/admin/update-partner', {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ userId, status })
+                });
+                location.reload();
+            }
+        }
+
+        //- const chart_data = !{JSON.stringify(chartData)};
+        //- $(function () {
+        //-     var chart = {
+        //-         series: [
+        //-             {
+        //-                 name: "Monthl contribution",
+        //-                 data: chart_data.data,
+        //-             }
+        //-         ],
+        //-         chart: {
+        //-             toolbar: {
+        //-                 show: false,
+        //-             },
+        //-             type: "line",
+        //-             fontFamily: "DM Sans,sans-serif",
+        //-             foreColor: "#adb0bb",
+        //-             height: 200,
+        //-         },
+        //-         colors: ["#fa896b", "#615dff", "#3dd9eb"],
+        //-         dataLabels: {
+        //-             enabled: false,
+        //-         },
+        //-         legend: {
+        //-             show: false,
+        //-         },
+        //-         stroke: {
+        //-             curve: "smooth",
+        //-             width: 3,
+        //-         },
+        //-         grid: {
+        //-             borderColor: 'rgba(0,0,0,0.1)' 
+        //-             ,strokeDashArray: 3,
+        //-             xaxis: {
+        //-                 lines: {
+        //-                     show: false,
+        //-                 },
+        //-             },
+        //-             padding: {
+        //-                 top: 0,
+        //-                 right: 0,
+        //-                 bottom: 0,
+        //-                 left: 0,
+        //-             },
+        //-         },
+        //-         xaxis: {
+        //-             categories: chart_data.categories,
+        //-         },
+        //-         yaxis: {
+        //-             tickAmount: 4,
+        //-         },
+        //-         tooltip: {
+        //-             theme: "dark",
+        //-         },
+        //-     };
+
+        //-     var chart = new ApexCharts(document.querySelector("#financial"), chart);
+        //-     chart.render();
+        //- });

@@ -7,12 +7,13 @@ const path = require('path');
 const { Op } = require('sequelize');
 const saltRounds = 10;
 const { ErrorHandler } = require('../helpers/errorHandler');
+const { generateUniqueValue } = require('./UtillityService');
 
-
-const create = async ({ fullname, email, phone, password }) => {
+const create = async ({ fullname, email, phone, location, password, role = 'user' }) => {
     if (!fullname) throw new ErrorHandler(400, 'Full name is required');
     // if (!phone) throw new ErrorHandler(400, 'Phone number is required');
     if (!email) throw new ErrorHandler(400, 'Email is required');
+    if (role == 'admin') throw new ErrorHandler(400, 'Invalid value');
 
     const existingUser = await User.findOne({ where: { [Op.or]: [{ email }] } });
 
@@ -23,11 +24,16 @@ const create = async ({ fullname, email, phone, password }) => {
         fullname,
         email,
         phone,
+        location,
+        role
     };
     let emailPath = 'password-reset';
     if (password) {
         data.password = await bcrypt.hash(password, saltRounds);
         emailPath = 'activate';
+    }
+    if (role == 'partner') {
+        data.agent_status = 'pending';
     }
     const newUser = await User.create(data);
     emailService.sendConfirmationEmail(newUser, emailPath);
@@ -46,7 +52,11 @@ const login = async ({ email, password }) => {
     const match = await bcrypt.compare(password, user.password);
     if (!match) throw new ErrorHandler(400, 'Email and password doesn\'t match');
 
-    if (user.status === 'inactive') {
+    if (user.role == 'partner' && user.agent_status != 'verified') {
+        throw new ErrorHandler(403,'Your account is yet to be verified. Please check back in 24 hours, or contact us from the <a href=\'/contact\'>contact page</a>');
+    }
+
+    if (user.status != 'active') {
         return { user };
     }
     return { user };
@@ -73,7 +83,11 @@ const activateAccount = async (email_hash, hash_string) => {
     if (hash_string !== hash) {
         throw new ErrorHandler(400, 'Invalid hash. couldn\'t verify your email');
     }
-    await User.update({ status: 'active' }, { where: { email } });
+    let userData = { status: 'active' };
+    if (user.role == 'partner') {
+        userData.agentCode = generateUniqueValue(15, false);
+    }
+    await User.update(userData, { where: { email } });
     return { ...user, status: 'active' };
 }
 
@@ -99,16 +113,13 @@ const changePassword = async (newPassword, user_id) => {
     return User.update({ password: passwordHash, status: 'active' }, { where: { id: user_id } });
 }
 
-const find = async (criteria = {}) => {
-    const { where = {} } = criteria;
-    delete criteria.where;
-    where.deleted = false;
+const list = async (criteria = {}) => {
     const users = await User.findAll({
-        where,
+        where: { ...criteria, deleted: false },
         order: [
             ['createdAt', 'DESC']
         ],
-        ...criteria
+        raw: true
     });
     return users.map(user => sanitize(user));
 }
@@ -131,16 +142,14 @@ const uploadProfilePhoto = async (photoFile, userId) => {
 
 const sanitize = user => {
     delete user.password;
-    return {
-        ...user.toJSON()
-    };
+    return user;
 }
 
 module.exports = {
     create,
     login,
     activateAccount,
-    find,
+    list,
     view,
     updateUser,
     verifyPasswordResetLink,

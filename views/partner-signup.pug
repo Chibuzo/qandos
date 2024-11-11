@@ -1,0 +1,98 @@
+doctype html
+head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    meta(name='description' content='')
+    title #{_app_name} Qandos Sign up
+    // Bootstrap core CSS
+    link(href='/css/style.min.css' rel='stylesheet')
+    meta(name='theme-color' content='#7952b3')
+    style.
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+        }
+
+        .form-signin {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+
+
+        .form-signin .form-floating:focus-within {
+            z-index: 2;
+        }
+
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+
+
+if newUser 
+    main.text-center(style='width: 600px; margin: auto;')
+        //- img(src='/img/logo.png' wdth='180' alt='')
+
+        .alert.alert-success.text-center.mt-4
+            i.fa.fa-check-circle.fa-4x
+            p Thank you for signing up with Qandos. 
+                br/ A mail has been sent to you to verify your email address 
+            p Secondly, your account may be unverified until we confirm your registration.
+                br/ Don't worry, this process doesn't take long
+
+        a.text-primary.fw-medium.ms-2(href='/login') Click here to Login
+else
+    main.form-signin.text-center
+        //- img(src='/img/logo.png' wdth='180' alt='')
+
+        form(method="post" action="/signup?json=no")
+            h4.mb-3.fw-normal Partner Sign Up
+            .form-floating.mb-3
+                input#floatingInput.form-control(type='text' name="fullname" placeholder='Your name' required)
+                label(for='floatingInput') Name
+            .form-floating.mb-3 
+                select.form-control(name="location" required)  
+                    option(value='') -- State --
+                        each state in states 
+                            option(value=`${state.name}`)= state.name
+                label.form-label State 
+            
+            .form-floating.mb-3
+                input#floatingInput.form-control(type='email' name="email" placeholder='name@example.com' required)
+                label(for='floatingInput') Email address
+            .form-floating.mb-3
+                input#floatingInput.form-control(type='tel' name="phone" placeholder='Your phone number')
+                label(for='floatingInput') Phone
+            .form-floating.mb-3
+                input#floatingPassword.form-control(type='password' name="password" placeholder='Password' required)
+                label(for='floatingPassword') Password
+                input(type='hidden' name='role' value='partner')
+            
+            button.w-100.btn.btn-lg.btn-primary.mb-3(type='submit') Sign Up
+            p Already have an account? <a href='/login'>Login</a>
+            p.mt-5.mb-3.text-muted Qandos &copy; 
+                script.
+                    document.write(new Date().getFullYear());
+
+             
+            
+                

@@ -73,38 +73,6 @@ block content
                             p
                             | #{property.description}
 
-                        h3.sl-sp-title Property Details
-                        .row.property-details-list
-                            .col-md-4.col-sm-6
-                                p
-                                    i.fa.fa-check-circle-o
-                                    |  Air conditioning
-                                p
-                                    i.fa.fa-check-circle-o
-                                    |  Telephone
-                                p
-                                    i.fa.fa-check-circle-o
-                                    |  Laundry Room
-                            .col-md-4.col-sm-6
-                                p
-                                    i.fa.fa-check-circle-o
-                                    |  Central Heating
-                                p
-                                    i.fa.fa-check-circle-o
-                                    |  Family Villa
-                                p
-                                    i.fa.fa-check-circle-o
-                                    |  Metro Central
-                            .col-md-4
-                                p
-                                    i.fa.fa-check-circle-o
-                                    |  City views
-                                p
-                                    i.fa.fa-check-circle-o
-                                    |  Internet
-                                p
-                                    i.fa.fa-check-circle-o
-                                    |  Electric Range
                         
                         //- h3.sl-sp-title.bd-no Floorplans
                         //- #accordion.plan-accordion
@@ -146,8 +114,18 @@ block content
                         h3.sl-sp-title.bd-no Location
                         #map-canvas.pos-map
 
+                        if referralLink
+                            .row.mt-4 
+                                .col-md-10
+                                    .input-group.mb-2
+                                        input.form-control.form-control-lg#agentCode(value=`${referralLink}` readonly)
+                                .col-md-2
+                                    button.btn.btn-custom.btn-lg(onclick='copyToClipboard()') 
+                                        i.ti.ti-clipboard-text 
+                                        | Copy Link
+
                 .col-lg-4.col-md-7.sidebar
-                    .author-card
+                    //- .author-card
                         //- .author-img.set-bg(data-setbg='img/author.jpg')
                         //- .author-info
                         //-     h5 Gina Wesley
@@ -161,19 +139,42 @@ block content
                         //-         a.__cf_email__(href='/cdn-cgi/l/email-protection' data-cfemail='9cfbf5f2fdebf9eff0f9e5aeaadcfbf1fdf5f0b2fff3f1') [email&nbsp;protected]
                     .contact-form-card
                         h5 Interested in this property?
+
+                        #wishListPane.d-none
+                            .alert.alert-info This property has been added to your wishlist
+
+                        if (user)
+                            button.btn-custom.btn-block.btn-lg.mb-4#add-to-wishlist(data-propertyid=`${property.id}` data-referral_code=`${referral_code}`) 
+                                i.fa.fa-heart-o 
+                                | &nbsp;    Add to Wishlist
+                        else 
+                            button.btn-custom.btn-block.btn-lg.mb-4(data-bs-toggle='modal' data-bs-target='#form-login') 
+                                i.fa.fa-heart-o 
+                                | &nbsp;    Add to Wishlist
+                        p.text-center OR 
+                        h5 Book Appointment
                         #userPane.d-none
                             .alert.alert-info An appointment has been successfully booked for this property!
                             h6 DETAILS 
                             p Date: <span id='date'></span>
                             p Time: <span id='time'></span>
 
-                        form#form-signup(method='post')
-                            input(type='text' name='fullname' placeholder='Your name' required)
-                            input(type='email' name='email' placeholder='Your email' required)
-                            input(type='tel' name='phone' placeholder='Your Phone')
-                            input(type='datetime-local' name='datetime' required)
-                            input(type='hidden' name='propertyId' value=`${property.id}`)
-                            button BOOK APPOINTMENT
+                        if (user)
+                            form#form-appointment(method='post')
+                                input(type='datetime-local' name='datetime' required)
+                                input(type='hidden' name='PropertyId' value=`${property.id}`)
+                                input(type='hidden' name='referral_code' value=`${referral_code}`)
+                                button.btn-custom BOOK APPOINTMENT
+                        else
+                            form#form-signup(method='post')
+                                input(type='text' name='fullname' placeholder='Your name' required)
+                                input(type='email' name='email' placeholder='Your email' required)
+                                input(type='tel' name='phone' placeholder='Your Phone')
+                                input(type='datetime-local' name='datetime' required)
+                                input(type='hidden' name='PropertyId' value=`${property.id}`)
+                                input(type='hidden' name='referral_code' value=`${referral_code}`)
+
+                                button.btn-custom BOOK APPOINTMENT
                     .related-properties
                         h2 Related Property
                         each property in relatedProperties
@@ -191,9 +192,11 @@ block scriptBlock
     script.
 
         const signupForm = document.getElementById("form-signup");
+        const appointmentForm = document.getElementById("form-appointment");
+        const addToWishlistBtn = document.getElementById("add-to-wishlist");
         let appointmentTime;
 
-        signupForm.addEventListener('submit', async function(e) {
+        signupForm && signupForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             appointmentTime = document.querySelector('input[type="datetime-local"]').value;
             const data = new FormData(this);
@@ -205,7 +208,50 @@ block scriptBlock
                 document.getElementById('time').innerHTML = new Date(appointmentTime).toLocaleTimeString('en-GB');
                 document.getElementById('userPane').classList.remove('d-none');
             } else {
-                console.log(res);
                 alert('Error')
             }
         });
+
+        appointmentForm && appointmentForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            appointmentTime = document.querySelector('input[type="datetime-local"]').value;
+            const data = new FormData(this);
+            const formData = serialize(data);
+            const res = await postForm("/book-appointment", formData);
+            if (res.status.trim() == 'success') {
+                document.getElementById('form-appointment').classList.add('d-none');
+                document.getElementById('date').innerHTML = new Date(appointmentTime).toLocaleDateString('en-GB');
+                document.getElementById('time').innerHTML = new Date(appointmentTime).toLocaleTimeString('en-GB');
+                document.getElementById('userPane').classList.remove('d-none');
+            } else {
+                alert('Error')
+            }
+        });
+
+        addToWishlistBtn && addToWishlistBtn.addEventListener('click', async function() {
+            const PropertyId = this.dataset.propertyid;
+            const referral_code = this.dataset.referral_code;
+            const res = await fetch('/add-to-wishlist', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ PropertyId, referral_code })
+            });
+            if (res.status.trim() == 'success') {
+                document.getElementById('wishListPane').classList.remove('d-none');
+            }
+        });
+
+        function copyToClipboard() {
+            var copyText = document.getElementById("agentCode");
+
+            // Select the text field
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+
+            // Copy the text inside the text field
+            navigator.clipboard.writeText(copyText.value);
+
+            alert("Referral link copied to clipboard")
+        }

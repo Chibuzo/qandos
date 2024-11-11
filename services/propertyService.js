@@ -21,7 +21,7 @@ const list = async (criteria = {}, limit = 15) => {
 
 const fetchFeatured = async () => {
     return Property.findAll({ 
-        where: { deleted: false },
+        where: { featured: 1, deleted: false },
         order: Sequelize.literal('rand()'), 
         include: {
             model: PropertyMedia,

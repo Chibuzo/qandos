@@ -76,10 +76,26 @@ router.get('/:id/delete', async (req, res, next) => {
 
 router.get('/:id/:title', async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const property = await propertyService.view(id)
+        const { id, title } = req.params;
+        const { referral_code = null } = req.query;
+        const { user: partner } = req.session;
+        const referralLink = (partner && partner.role == 'partner')
+            ? process.env.BASE_URL + `property/${id}/${title.split(' ').join('-')}?referral_code=${partner.agentCode}`
+            : null;
+        
+        const property = await propertyService.view(id);
         const relatedProperties = await propertyService.fetchRelatedProperties(property);
-        res.render('property', { property, relatedProperties });
+        res.render('property', { property, relatedProperties, referral_code, referralLink });
+    } catch(err) {
+        next(err);
+    }
+});
+
+router.get('/browse', async (req, res, next) => {
+    try {
+        const user = req.session.user || {};
+        const properties = await propertyService.list({}, 15);
+        res.render('properties', { properties, referral_code: user.agent_code || null });
     } catch(err) {
         next(err);
     }

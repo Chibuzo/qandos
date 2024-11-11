@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
             type: Sequelize.ENUM('pending', 'missed', 'done'),
             defaultValue: 'pending'
         },
+        referral_code: DataTypes.STRING(15),
         deleted: {
             type: DataTypes.BOOLEAN,
             defaultValue: false

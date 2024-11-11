@@ -21,14 +21,20 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(15),
         },
         password: DataTypes.STRING(60),
-        location: DataTypes.STRING,
+        location: DataTypes.STRING(60),
         role: {
-            type: Sequelize.ENUM('admin', 'user'),
+            type: Sequelize.ENUM('admin', 'user', 'partner', 'agent'),
             defaultValue: 'user'
         },
         status: {
-            type: Sequelize.ENUM('inactive', 'active', 'verified', 'disabled'),
+            type: Sequelize.ENUM('inactive', 'active', 'disabled'),
             defaultValue: 'inactive'
+        },
+        agent_status: {
+            type: Sequelize.ENUM('pending', 'verified', 'rejected')
+        },
+        agentCode: {
+            type: DataTypes.STRING(15)
         },
         deleted: {
             type: DataTypes.BOOLEAN,
@@ -39,7 +45,8 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'users',
         indexes: [
             { unique: true, fields: ['email'] },
-            { unique: true, fields: ['phone'] }
+            { unique: true, fields: ['phone'] },
+            { unique: true, fields: ['agentCode'] }
         ],
 
     });
