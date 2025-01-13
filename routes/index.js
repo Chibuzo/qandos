@@ -27,10 +27,50 @@ router.get('/', isAuthenticated, async (req, res, next) => {
     }
 });
 
+router.get('/about', isAuthenticated, async (req, res, next) => {
+    try {
+        res.render('about', { title: 'About Us' });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/how-it-works', async (req, res, next) => {
+    try {
+        res.render('how-it-works', { title: 'How it Works' });
+    } catch (err) {
+        next(err);
+    }
+});
+
 router.get('/contact', isAuthenticated, async (req, res, next) => {
     try {
         const userSession = req.session.user ?? null;
         res.render('contact', { title: 'Contact Us' });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/faq', async (req, res, next) => {
+    try {
+        res.render('faq', { title: 'FAQ' });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/for-diaspora', isAuthenticated, async (req, res, next) => {
+    try {
+        res.render('for-diaspora', { title: 'Qandos for Nigerians in Diaspora' });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/for-nigerians', isAuthenticated, async (req, res, next) => {
+    try {
+        res.render('for-nigerians', { title: 'Qandos for Nigerians in Nigeria' });
     } catch (err) {
         next(err);
     }
@@ -110,7 +150,7 @@ router.post('/add-to-wishlist', authenticate, async (req, res, next) => {
 
 router.post('/login', async (req, res, next) => {
     try {
-        const { user } = await userService.login(req.body);
+        const user = await userService.login(req.body);
         if (user.status == 'inactive') {
             req.session.temp_email = user.email;
             return res.render('user/activate-account', { user_status: user.status });
@@ -127,7 +167,7 @@ router.post('/login', async (req, res, next) => {
         };
         res.redirect(userPage[user.role]);
     } catch (err) {
-        console.log(err)
+        //console.log(err)
         next(err);
     }
 });
@@ -155,7 +195,8 @@ router.get('/user/activate-account', (req, res) => {
 router.get('/resend-verification-email', async (req, res) => {
     const email = req.session.temp_email || '';
     const user = await userService.view({ email });
-    emailService.sendConfirmationEmail(user);
+    const emailPath = user.password ? 'activate' : 'password-reset';
+    emailService.sendConfirmationEmail(user, emailPath);
     res.end();
 });
 

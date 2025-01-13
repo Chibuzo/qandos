@@ -1,53 +1,6 @@
-doctype html
-head
-    meta(charset='utf-8')
-    meta(name='viewport' content='width=device-width, initial-scale=1')
-    meta(name='description' content='')
-    title #{_app_name} Qandos Sign up
-    // Bootstrap core CSS
-    link(href='/css/style.min.css' rel='stylesheet')
-    meta(name='theme-color' content='#7952b3')
-    style.
-        html,
-        body {
-            height: 100%;
-        }
+extend auth-layout.pug
 
-        body {
-            display: flex;
-            align-items: center;
-            padding-top: 40px;
-            padding-bottom: 40px;
-            background-color: #f5f5f5;
-        }
-
-        .form-signin {
-            width: 100%;
-            max-width: 330px;
-            padding: 15px;
-            margin: auto;
-        }
-
-
-        .form-signin .form-floating:focus-within {
-            z-index: 2;
-        }
-
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-
-main.form-signin.text-center
-    //- img(src='/img/logo.png' wdth='180' alt='')
+block content
 
     if newUser 
         .alert.alert-success.text-center.mt-4
@@ -58,8 +11,8 @@ main.form-signin.text-center
 
         a.text-primary.fw-medium.ms-2(href='/login') Click here to Login
     else
-        form(method="post" action="/signup")
-            h3.mb-3.fw-normal Buyer Sign Up
+        form(method="post" action="/signup?json=no")
+            h4.mb-3.fw-normal BUYER
             .form-floating.mb-3
                 input#floatingInput.form-control(type='text' name="fullname" placeholder='Your name' required)
                 label(for='floatingInput') Name

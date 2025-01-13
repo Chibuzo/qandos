@@ -49,17 +49,18 @@ const login = async ({ email, password }) => {
     });
     if (!user) throw new ErrorHandler(404, 'Email or password is incorrect');
 
+    if (user.status != 'active') {
+        return sanitize(user);
+    }
+
     const match = await bcrypt.compare(password, user.password);
     if (!match) throw new ErrorHandler(400, 'Email and password doesn\'t match');
 
     if (user.role == 'partner' && user.agent_status != 'verified') {
         throw new ErrorHandler(403,'Your account is yet to be verified. Please check back in 24 hours, or contact us from the <a href=\'/contact\'>contact page</a>');
     }
-
-    if (user.status != 'active') {
-        return { user };
-    }
-    return { user };
+    
+    return sanitize(user);
 }
 
 const findOne = async criteria => {

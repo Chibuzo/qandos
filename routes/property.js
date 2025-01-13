@@ -94,7 +94,8 @@ router.get('/:id/:title', async (req, res, next) => {
 router.get('/browse', async (req, res, next) => {
     try {
         const user = req.session.user || {};
-        const properties = await propertyService.list({}, 15);
+        const { keywords } = req.query;
+        const properties = await propertyService.list({}, 18, keywords);
         res.render('properties', { properties, referral_code: user.agent_code || null });
     } catch(err) {
         next(err);

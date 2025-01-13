@@ -7,7 +7,15 @@ const create = async data => {
     return Property.create(data);
 }
 
-const list = async (criteria = {}, limit = 15) => {
+const list = async (criteria = {}, limit = 15, searchParams = null) => {
+    if (searchParams) {
+        const { keywords, state, city } = searchParams;
+        criteria = { ...criteria, [Op.or]: [
+            { title: { [Op.like]: `%${keywords}%` } },
+            { state: { [Op.like]: `%${state}%` } },
+            { city: { [Op.like]: `%${city}%` } }
+        ] };
+    };
     return Property.findAll({ 
         where: { ...criteria, deleted: false }, 
         include: {

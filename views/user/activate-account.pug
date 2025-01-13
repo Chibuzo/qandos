@@ -32,7 +32,12 @@ block content
 block scriptBlock
     script. 
         function resendEmail() {
-            $.get('/resend-verification-email', function() {
-                alert('Email sent! Please check your email inbox');
+            fetch('/resend-verification-email').then(res => {
+                console.log(res)
+                if (res.status === 200) {
+                    alert('Email sent successfully');
+                } else {
+                    alert('An error occurred. Please try again later');
+                }
             });
         }

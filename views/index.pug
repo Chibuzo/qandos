@@ -12,12 +12,12 @@ block content
                 p Safe and easy real estate investment
                 br
                 
-                a.site-btn(href='#/listing') START INVESTING
+                a.site-btn(href='/property/browse') START INVESTING
     
             .filter-search
                 .container
-                    form.filter-form
-                        input(type='text' placeholder='Search for property type (e.g 3 bedroom terrace duplex)')
+                    form.filter-form(action='/property/browse' method='GET')
+                        input(type='text' name='keywords' placeholder='Search for property type (e.g 3 bedroom terrace duplex)')
                         select#state(name="state")
                             option(value='') -- State --
                                 each state in states 
@@ -76,13 +76,13 @@ block content
                                 p
                                     | We provide specialized services for the Diaspora Community
 
-                    a.site-btn.float-right.mt-4(href='#/listing') START INVESTING
+                    a.site-btn.float-right.mt-4(href='/property/browse') START INVESTING
 
     section.feature-section.spad
         .container
             .section-title.text-center
                 h3 Recent Listings
-                p Browse houses and flats for sale and to rent in your area
+                p Browse houses and flats for sale in your choice locations
             .row
                 each property in properties
                     .col-lg-4.col-md-6
@@ -139,8 +139,8 @@ block content
                     i.fa.fa-star
                     i.fa.fa-star
                     p
-                    | &ldquo;Qandos was quick to understand my needs and steer me in the right direction. Their professionalism and warmth made the process of finding a suitable home a lot less stressful than it could have been. Thanks, agent Tony Holland.&rdquo;
-                    h5 Stacy Mc Neeley
+                    | &ldquo;Qandos was quick to understand my needs and steer me in the right direction. Their professionalism and warmth made the process of finding a suitable home a lot less stressful than it could have been. Thanks, agent Tony Akparanta.&rdquo;
+                    h5 Esther O.
                     span CEP&rsquo;s Director
                     .clint-pic.set-bg(data-setbg='img/review/1.jpg')
                         
@@ -149,22 +149,21 @@ block content
         .container
             .section-title.text-center
                 h3 Popular Places
-                p We understand the value and importance of place
             .gallery
                 .grid-sizer
-                a.gallery-item.grid-long.set-bg(href='#' data-setbg='/img/gallery/1.jpg')
+                a.gallery-item.grid-long.set-bg(href='#' data-setbg='/img/gallery/Abuja.jpg')
                     .gi-info
                         h3 FCT, Abuja
                         p 3 Properties
-                a.gallery-item.grid-wide.set-bg(href='#' data-setbg='/img/gallery/2.jpg')
+                a.gallery-item.grid-wide.set-bg(href='#' data-setbg='/img/gallery/Lagos.jpg')
                     .gi-info
                         h3 Lagos
                         p 0 Properties
-                a.gallery-item.set-bg(href='#' data-setbg='/img/gallery/3.jpg')
+                a.gallery-item.set-bg(href='#' data-setbg='/img/gallery/Enugu.jpg')
                     .gi-info
                         h3 Enugu
                         p 0 Properties
-                a.gallery-item.set-bg(href='#' data-setbg='/img/gallery/4.jpg')
+                a.gallery-item.set-bg(href='#' data-setbg='/img/gallery/Asaba.jpg')
                     .gi-info
                         h3 Asaba
                         p 0 Properties

@@ -1,0 +1,93 @@
+extends layout 
+
+block content
+    section.page-top-section.set-bg(data-setbg='/img/page-top-bg.jpg')
+        .container.text-white
+            h2 FAQ
+
+    .site-breadcrumb
+        .container
+            a(href='')
+                i.fa.fa-home
+                | Home
+            span
+                i.fa.fa-angle-right
+                | FAQ
+
+    section.feature-section
+        .container
+            .row(style='margin-bottom: 150px;')
+                .col-md-7
+                    #accordion.faq-item
+                        .faq-single-item
+                            h3#headingOne
+                                button.btn.btn-link(data-toggle='collapse' data-target='#collapseOne' aria-expanded='true' aria-controls='collapseOne')
+                                    span.lnr.lnr-question-circle
+                                    | How do I know the properties listed on QANDOS are legally verified?
+                            #collapseOne.collapse(aria-labelledby='headingOne' data-parent='#accordion')
+                                .card-body
+                                    p All properties listed on QANDOS go through a rigorous due diligence process. We work with reputable legal firms and verify each property's title deed, land registry, and any encumbrances to ensure they are free of legal issues.
+                        .faq-single-item            
+                            h3#headingTwo
+                                button.btn.btn-link(data-toggle='collapse' data-target='#collapseTwo' aria-expanded='false' aria-controls='collapseTwo')
+                                    span.lnr.lnr-question-circle
+                                    | Can I invest in Nigerian real estate if I’m living abroad?
+                            #collapseTwo.collapse(aria-labelledby='headingTwo' data-parent='#accordion')
+                                .card-body
+                                    p Yes, QANDOS specializes in helping Nigerians in the diaspora invest in real estate. We offer remote services, including virtual property tours, online documentation, and secure payment options to make the process seamless.
+                        .faq-single-item            
+                            h3#headingThree
+                                button.btn.btn-link(data-toggle='collapse' data-target='#collapseThree' aria-expanded='false' aria-controls='collapseTwo')
+                                    span.lnr.lnr-question-circle
+                                    | What payment methods do you accept?
+                            #collapseThree.collapse(aria-labelledby='headingThree' data-parent='#accordion')
+                                .card-body
+                                    p We accept multiple payment methods, including bank transfers, credit/debit cards, and international payment platforms like PayPal. We also offer flexible payment plans to accommodate different financial situations.
+                        .faq-single-item            
+                            h3#headingFour
+                                button.btn.btn-link(data-toggle='collapse' data-target='#collapseFour' aria-expanded='false' aria-controls='collapseTwo')
+                                    span.lnr.lnr-question-circle
+                                    | How can I be sure my investment is secure?
+                            #collapseFour.collapse(aria-labelledby='headingFour' data-parent='#accordion')
+                                .card-body
+                                    p QANDOS uses escrow accounts to hold your funds until all legal requirements are met and the property is transferred to your name. This ensures that your investment is protected throughout the transaction process.
+                        .faq-single-item            
+                            h3#headingFive
+                                button.btn.btn-link(data-toggle='collapse' data-target='#collapseFive' aria-expanded='false' aria-controls='collapseTwo')
+                                    span.lnr.lnr-question-circle
+                                    | What happens if I change my mind after making a payment?
+                            #collapseFive.collapse(aria-labelledby='headingTwo' data-parent='#accordion')
+                                .card-body
+                                    p If you decide to withdraw from the investment before finalizing the purchase, we have a refund policy in place. However, it’s important to review the specific terms and conditions related to refunds for each investment option.
+                        .faq-single-item            
+                            h3#headingSix
+                                button.btn.btn-link(data-toggle='collapse' data-target='#collapseSix' aria-expanded='false' aria-controls='collapseTwo')
+                                    span.lnr.lnr-question-circle
+                                    | How do I manage my property after purchasing it?
+                            #collapseSix.collapse(aria-labelledby='headingTwo' data-parent='#accordion')
+                                .card-body
+                                    p QANDOS offers property management services to help you handle everything from tenant placement to maintenance and rent collection. This service is especially beneficial for Nigerians living abroad who need someone to manage their property locally.
+                        .faq-single-item            
+                            h3#headingSeven
+                                button.btn.btn-link(data-toggle='collapse' data-target='#collapseSeven' aria-expanded='false' aria-controls='collapseTwo')
+                                    span.lnr.lnr-question-circle
+                                    | Are there any tax implications for owning property in Nigeria?
+                            #collapseSeven.collapse(aria-labelledby='headingTwo' data-parent='#accordion')
+                                .card-body
+                                    p Yes, owning property in Nigeria may have tax implications, including property taxes, rental income tax, and capital gains tax if you sell the property. We recommend consulting with a tax advisor to understand your specific obligations.
+                        .faq-single-item            
+                            h3#headingEight
+                                button.btn.btn-link(data-toggle='collapse' data-target='#collapseEight' aria-expanded='false' aria-controls='collapseTwo')
+                                    span.lnr.lnr-question-circle
+                                    | What is the process for transferring property ownership?
+                            #collapseEight.collapse(aria-labelledby='headingTwo' data-parent='#accordion')
+                                .card-body
+                                    p Once the purchase is complete, QANDOS assists with the transfer of ownership by registering the property in your name at the relevant land registry. You will receive all necessary documentation, including the title deed, as proof of ownership.
+
+
+   
+block scriptBlock
+    script.
+        $(document).ready(function() {
+            
+        });
