@@ -15,16 +15,19 @@ block content
                 i.fa.fa-angle-right
                 | Recent Property Listing
 
-    section.feature-section.spad
+    section.feature-section.mb-5
         .container
             .section-title.text-center
                 h3 Property Listings
                 p Browse houses and flats for sale in your choice locations
             .row
+                if properties.length == 0
+                    .col-lg-12
+                        .alert.alert-info.text-center Your search didn't return any properties
                 each property in properties
                     .col-lg-4.col-md-6
                         .feature-item
-                            .feature-pic.set-bg(data-setbg=`${property.PropertyMedia[0] && property.PropertyMedia[0].location}`)
+                            .feature-pic.set-bg(data-setbg=`/${property.PropertyMedia[0] && property.PropertyMedia[0].location}`)
                                 //- .sale-notic FOR SALE
                             .feature-text
                                 .text-center.feature-title

@@ -21,7 +21,7 @@ head
     h5 a { color: #132758 }
 
     video { width: 100% }
-  
+
   block styleBlock
 #preloder
   .loader
@@ -30,34 +30,34 @@ header.header-section
     .container
       .row
         .col-lg-6.header-top-left
-            .top-info
-                i.fa.fa-phone
-                | #{_phone }
-            .top-info
-                i.fa.fa-envelope
-                | #{_email}
+          .top-info
+            i.fa.fa-phone
+            | #{_phone }
+          .top-info
+            i.fa.fa-envelope
+            | #{_email}
         .col-lg-6.text-lg-right.header-top-right
-            .top-social
-                //- a(href='')
-                //-     i.fa.fa-facebook
-                a(href='https://x.com/QandosHQ')
-                    i.fa.fa-twitter
-                a(href='https://instagram.com/qandosafrica')
-                    i.fa.fa-instagram
-                a(href='https://www.linkedin.com/in/qandos-hq')
-                    i.fa.fa-linkedin
-            .user-panel
-                if (user)
-                    a(href='/user/wishlist') 
-                        i.fa.fa-user 
-                        | Account
-                else
-                    a(href='signup')
-                        i.fa.fa-user-circle-o
-                        | Register
-                    a(href='/login')
-                        i.fa.fa-sign-in
-                        |  Login
+          .top-social
+            //- a(href='')
+            //-     i.fa.fa-facebook
+            a(href='https://x.com/QandosHQ')
+              i.fa.fa-twitter
+            a(href='https://instagram.com/qandosafrica')
+              i.fa.fa-instagram
+            a(href='https://www.linkedin.com/in/qandos-hq')
+              i.fa.fa-linkedin
+          .user-panel
+            if (user)
+              a(href='/user/wishlist') 
+                i.fa.fa-user 
+                | Account
+            else
+              a(href='signup')
+                i.fa.fa-user-circle-o
+                | Register
+              a(href='/login')
+                i.fa.fa-sign-in
+                |  Login
   .container
     .row
       .col-12
@@ -98,7 +98,7 @@ footer.footer-section.set-bg(data-setbg='/img/footer-bg.jpg')
             li
               a(href='/contact') Contact
             li 
-                a(href='/faq') FAQ
+              a(href='/faq') FAQ
 
         .social(style='margin-top: 24px')
           //- a(href='#')
@@ -114,7 +114,7 @@ footer.footer-section.set-bg(data-setbg='/img/footer-bg.jpg')
           h5.fw-title CONTACT US
           p
             i.fa.fa-map-marker
-            | 138, Somewhere, Nigeria
+            | Plot 5, Kwaji Close, off Aguiyi Ironsi Street, Maitama District, <br> Abuja FCT
           p
             i.fa.fa-phone
             | #{_phone}
@@ -137,7 +137,7 @@ footer.footer-section.set-bg(data-setbg='/img/footer-bg.jpg')
             //- li
             //-   a(href='#') Media Mentions
 
-            
+
           //- ul
           //-   li
           //-     a(href='') St Louis
@@ -162,7 +162,7 @@ footer.footer-section.set-bg(data-setbg='/img/footer-bg.jpg')
         ul
           li
             a(href='/terms-of-service') Terms of Service
-          
+
       .copyright
         p
           | Copyright &copy;
@@ -170,7 +170,7 @@ footer.footer-section.set-bg(data-setbg='/img/footer-bg.jpg')
           script.
             document.write(new Date().getFullYear());
           |  All rights reserved 
-          
+
           a(href='https://qandos.com') Qandos
 script(src='/js/jquery-3.2.1.min.js')
 script(src='/js/bootstrap.min.js')
@@ -180,30 +180,30 @@ script(src='/js/magnific-popup.min.js')
 script(src='/js/main.js')
 
 script. 
-    function serialize(data) {
-        let obj = {};
-        for (let [key, value] of data) {
-            if (obj[key] !== undefined) {
-                if (!Array.isArray(obj[key])) {
-                    obj[key] = [obj[key]];
-                }
-                obj[key].push(value);
-            } else {
-                obj[key] = value;
-            }
+  function serialize(data) {
+    let obj = {};
+    for (let [key, value] of data) {
+      if (obj[key] !== undefined) {
+        if (!Array.isArray(obj[key])) {
+          obj[key] = [obj[key]];
         }
-        return obj;
+        obj[key].push(value);
+      } else {
+        obj[key] = value;
+      }
     }
+    return obj;
+  }
 
-    async function postForm(url, data) {
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data)
-        });
-        return res.json();
-    }
-    
+  async function postForm(url, data) {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    });
+    return res.json();
+  }
+
 block scriptBlock
