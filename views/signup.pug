@@ -52,13 +52,23 @@ main.form-signin.text-center
     a(href='/')
         img(src='/img/logo.png' width='140' alt='').mb-5
 
-    h4.mb-4 Sign up as:
+    if newUser 
 
-    .d-grid.gap-3
-        a.btn.btn-lg.btn-primary.btn-block(href="/buyer-signup") BUYER
+        .alert.alert-success.text-center.mt-4
+            i.fa.fa-check-circle.fa-4x
+            p Thank you for signing up with Qandos. 
+                br/ A mail has been sent to you to verify your email address 
 
-        a.btn.btn-lg.btn-primary.btn-block(href="/partner-signup") PARTNER
+        a.text-primary.fw-medium.ms-2(href='/login') Click here to Login
 
-             
-            
-                
+    else    
+
+        h4.mb-4 Sign up as:
+
+        .d-grid.gap-3
+            a.btn.btn-lg.btn-primary.btn-block(href="/buyer-signup") BUYER
+
+            a.btn.btn-lg.btn-primary.btn-block(href="/partner-signup") PARTNER
+
+
+

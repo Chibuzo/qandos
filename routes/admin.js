@@ -65,7 +65,7 @@ router.get('/transactions', async (req, res, next) => {
     try {
         // const criteria = { UserId: req.session.user.id }
         const transactions = await paymentService.listPayments({});
-        res.render('partner/transactions', { transactions });
+        res.render('admin/transactions', { transactions });
     } catch (err) {
         next(err);
     }
