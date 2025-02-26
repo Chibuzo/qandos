@@ -32,6 +32,9 @@ const BASE_URL = process.env.BASE_URL;
 const SENT_FROM = process.env.AWS_SES_USER;
 
 const sendMail = (to, subject, template, data) => {
+    data.appName = APP_NAME;
+    data.baseUrl = BASE_URL;
+
     let mailOptions = {
         from: APP_NAME + ' <' + SENT_FROM + '>',
         to: to,

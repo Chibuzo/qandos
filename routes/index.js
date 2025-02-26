@@ -11,6 +11,7 @@ const propertyService = require('../services/propertyService');
 const wishlistService = require('../services/wishlistService');
 const appointmentService = require('../services/appointmentService');
 const utilityService = require('../services/UtillityService');
+const newsletterService = require('../services/newsLetterService');
 const states = require('../config/data/states');
 
 
@@ -117,12 +118,12 @@ router.post('/signup', async (req, res, next) => {
 
         if (PropertyId) {
             const data = { PropertyId, UserId: newUser.id, referral_code };
-            await Promise.all([ 
+            await Promise.all([
                 wishlistService.create(data),
                 appointmentService.create({ ...data, datetime })
             ]);
         }
-        res.json({ status: 'success'});
+        res.json({ status: 'success' });
     } catch (err) {
         next(err);
     }
@@ -132,7 +133,7 @@ router.post('/book-appointment', authenticate, async (req, res, next) => {
     try {
         const { id: UserId } = req.session.user;
         await appointmentService.create({ ...req.body, UserId });
-        res.json({ status: 'success'});
+        res.json({ status: 'success' });
     } catch (err) {
         next(err);
     }
@@ -221,9 +222,9 @@ router.get('/password-reset/:email_hash/:hash_string', async (req, res, next) =>
     try {
         const email_hash = req.params.email_hash;
         const hash_string = req.params.hash_string;
-        const { id, status } = await userService.verifyPasswordResetLink(email_hash, hash_string);
-        req.session.reset_password_id = id;
-        res.render('password-reset-form', { title: 'Set new password', status });
+        const { email, status, account_status } = await userService.verifyPasswordResetLink(email_hash, hash_string);
+        req.session.reset_password_email = email;
+        res.render('password-reset-form', { title: 'Set new password', status, account_status });
     } catch (err) {
         next(err);
     }
@@ -231,10 +232,10 @@ router.get('/password-reset/:email_hash/:hash_string', async (req, res, next) =>
 
 router.post('/reset-password', async (req, res, next) => {
     try {
-        if (!req.session.reset_password_id) throw new ErrorHandler(400, 'Invalid operation');
-        const { password } = req.body;
-        await userService.changePassword(password, req.session.reset_password_id);
-        delete req.session.reset_password_id;
+        if (!req.session.reset_password_email) throw new ErrorHandler(400, 'Invalid operation');
+        const { password, newsletter } = req.body;
+        await userService.changePassword(password, req.session.reset_password_email, newsletter);
+        delete req.session.reset_password_email;
         res.render('login', { title: 'Login', message: 'Your password reset was successful.' });
     } catch (err) {
         next(err);
@@ -275,7 +276,7 @@ router.get('/cities', (req, res, next) => {
     try {
         const { state } = req.query;
         const cities = utilityService.filterCitiesByState(state);
-        res.status(200).json({ status: 'success', data: { cities }});
+        res.status(200).json({ status: 'success', data: { cities } });
     } catch (err) {
         next(err);
     }
@@ -289,7 +290,17 @@ router.get('/delete-media', async (req, res, next) => {
     } catch (err) {
         next(err);
     }
-})
+});
+
+router.post('/newsletter', async (req, res, next) => {
+    try {
+        const { email } = req.body;
+        await newsletterService.create({ email });
+        res.json({ status: 'success' });
+    } catch (err) {
+        next(err);
+    }
+});
 
 
 router.get('/logout', (req, res, next) => {

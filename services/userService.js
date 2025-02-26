@@ -8,8 +8,9 @@ const { Op } = require('sequelize');
 const saltRounds = 10;
 const { ErrorHandler } = require('../helpers/errorHandler');
 const { generateUniqueValue } = require('./UtillityService');
+const newsLetterService = require('./newsLetterService');
 
-const create = async ({ fullname, email, phone, location, password, role = 'user' }) => {
+const create = async ({ fullname, email, phone, location, newsletter, password, role = 'user' }) => {
     if (!fullname) throw new ErrorHandler(400, 'Full name is required');
     // if (!phone) throw new ErrorHandler(400, 'Phone number is required');
     if (!email) throw new ErrorHandler(400, 'Email is required');
@@ -17,7 +18,7 @@ const create = async ({ fullname, email, phone, location, password, role = 'user
 
     const existingUser = await User.findOne({ where: { [Op.or]: [{ email }] } });
 
-    if (existingUser) 
+    if (existingUser)
         return existingUser
 
     const data = {
@@ -25,6 +26,7 @@ const create = async ({ fullname, email, phone, location, password, role = 'user
         email,
         phone,
         location,
+        newsletter: newsletter ? true : false,
         role
     };
     let emailPath = 'password-reset';
@@ -57,9 +59,9 @@ const login = async ({ email, password }) => {
     if (!match) throw new ErrorHandler(400, 'Email and password doesn\'t match');
 
     if (user.role == 'partner' && user.agent_status != 'verified') {
-        throw new ErrorHandler(403,'Your account is yet to be verified. Please check back in 24 hours, or contact us from the <a href=\'/contact\'>contact page</a>');
+        throw new ErrorHandler(403, 'Your account is yet to be verified. Please check back in 24 hours, or contact us from the <a href=\'/contact\'>contact page</a>');
     }
-    
+
     return sanitize(user);
 }
 
@@ -89,6 +91,7 @@ const activateAccount = async (email_hash, hash_string) => {
         userData.agentCode = generateUniqueValue(15, false);
     }
     await User.update(userData, { where: { email } });
+    user.newsletter && await newsLetterService.create({ email });
     return { ...user, status: 'active' };
 }
 
@@ -104,14 +107,17 @@ const verifyPasswordResetLink = async (email_hash, hash_string) => {
     if (hash_string !== hash) {
         throw new ErrorHandler(400, 'Invalid hash. couldn\'t verify your email');
     }
-    return { id: user.id, status: true };
+    return { email: user.email, status: true, account_status: user.status };
 }
 
-const changePassword = async (newPassword, user_id) => {
+const changePassword = async (newPassword, email, newsletter = null) => {
     if (!newPassword) throw new ErrorHandler(400, 'Password can not be empty');
     const passwordHash = await bcrypt.hash(newPassword, saltRounds);
 
-    return User.update({ password: passwordHash, status: 'active' }, { where: { id: user_id } });
+    const user = await User.update({ password: passwordHash, status: 'active' }, { where: { email } });
+    if (newsletter) {
+        await newsLetterService.create({ email });
+    }
 }
 
 const list = async (criteria = {}) => {

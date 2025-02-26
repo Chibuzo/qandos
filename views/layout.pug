@@ -153,10 +153,12 @@ footer.footer-section.set-bg(data-setbg='/img/footer-bg.jpg')
         .newslatter-widget
           h5.fw-title NEWSLETTER
           p Subscribe your email to get the latest news and new offer also discount
-          form.footer-newslatter-form
-            input(type='email' placeholder='Email address')
-            button
+          form.footer-newslatter-form(action='/newsletter' method='POST')
+            input(type='email' name='email' placeholder='Email address')
+            button(type='submit') 
               i.fa.fa-send
+
+          .alert.alert-success#newsletter-msg.mt-2.d-none Subscribed successfully
     .footer-bottom
       .footer-nav
         ul
@@ -180,6 +182,21 @@ script(src='/js/magnific-popup.min.js')
 script(src='/js/main.js')
 
 script. 
+
+  const form = document.querySelector('form.footer-newslatter-form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const res = await postForm(form.action, serialize(data));
+    console.log({res})
+    if (res.status == 'success') {
+      document.querySelector('#newsletter-msg').classList.remove('d-none');
+      form.reset();
+    }
+  });
+
+
+
   function serialize(data) {
     let obj = {};
     for (let [key, value] of data) {

@@ -25,13 +25,15 @@ block content
             .form-floating.mb-3
                 input#floatingPassword.form-control(type='password' name="password" placeholder='Password' required)
                 label(for='floatingPassword') Password
-            
+            .form-check.mb-3 
+                input#flexCheckDefault.form-check-input(type='checkbox' name='newsletter' checked)
+                label.form-check-label(for='flexCheckDefault') I want to receive updates and promotions from Qandos
+
             button.w-100.btn.btn-lg.btn-primary.mb-3(type='submit') Sign Up
             p Already have an account? <a href='/login'>Login</a>
             p.mt-5.mb-3.text-muted Qandos &copy; 
                 script.
                     document.write(new Date().getFullYear());
 
-             
-            
-                
+
+

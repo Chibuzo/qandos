@@ -26,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
             type: Sequelize.ENUM('admin', 'user', 'partner', 'agent'),
             defaultValue: 'user'
         },
+        newsletter: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
         status: {
             type: Sequelize.ENUM('inactive', 'active', 'disabled'),
             defaultValue: 'inactive'
