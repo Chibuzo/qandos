@@ -82,6 +82,18 @@ module.exports = {
         sendMail(user.email, subject, template, data);
     },
 
+    sendWeeklyNewsLetter: function (subscribers, properties) {
+        const data = {
+            properties,
+            base_url: BASE_URL
+        };
+        const subject = 'New Properties Recently Added';
+        const template = 'weeklyNewsletter';
+        subscribers.forEach(subscriber => {
+            sendMail(subscriber.email, subject, template, data);
+        });
+    },
+
     sendPaymentConfirmationEmail: function (user, investment) {
         const data = {
             user: user.fullname,

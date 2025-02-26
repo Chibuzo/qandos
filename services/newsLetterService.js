@@ -1,5 +1,7 @@
 const { NewsLetter } = require('../models');
 const { ErrorHandler } = require('../helpers/errorHandler');
+const propertyService = require('./propertyService');
+const emailService = require('./emailService');
 
 const create = async ({ email }) => {
     if (!email) throw new ErrorHandler(400, 'Email is required');
@@ -8,6 +10,14 @@ const create = async ({ email }) => {
 
     const newEmail = await NewsLetter.create({ email });
     return newEmail;
+}
+
+const sendWeeklyNewsLetter = async () => {
+    // Get all properties created in the last 7 days
+    const recentProperties = await propertyService.list({ createdAt: { $gt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) } });
+    if (!recentProperties.length) return;
+    const subscribers = await NewsLetter.findAll();
+    emailService.sendWeeklyNewsLetter(subscribers, recentProperties);
 }
 
 const list = async () => {
@@ -25,5 +35,6 @@ const unSubscribe = async (email) => {
 module.exports = {
     create,
     list,
+    sendWeeklyNewsLetter,
     unSubscribe
 }

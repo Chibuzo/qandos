@@ -10,6 +10,9 @@ const authenticate = require('./middlewares/authenticate');
 const formatView = require('./middlewares/formatView');
 const { APP_NAME, EMAIL, PHONE } = require('./config/constants');
 
+// schedule weekly newsletter
+require('./jobs/weeklyNewsletter');
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const adminRouter = require('./routes/admin');
