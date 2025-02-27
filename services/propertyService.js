@@ -10,38 +10,40 @@ const create = async data => {
 const list = async (criteria = {}, limit = 15, searchParams = null) => {
     if (searchParams) {
         const { keywords, state, city } = searchParams;
-        criteria = { ...criteria, [Op.or]: [
-            { title: { [Op.like]: `%${keywords}%` } },
-            { state: { [Op.like]: `%${state}%` } },
-            { city: { [Op.like]: `%${city}%` } }
-        ] };
+        criteria = {
+            ...criteria, [Op.or]: [
+                { title: { [Op.like]: `%${keywords}%` } },
+                { state: { [Op.like]: `%${state}%` } },
+                { city: { [Op.like]: `%${city}%` } }
+            ]
+        };
     };
-    return Property.findAll({ 
-        where: { ...criteria, deleted: false }, 
+    return Property.findAll({
+        where: { ...criteria, deleted: false },
         include: {
             model: PropertyMedia,
             limit: 1
         },
         limit,
-        order: [['createdAt', 'desc']] 
+        order: [['createdAt', 'desc']]
     });
 }
 
 const fetchFeatured = async () => {
-    return Property.findAll({ 
+    return Property.findAll({
         where: { featured: 1, deleted: false },
-        order: Sequelize.literal('rand()'), 
+        order: Sequelize.literal('rand()'),
         include: {
             model: PropertyMedia,
             limit: 1
         },
-        limit: 4 
+        limit: 4
     });
 }
 
 const fetchRelatedProperties = async property => {
     const { bedrooms = 2, toilets = 2, state, city, age = 1, id } = property;
-    const criteria = { 
+    const criteria = {
         [Op.or]: [{ bedrooms }, { toilets }, { state }, { city }, { age }],
         id: { [Op.not]: id }
     };
@@ -77,7 +79,7 @@ const deleteMedia = async id => {
     const media = await PropertyMedia.findOne({
         where: { id }
     });
-    return PropertyMedia.destroy({ where: { id }});
+    return PropertyMedia.destroy({ where: { id } });
 }
 
 module.exports = {

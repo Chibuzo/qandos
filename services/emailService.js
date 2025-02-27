@@ -90,6 +90,7 @@ module.exports = {
         const subject = 'New Properties Recently Added';
         const template = 'weeklyNewsletter';
         subscribers.forEach(subscriber => {
+            data.unsubscribeLink = BASE_URL + 'unsubscribe/' + Buffer.from(subscriber.email).toString('base64');
             sendMail(subscriber.email, subject, template, data);
         });
     },

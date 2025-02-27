@@ -13,6 +13,7 @@ const appointmentService = require('../services/appointmentService');
 const utilityService = require('../services/UtillityService');
 const newsletterService = require('../services/newsLetterService');
 const states = require('../config/data/states');
+const { Buffer } = require('buffer');
 
 
 router.get('/', isAuthenticated, async (req, res, next) => {
@@ -46,7 +47,7 @@ router.get('/how-it-works', async (req, res, next) => {
 
 router.get('/contact', isAuthenticated, async (req, res, next) => {
     try {
-        const userSession = req.session.user ?? null;
+        // const userSession = req.session.user ?? null;
         res.render('contact', { title: 'Contact Us' });
     } catch (err) {
         next(err);
@@ -297,6 +298,17 @@ router.post('/newsletter', async (req, res, next) => {
         const { email } = req.body;
         await newsletterService.create({ email });
         res.json({ status: 'success' });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/unsubscribe/:email', async (req, res, next) => {
+    try {
+        const { email: base64email } = req.params;
+        const email = Buffer.from(base64email, 'base64').toString('ascii');
+        await newsletterService.unSubscribe(email);
+        res.render('unsubscribe', { title: 'Unsubscribe from Newsletter' });
     } catch (err) {
         next(err);
     }

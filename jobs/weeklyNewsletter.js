@@ -5,3 +5,4 @@ const newsletterService = require('../services/newsLetterService');
 cron.schedule('0 0 * * 0', async () => {
     newsletterService.sendWeeklyNewsLetter();
 });
+

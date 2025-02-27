@@ -1,0 +1,21 @@
+<h2>Weekly Newsletter</h2>
+
+<div class="greeting">
+    <p>Hello friend,</p>
+</div>
+
+<div class="content">
+    {{#if properties}}
+    <h2>This Week's Highlights</h2>
+    <ul>
+        {{#each properties}}
+        <li>
+            <h3>{{this.title}}</h3>
+            <p><img src={{this.photo}} /></p>
+            <a href={{this.url}}>View Property</a>
+        </li>
+        {{/each}}
+    </ul>
+    {{/if}}
+
+</div>
