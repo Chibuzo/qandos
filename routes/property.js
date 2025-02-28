@@ -3,13 +3,14 @@ const router = express.Router();
 const propertyService = require('../services/propertyService');
 const states = require('../config/data/states');
 const utilityService = require('../services/UtillityService');
+const newsletterService = require('../services/newsLetterService');
 
 
 router.get('/list', async (req, res, next) => {
     try {
         const properties = await propertyService.list({}, 15);
         res.render('property/list', { properties });
-    } catch(err) {
+    } catch (err) {
         next(err);
     }
 });
@@ -17,7 +18,7 @@ router.get('/list', async (req, res, next) => {
 router.get('/new', async (req, res, next) => {
     try {
         res.render('property/new', { states });
-    } catch(err) {
+    } catch (err) {
         next(err);
     }
 });
@@ -38,7 +39,7 @@ router.get('/:id/edit', async (req, res, next) => {
         const { photos = [], ...property } = foundProperty;
         const cities = utilityService.filterCitiesByState(property.state);
         res.render('property/edit', { property, photos, states, cities });
-    } catch(err) {
+    } catch (err) {
         next(err);
     }
 });
@@ -48,7 +49,7 @@ router.post('/:id/update', async (req, res, next) => {
         const { id } = req.params;
         await propertyService.update(id, req.body);
         res.redirect(`/property/${id}/edit`);
-    } catch(err) {
+    } catch (err) {
         next(err);
     }
 });
@@ -69,7 +70,7 @@ router.get('/:id/delete', async (req, res, next) => {
         const { id } = req.params;
         await propertyService.update(id, { deleted: true });
         res.redirect(`/property/list`);
-    } catch(err) {
+    } catch (err) {
         next(err);
     }
 });
@@ -82,11 +83,11 @@ router.get('/:id/:title', async (req, res, next) => {
         const referralLink = (partner && partner.role == 'partner')
             ? process.env.BASE_URL + `property/${id}/${title.split(' ').join('-')}?referral_code=${partner.agentCode}`
             : null;
-        
+
         const property = await propertyService.view(id);
         const relatedProperties = await propertyService.fetchRelatedProperties(property);
         res.render('property', { property, relatedProperties, referral_code, referralLink });
-    } catch(err) {
+    } catch (err) {
         next(err);
     }
 });
@@ -97,7 +98,19 @@ router.get('/browse', async (req, res, next) => {
         const { keywords } = req.query;
         const properties = await propertyService.list({}, 18, keywords);
         res.render('properties', { properties, referral_code: user.agent_code || null });
-    } catch(err) {
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.post('/verify', async (req, res, next) => {
+    try {
+        await propertyService.logPropertyVerification(req.body);
+        if (req.body.newsletter) {
+            await newsletterService.create({ email: req.body.email });
+        }
+        res.json({ status: 'success' });
+    } catch (err) {
         next(err);
     }
 });

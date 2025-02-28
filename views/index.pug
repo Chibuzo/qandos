@@ -12,6 +12,7 @@ block content
                 p Safe and easy real estate investment
                 br
 
+                button.site-btn.mr-4(data-toggle='modal' data-target='#vet-property-modal' style='background: #e0e0e0; color: #333') VERIFY PROPERTY
                 a.site-btn(href='/property/browse') START INVESTING
 
             .filter-search
@@ -168,15 +169,75 @@ block content
                         h3 Asaba
                         p 0 Properties
 
+block Modals 
+    #vet-property-modal.modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h5.modal-title Verify Property
+                    button.close(type='button' data-dismiss='modal' aria-label='Close')
+                        span(aria-hidden='true') &times;
+                form#form-vet-property(action="/property/verify" method="post")   
+                    .modal-body
+                        .alert.alert-success
+                            | Gives us the details of the property you want to verify
+                        .form-group.mb-3.row
+                            .col
+
+                                select.form-control#vet-state(name="state" required)
+                                    option(value="") -- Choose State --
+                                        each state in states 
+                                            option(value=`${state.name}`)= state.name
+                            .col 
+                                select.form-control#vet-city(name="city")
+                                    option(value="") -- Choose City --
+                        .form-group.mb-3
+                            label.form-label Property Type 
+                            select.form-control(name="propertyType" required)  
+                                option(value='') -- Category --
+                                option(value='fully built') Fully Developed 
+                                option(value='land') Land
+                                option(value='uncompleted') Uncompleted
+                        .form-group.mb-3
+                            label.form-label Your Name 
+                            input.form-control(name="name" type="text" required)
+                        .form-group.mb-3 
+                            label.form-label Email 
+                            input.form-control(name="email" type="text" required)
+                        .form-group.mb-3 
+                            label.form-label Phone 
+                            input.form-control(name="phone" type="text" required)  
+                        .form-check.mb-3 
+                            input#flexCheckDefault.form-check-input(type='checkbox' name='newsletter' checked)
+                            label.form-check-label(for='flexCheckDefault') I want to receive updates and promotions from Qandos
+
+                        .form-group 
+                            .alert.alert-info.d-none 
+
+                    .modal-footer
+                        button.btn.site-btn(type='submit') Send Request
+
 block scriptBlock
     script. 
 
         let state;
-        document.getElementById('state').addEventListener('change', async function() {
+        $('#state, #vet-state').change(async function() {
             state = this.value;
             const resp = await fetch('/cities?state=' + state);
             const cities = await resp.json();
             let opts = "<option value=''>-- City --</option>";
             opts += cities.data.cities.map(city => `<option value=${city.name}>${city.name}</option>`);
-            document.getElementById('city').innerHTML = opts;
+            $('#city, #vet-city').html(opts);
+        });
+
+
+        document.querySelector('#form-vet-property').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = new FormData(e.target);
+            const res = await postForm(e.target.action, serialize(data));
+            if (res.status == 'success') {
+                e.target.reset();
+                e.target.querySelector('.alert-info').innerHTML = 'We have received your request. We will get back to you shortly';
+                e.target.querySelector('.alert-info').classList.remove('d-none');
+            }
         });

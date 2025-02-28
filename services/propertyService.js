@@ -1,7 +1,7 @@
-const { Property, PropertyMedia } = require('../models');
+const { Property, PropertyMedia, VerifyProperty } = require('../models');
 const { ErrorHandler } = require('../helpers/errorHandler');
 const { uploadFiles } = require('../helpers/fileUpload');
-const { Op, Sequelize } = require("sequelize");
+const { Op, Sequelize, or } = require("sequelize");
 
 const create = async data => {
     return Property.create(data);
@@ -82,6 +82,14 @@ const deleteMedia = async id => {
     return PropertyMedia.destroy({ where: { id } });
 }
 
+const logPropertyVerification = async data => {
+    return VerifyProperty.create(data);
+}
+
+const listPropertiesForVetting = async () => {
+    return VerifyProperty.findAll({ order: [['createdAt', 'desc']] });
+}
+
 module.exports = {
     create,
     list,
@@ -91,5 +99,7 @@ module.exports = {
     update,
     uploadPropertyPhotos,
     fetchRelatedProperties,
-    deleteMedia
+    deleteMedia,
+    logPropertyVerification,
+    listPropertiesForVetting
 }

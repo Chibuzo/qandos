@@ -4,6 +4,7 @@ const adminService = require('../services/adminService');
 const authenticateAdmin = require('../middlewares/authenticateAdmin');
 const userService = require('../services/userService');
 const paymentService = require('../services/paymentService');
+const propertyService = require('../services/propertyService');
 
 
 router.get('/', function (req, res) {
@@ -84,5 +85,13 @@ router.get('/users/profile', authenticateAdmin, async (req, res, next) => {
     }
 });
 
+router.get('/list-vetting-requests', authenticateAdmin, async (req, res, next) => {
+    try {
+        const properties = await propertyService.listPropertiesForVetting();
+        res.render('admin/property-vetting', { properties });
+    } catch (err) {
+        next(err);
+    }
+});
 
 module.exports = router;
