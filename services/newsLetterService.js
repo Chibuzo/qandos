@@ -10,6 +10,7 @@ const create = async ({ email }) => {
     if (existingEmail) return existingEmail;
 
     const newEmail = await NewsLetter.create({ email });
+    emailService.sendNewsletterWelcome({ email })
     return newEmail;
 }
 

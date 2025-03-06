@@ -12,8 +12,11 @@ block content
                 p Safe and easy real estate investment
                 br
 
-                button.site-btn.mr-4(data-toggle='modal' data-target='#vet-property-modal' style='background: #e0e0e0; color: #333') VERIFY PROPERTY
-                a.site-btn(href='/property/browse') START INVESTING
+                .row.justify-content-center
+                    .col-md-3
+                        button.site-btn.mb-3(data-toggle='modal' data-target='#vet-property-modal' style='background: #e0e0e0; color: #333') VERIFY PROPERTY
+                    .col-md-3
+                        a.site-btn(href='/property/browse') START INVESTING
 
             .filter-search
                 .container
@@ -179,43 +182,44 @@ block Modals
                         span(aria-hidden='true') &times;
                 form#form-vet-property(action="/property/verify" method="post")   
                     .modal-body
-                        .alert.alert-success
-                            | Gives us the details of the property you want to verify
-                        .form-group.mb-3.row
-                            .col
+                        #form-wrapper
+                            .alert.alert-success
+                                | Gives us the details of the property you want to verify
+                            .form-group.mb-3.row
+                                .col
 
-                                select.form-control#vet-state(name="state" required)
-                                    option(value="") -- Choose State --
-                                        each state in states 
-                                            option(value=`${state.name}`)= state.name
-                            .col 
-                                select.form-control#vet-city(name="city")
-                                    option(value="") -- Choose City --
-                        .form-group.mb-3
-                            label.form-label Property Type 
-                            select.form-control(name="propertyType" required)  
-                                option(value='') -- Category --
-                                option(value='fully built') Fully Developed 
-                                option(value='land') Land
-                                option(value='uncompleted') Uncompleted
-                        .form-group.mb-3
-                            label.form-label Your Name 
-                            input.form-control(name="name" type="text" required)
-                        .form-group.mb-3 
-                            label.form-label Email 
-                            input.form-control(name="email" type="text" required)
-                        .form-group.mb-3 
-                            label.form-label Phone 
-                            input.form-control(name="phone" type="text" required)  
-                        .form-check.mb-3 
-                            input#flexCheckDefault.form-check-input(type='checkbox' name='newsletter' checked)
-                            label.form-check-label(for='flexCheckDefault') I want to receive updates and promotions from Qandos
+                                    select.form-control#vet-state(name="state" required)
+                                        option(value="") -- Choose State --
+                                            each state in states 
+                                                option(value=`${state.name}`)= state.name
+                                .col 
+                                    select.form-control#vet-city(name="city")
+                                        option(value="") -- Choose City --
+                            .form-group.mb-3
+                                label.form-label Property Type 
+                                select.form-control(name="propertyType" required)  
+                                    option(value='') -- Category --
+                                    option(value='fully built') Fully Developed 
+                                    option(value='land') Land
+                                    option(value='uncompleted') Uncompleted
+                            .form-group.mb-3
+                                label.form-label Your Name 
+                                input.form-control(name="name" type="text" required)
+                            .form-group.mb-3 
+                                label.form-label Email 
+                                input.form-control(name="email" type="text" required)
+                            .form-group.mb-3 
+                                label.form-label Phone 
+                                input.form-control(name="phone" type="text" required)  
+                            .form-check.mb-3 
+                                input#flexCheckDefault.form-check-input(type='checkbox' name='newsletter' checked)
+                                label.form-check-label(for='flexCheckDefault') I want to receive updates and promotions from Qandos
 
                         .form-group 
                             .alert.alert-info.d-none 
 
                     .modal-footer
-                        button.btn.site-btn(type='submit') Send Request
+                        button.btn.site-btn#request-btn(type='submit') Send Request
 
 block scriptBlock
     script. 
@@ -237,6 +241,8 @@ block scriptBlock
             const res = await postForm(e.target.action, serialize(data));
             if (res.status == 'success') {
                 e.target.reset();
+                document.getElementById('form-wrapper').classList.add('d-none');
+                document.getElementById('request-btn').classList.add('d-none');
                 e.target.querySelector('.alert-info').innerHTML = 'We have received your request. We will get back to you shortly';
                 e.target.querySelector('.alert-info').classList.remove('d-none');
             }

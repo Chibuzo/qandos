@@ -34,6 +34,8 @@ const SENT_FROM = process.env.AWS_SES_USER;
 const sendMail = (to, subject, template, data) => {
     data.appName = APP_NAME;
     data.baseUrl = BASE_URL;
+    if (!data.hasGreetings)
+        data.showGreetings = true;
 
     let mailOptions = {
         from: APP_NAME + ' <' + SENT_FROM + '>',
@@ -79,6 +81,16 @@ module.exports = {
         };
         const subject = `${APP_NAME} Password Reset Link`;
         const template = 'passwordReset';
+        sendMail(user.email, subject, template, data);
+    },
+
+    sendNewsletterWelcome: function (user) {
+        const data = {
+            user: user.fullname || 'Investor',
+            hasGreetings: true
+        }
+        const subject = 'Welcome to QANDOS Real Estate Insider - Your Gateway to Smart Investments!';
+        const template = 'newsletterWelcome';
         sendMail(user.email, subject, template, data);
     },
 
