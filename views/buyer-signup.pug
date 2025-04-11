@@ -1,6 +1,7 @@
 extend auth-layout.pug
 
 block content
+    script(src="https://www.google.com/recaptcha/api.js" async defer)
 
     if newUser 
         .alert.alert-success.text-center.mt-4
@@ -11,7 +12,7 @@ block content
 
         a.text-primary.fw-medium.ms-2(href='/login') Click here to Login
     else
-        form(method="post" action="/signup?json=no")
+        form(method="post" action="/signup?json=no")#form-signup
             h4.mb-3.fw-normal BUYER
             .form-floating.mb-3
                 input#floatingInput.form-control(type='text' name="fullname" placeholder='Your name' required)
@@ -29,11 +30,18 @@ block content
                 input#flexCheckDefault.form-check-input(type='checkbox' name='newsletter' checked)
                 label.form-check-label(for='flexCheckDefault') I want to receive updates and promotions from Qandos
 
-            button.w-100.btn.btn-lg.btn-primary.mb-3(type='submit') Sign Up
+            //- button.w-100.btn.btn-lg.btn-primary.mb-3(type='submit') Sign Up
+            button.w-100.btn.btn-lg.btn-primary.mb-3.g-recaptcha(data-sitekey=_recaptcha_site_key data-callback="onSubmit" data-action='submit') Sign Up
             p Already have an account? <a href='/login'>Login</a>
             p.mt-5.mb-3.text-muted Qandos &copy; 
                 script.
                     document.write(new Date().getFullYear());
 
+block scriptBlock 
+    script. 
 
+        //- recaptcha callback function
+        function onSubmit(token) {
+            document.getElementById("form-signup").submit();
+        }
 

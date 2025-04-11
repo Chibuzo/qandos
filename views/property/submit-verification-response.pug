@@ -1,0 +1,17 @@
+extends ../auth-layout
+
+block content
+    .container.mt-5
+        .row.justify-content-center
+            .text-center
+                .card.shadow
+                    .card-body
+                        h2.mb-4 Thank You!
+                        i.fas.fa-check-circle.text-success.fa-4x.mb-4
+                        h4.mb-3 Property Verification Request Received
+                        p.lead We have successfully received your property verification request.
+                        p Our team will review your submission and contact you shortly.
+                        hr.my-4
+                        a.btn.btn-primary(href='/') Return to Home
+
+    script(src='https://kit.fontawesome.com/your-font-awesome-kit.js')

@@ -23,13 +23,13 @@ block content
                         each photo in property.photos
                             if photo.mediaType == 'photo'
                                 .sl-item.set-bg(data-setbg=`/${photo.location}`)
-                            
-                    
+
+
                     #sl-slider-thumb.owl-carousel.sl-thumb-slider
                         each photo in property.photos
                             if photo.mediaType == 'photo'
                                 .sl-thumb.set-bg(data-setbg=`/${photo.location}`)
-                    
+
                     .single-list-content
                         .row
                             .col-xl-8.sl-title
@@ -73,36 +73,18 @@ block content
                             p
                             | #{property.description}
 
-                        
-                        //- h3.sl-sp-title.bd-no Floorplans
-                        //- #accordion.plan-accordion
-                        //-     .panel
-                        //-         #headingOne.panel-header
-                        //-             button.panel-link.active(data-toggle='collapse' data-target='#collapse1' aria-expanded='false' aria-controls='collapse1')
-                        //-                 | First Floor: 
-                        //-             span 660 sq ft
-                        //-                 i.fa.fa-angle-down
-                        //-         #collapse1.collapse.show(aria-labelledby='headingOne' data-parent='#accordion')
-                        //-             .panel-body
-                        //-                 img(src='img/plan-sketch.jpg' alt='')
-                        //-     .panel
-                        //-     #headingTwo.panel-header
-                        //-         button.panel-link(data-toggle='collapse' data-target='#collapse2' aria-expanded='true' aria-controls='collapse2')
-                        //-         | Second Floor:
-                        //-         span 610 sq ft.
-                        //-         i.fa.fa-angle-down
-                        //-     #collapse2.collapse(aria-labelledby='headingTwo' data-parent='#accordion')
-                        //-         .panel-body
-                        //-         img(src='img/plan-sketch.jpg' alt='')
-                        //-     .panel
-                        //-     #headingThree.panel-header
-                        //-         button.panel-link(data-toggle='collapse' data-target='#collapse3' aria-expanded='false' aria-controls='collapse3')
-                        //-         | Third Floor :
-                        //-         span 580 sq ft
-                        //-         i.fa.fa-angle-down
-                        //-     #collapse3.collapse(aria-labelledby='headingThree' data-parent='#accordion')
-                        //-         .panel-body
-                        //-         img(src='img/plan-sketch.jpg' alt='')
+
+                        h3.sl-sp-title.bd-no Floorplans
+                        #accordion.plan-accordion
+                            each photo in property.photos
+                                if photo.mediaType == 'floor plan'
+                                    .panel
+                                        #headingOne.panel-header
+                                            button.panel-link.active(data-toggle='collapse' data-target='#collapse1' aria-expanded='false' aria-controls='collapse1')
+                                                i.fa.fa-angle-down
+                                        #collapse1.collapse.show(aria-labelledby='headingOne' data-parent='#accordion')
+                                            .panel-body
+                                                img(src=`/${photo.location}` alt='')
 
                         - const video = property.photos.find(media => media.mediaType == 'video');
                         if (video)
@@ -110,7 +92,7 @@ block content
                             .perview-video
                                 video(controls)
                                     source(src=`/${video.location}` type='video/mp4')
-                        
+
                         h3.sl-sp-title.bd-no Location
                         #map-canvas.pos-map
 
@@ -126,17 +108,17 @@ block content
 
                 .col-lg-4.col-md-7.sidebar
                     //- .author-card
-                        //- .author-img.set-bg(data-setbg='img/author.jpg')
-                        //- .author-info
-                        //-     h5 Gina Wesley
-                        //-     p Real Estate Agent
-                        //- .author-contact
-                        //-     p
-                        //-         i.fa.fa-phone
-                        //-         | (567) 666 121 2233
-                        //-     p
-                        //-         i.fa.fa-envelope
-                        //-         a.__cf_email__(href='/cdn-cgi/l/email-protection' data-cfemail='9cfbf5f2fdebf9eff0f9e5aeaadcfbf1fdf5f0b2fff3f1') [email&nbsp;protected]
+                    //- .author-img.set-bg(data-setbg='img/author.jpg')
+                    //- .author-info
+                    //-     h5 Gina Wesley
+                    //-     p Real Estate Agent
+                    //- .author-contact
+                    //-     p
+                    //-         i.fa.fa-phone
+                    //-         | (567) 666 121 2233
+                    //-     p
+                    //-         i.fa.fa-envelope
+                    //-         a.__cf_email__(href='/cdn-cgi/l/email-protection' data-cfemail='9cfbf5f2fdebf9eff0f9e5aeaadcfbf1fdf5f0b2fff3f1') [email&nbsp;protected]
                     .contact-form-card
                         h5 Interested in this property?
 
@@ -187,7 +169,7 @@ block content
                                         i.fa.fa-map-marker
                                         | #{property.state}, #{property.city}
                                 a.rp-price(href=`/property/${property.id}/${property.title.split(' ').join('-')}`) N#{view.formatCurrency(property.cost)}
-                        
+
 block scriptBlock 
     script.
 

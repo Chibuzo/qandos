@@ -105,15 +105,26 @@ router.get('/browse', async (req, res, next) => {
 
 router.post('/verify', async (req, res, next) => {
     try {
-        await propertyService.logPropertyVerification(req.body);
+        // Validate the reCAPTCHA response
+        const { 'g-recaptcha-response': recaptchaResponse, ...propertyData } = req.body;
+        const response = await utilityService.verifyRecaptcha(recaptchaResponse);
+        if (!response.success) {
+            throw new Error('reCAPTCHA verification failed');
+            // return res.status(400).json({ error: 'reCAPTCHA verification failed' });
+        }
+        await propertyService.logPropertyVerification(propertyData);
         if (req.body.newsletter) {
             await newsletterService.create({ email: req.body.email });
         }
-        res.json({ status: 'success' });
+        res.render('property/submit-verification-response');
     } catch (err) {
         next(err);
     }
 });
+
+router.get('/verify', async (req, res, next) => {
+    res.render('property/submit-verification-response');
+})
 
 
 // router.delete('/:id', async (req, res, next) => {

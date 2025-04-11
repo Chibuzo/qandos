@@ -68,5 +68,6 @@ app.use(function (err, req, res, next) {
 app.locals._app_name = APP_NAME;
 app.locals._email = EMAIL;
 app.locals._phone = PHONE;
+app.locals._recaptcha_site_key = process.env.RECAPTCHA_SITE_KEY;
 
 module.exports = app;

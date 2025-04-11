@@ -1,372 +1,224 @@
 [
     {
-      "name": "Abia",
-      "capital": "Umuahia",
-      "abbreviation": "AB",
-      "stateCode": "410010",
-      "slug": "abia",
-      "Country": "NG",
-      "latitude": "5.53 N",
-      "longitude": "7.49 E"
+        "name": "Abia",
+        "capital": "Umuahia",
+        "abbreviation": "AB",
+        "slug": "abia"
     },
     {
-      "name": "Adamawa",
-      "capital": "Yola",
-      "abbreviation": "AD",
-      "stateCode": "640002",
-      "slug": "adamawa",
-      "Country": "NG",
-      "latitude": "10.27 N",
-      "longitude": "13.27 E"
+        "name": "Adamawa",
+        "capital": "Yola",
+        "abbreviation": "AD",
+        "slug": "adamawa"
     },
     {
-      "name": "Akwa Ibom",
-      "capital": "Uyo",
-      "abbreviation": "AK",
-      "stateCode": "520002",
-      "slug": "akaw-ibom",
-      "Country": "NG",
-      "latitude": "5.01 N",
-      "longitude": "7.85 E"
+        "name": "Akwa Ibom",
+        "capital": "Uyo",
+        "abbreviation": "AK",
+        "slug": "akwa-ibom"
     },
     {
-      "name": "Anambra",
-      "capital": "Akwa",
-      "abbreviation": "AN",
-      "stateCode": "420001",
-      "slug": "anambra",
-      "Country": "NG",
-      "latitude": "6.21 N",
-      "longitude": "7.07 E"
+        "name": "Anambra",
+        "capital": "Akwa",
+        "abbreviation": "AN",
+        "slug": "anambra"
     },
     {
-      "name": "Bauchi",
-      "capital": "Bauchi",
-      "abbreviation": "BS",
-      "stateCode": "740101",
-      "slug": "bauchi",
-      "Country": "NG",
-      "latitude": "11.68 N",
-      "longitude": "10.19 E"
+        "name": "Bauchi",
+        "capital": "Bauchi",
+        "abbreviation": "BS",
+        "slug": "bauchi"
     },
     {
-      "name": "Bayelsa",
-      "capital": "Yenegoa",
-      "abbreviation": "BY",
-      "stateCode": "560001",
-      "slug": "bayelsa",
-      "Country": "NG",
-      "latitude": "4.92 N",
-      "longitude": "6.26 E"
+        "name": "Bayelsa",
+        "capital": "Yenegoa",
+        "abbreviation": "BY",
+        "slug": "bayelsa"
     },
     {
-      "name": "Benue",
-      "capital": "Makurdi",
-      "abbreviation": "BE",
-      "stateCode": "870003",
-      "slug": "benue",
-      "Country": "NG",
-      "latitude": "7.19 N",
-      "longitude": "8.13 E"
+        "name": "Benue",
+        "capital": "Makurdi",
+        "abbreviation": "BE",
+        "slug": "benue"
     },
     {
-      "name": "Borno",
-      "capital": "Maiduguri",
-      "abbreviation": "BO",
-      "stateCode": "600002",
-      "slug": "borno",
-      "Country": "NG",
-      "latitude": "10.62 N",
-      "longitude": "12.19 E"
+        "name": "Borno",
+        "capital": "Maiduguri",
+        "abbreviation": "BO",
+        "slug": "borno"
     },
     {
-      "name": "Cross River",
-      "capital": "Calabar",
-      "abbreviation": "CR",
-      "stateCode": "240212",
-      "slug": "cross-river",
-      "Country": "NG",
-      "latitude": "4.96 N",
-      "longitude": "8.33 E"
+        "name": "Cross River",
+        "capital": "Calabar",
+        "abbreviation": "CR",
+        "slug": "cross-river"
     },
     {
-      "name": "Delta",
-      "capital": "Asaba",
-      "abbreviation": "DE",
-      "stateCode": "310004",
-      "slug": "delta",
-      "Country": "NG",
-      "latitude": "5.89 N",
-      "longitude": "5.68 E"
+        "name": "Delta",
+        "capital": "Asaba",
+        "abbreviation": "DE",
+        "slug": "delta"
     },
     {
-      "name": "Ebonyi",
-      "capital": "Abakaliki",
-      "abbreviation": "EB",
-      "stateCode": "840001",
-      "slug": "ebonyi",
-      "Country": "NG",
-      "latitude": "6.20 N",
-      "longitude": "8.03 E"
+        "name": "Ebonyi",
+        "capital": "Abakaliki",
+        "abbreviation": "EB",
+        "slug": "ebonyi"
     },
     {
-      "name": "Edo",
-      "capital": "Beni City",
-      "abbreviation": "ED",
-      "stateCode": "300001",
-      "slug": "edo",
-      "Country": "NG",
-      "latitude": "\t6.61 N",
-      "longitude": "5.97 E"
+        "name": "Edo",
+        "capital": "Beni City",
+        "abbreviation": "ED",
+        "slug": "edo"
     },
     {
-      "name": "Ekiti",
-      "capital": "Ado Ekiti",
-      "abbreviation": "EK",
-      "stateCode": "360001",
-      "slug": "ekiti",
-      "Country": "NG",
-      "latitude": "7.63 N",
-      "longitude": "5.22 E"
+        "name": "Ekiti",
+        "capital": "Ado Ekiti",
+        "abbreviation": "EK",
+        "slug": "ekiti"
     },
     {
-      "name": "Enugu",
-      "capital": "Enugu",
-      "abbreviation": "EN",
-      "stateCode": "400001",
-      "slug": "enugu",
-      "Country": "NG",
-      "latitude": "6.87 N",
-      "longitude": "7.38 E"
+        "name": "Enugu",
+        "capital": "Enugu",
+        "abbreviation": "EN",
+        "slug": "enugu"
     },
     {
-      "name": "Federal capital Territory",
-      "capital": "Abuja",
-      "abbreviation": "FCT",
-      "stateCode": "900001",
-      "slug": "federal-capital-territory",
-      "Country": "NG",
-      "latitude": "9.08 N",
-      "longitude": "7.53 E"
+        "name": "Federal capital Territory",
+        "capital": "Abuja",
+        "abbreviation": "FCT",
+        "slug": "federal-capital-territory"
     },
     {
-      "name": "Gombe",
-      "capital": "Gombe",
-      "abbreviation": "GO",
-      "stateCode": "760001",
-      "slug": "gombe",
-      "Country": "NG",
-      "latitude": "10.29 N",
-      "longitude": "11.17 E"
+        "name": "Gombe",
+        "capital": "Gombe",
+        "abbreviation": "GO",
+        "slug": "gombe"
     },
     {
-      "name": "Imo",
-      "capital": "Owerri",
-      "abbreviation": "IM",
-      "stateCode": "460102",
-      "slug": "imo",
-      "Country": "NG",
-      "latitude": "5.49 N",
-      "longitude": "7.03 E"
+        "name": "Imo",
+        "capital": "Owerri",
+        "abbreviation": "IM",
+        "slug": "imo"
     },
     {
-      "name": "Jigawa",
-      "capital": "Dutse",
-      "abbreviation": "JI",
-      "stateCode": "720001",
-      "slug": "jigawa",
-      "Country": "NG",
-      "latitude": "11.74 N",
-      "longitude": "9.34 E"
+        "name": "Jigawa",
+        "capital": "Dutse",
+        "abbreviation": "JI",
+        "slug": "jigawa"
     },
     {
-      "name": "Kaduna",
-      "capital": "Kaduna",
-      "abbreviation": "KD",
-      "stateCode": "800002",
-      "slug": "kaduna",
-      "Country": "NG",
-      "latitude": "10.52 N",
-      "longitude": "7.44 E"
+        "name": "Kaduna",
+        "capital": "Kaduna",
+        "abbreviation": "KD",
+        "slug": "kaduna"
     },
     {
-      "name": "Kano",
-      "capital": "Kano",
-      "abbreviation": "KN",
-      "stateCode": "700003",
-      "slug": "kano",
-      "Country": "NG",
-      "latitude": "12.00 N",
-      "longitude": "8.52 E"
+        "name": "Kano",
+        "capital": "Kano",
+        "abbreviation": "KN",
+        "slug": "kano"
     },
     {
-      "name": "Katsina",
-      "capital": "kastina",
-      "abbreviation": "KT",
-      "stateCode": "820001",
-      "slug": "kastina",
-      "Country": "NG",
-      "latitude": "12.56 N",
-      "longitude": "7.62 E"
+        "name": "Katsina",
+        "capital": "kastina",
+        "abbreviation": "KT",
+        "slug": "kastina"
     },
     {
-      "name": "Kebbi",
-      "capital": "Birnin kebbi",
-      "abbreviation": "KE",
-      "stateCode": "860001",
-      "slug": "kebbi",
-      "Country": "NG",
-      "latitude": "11.42 N",
-      "longitude": "4.11 E"
+        "name": "Kebbi",
+        "capital": "Birnin kebbi",
+        "abbreviation": "KE",
+        "slug": "kebbi"
     },
     {
-      "name": "Kogi",
-      "capital": "Lokoja",
-      "abbreviation": "KO",
-      "stateCode": "260006",
-      "slug": "kogi",
-      "Country": "NG",
-      "latitude": "7.79 N",
-      "longitude": "6.69 E"
+        "name": "Kogi",
+        "capital": "Lokoja",
+        "abbreviation": "KO",
+        "slug": "kogi"
     },
     {
-      "name": "Kwara",
-      "capital": "Ilorin",
-      "abbreviation": "KW",
-      "stateCode": "230004",
-      "slug": "kwara",
-      "Country": "NG",
-      "latitude": "8.84 N",
-      "longitude": "4.67 E"
+        "name": "Kwara",
+        "capital": "Ilorin",
+        "abbreviation": "KW",
+        "slug": "kwara"
     },
     {
-      "name": "Lagos",
-      "capital": "Ikeja",
-      "abbreviation": "LA",
-      "stateCode": "100001",
-      "slug": "lagos",
-      "Country": "NG",
-      "latitude": "6.53 N",
-      "longitude": "3.58 E"
+        "name": "Lagos",
+        "capital": "Ikeja",
+        "abbreviation": "LA",
+        "slug": "lagos"
     },
     {
-      "name": "Nasarawa",
-      "capital": "Lafia",
-      "abbreviation": "NA",
-      "stateCode": "950001",
-      "slug": "nasarawa",
-      "Country": "NG",
-      "latitude": "8.44 N",
-      "longitude": "8.24 E"
+        "name": "Nasarawa",
+        "capital": "Lafia",
+        "abbreviation": "NA",
+        "slug": "nasarawa"
     },
     {
-      "name": "Niger",
-      "capital": "Minna",
-      "abbreviation": "NI",
-      "stateCode": "910101",
-      "slug": "niger",
-      "Country": "NG",
-      "latitude": "9.93 N",
-      "longitude": "5.65 E"
+        "name": "Niger",
+        "capital": "Minna",
+        "abbreviation": "NI",
+        "slug": "niger"
     },
     {
-      "name": "Ogun",
-      "capital": "Abeokuta",
-      "abbreviation": "OG",
-      "stateCode": "110002",
-      "slug": "ogun",
-      "Country": "NG",
-      "latitude": "6.98 N",
-      "longitude": "3.44 E"
+        "name": "Ogun",
+        "capital": "Abeokuta",
+        "abbreviation": "OG",
+        "slug": "ogun"
     },
     {
-      "name": "Ondo",
-      "capital": "Akure",
-      "abbreviation": "ON",
-      "stateCode": "340002",
-      "slug": "ondo",
-      "Country": "NG",
-      "latitude": "7.25 N",
-      "longitude": "5.19 E"
+        "name": "Ondo",
+        "capital": "Akure",
+        "abbreviation": "ON",
+        "slug": "ondo"
     },
     {
-      "name": "Osun",
-      "capital": "Oshogbo",
-      "abbreviation": "OS",
-      "stateCode": "220001",
-      "slug": "osun",
-      "Country": "NG",
-      "latitude": "7.78 N",
-      "longitude": "4.56 E"
+        "name": "Osun",
+        "capital": "Oshogbo",
+        "abbreviation": "OS",
+        "slug": "osun"
     },
     {
-      "name": "Oyo",
-      "capital": "Ibadan",
-      "abbreviation": "OY",
-      "stateCode": "101014",
-      "slug": "oyo",
-      "Country": "NG",
-      "latitude": "7.38 N",
-      "longitude": "3.90 E"
+        "name": "Oyo",
+        "capital": "Ibadan",
+        "abbreviation": "OY",
+        "slug": "oyo"
     },
     {
-      "name": "Plateau",
-      "capital": "Jos",
-      "abbreviation": "PL",
-      "stateCode": "930002",
-      "slug": "plateau",
-      "Country": "NG",
-      "latitude": "9.94 N",
-      "longitude": "8.89 E"
+        "name": "Plateau",
+        "capital": "Jos",
+        "abbreviation": "PL",
+        "slug": "plateau"
     },
     {
-      "name": "Rivers",
-      "capital": "Port Harcourt",
-      "abbreviation": "RI",
-      "stateCode": "500002",
-      "slug": "rivers",
-      "Country": "NG",
-      "latitude": "4.82 N",
-      "longitude": "6.93 E"
+        "name": "Rivers",
+        "capital": "Port Harcourt",
+        "abbreviation": "RI",
+        "slug": "rivers"
     },
     {
-      "name": "Sokoto",
-      "capital": "Sokoto",
-      "abbreviation": "SO",
-      "stateCode": "840002",
-      "slug": "sokoto",
-      "Country": "NG",
-      "latitude": "13.06 N",
-      "longitude": "5.24 E"
+        "name": "Sokoto",
+        "capital": "Sokoto",
+        "abbreviation": "SO",
+        "slug": "sokoto"
     },
     {
-      "name": "Taraba",
-      "capital": "Jalingo",
-      "abbreviation": "TA",
-      "stateCode": "660001",
-      "slug": "taraba",
-      "Country": "NG",
-      "latitude": "8.88 N",
-      "longitude": "11.37 E"
+        "name": "Taraba",
+        "capital": "Jalingo",
+        "abbreviation": "TA",
+        "slug": "taraba"
     },
     {
-      "name": "Yobe",
-      "capital": "Damaturu",
-      "abbreviation": "YO",
-      "stateCode": "620001",
-      "slug": "yobe",
-      "Country": "NG",
-      "latitude": "11.74 N",
-      "longitude": "11.95 E"
+        "name": "Yobe",
+        "capital": "Damaturu",
+        "abbreviation": "YO",
+        "slug": "yobe"
     },
     {
-      "name": "Zamfara",
-      "capital": "Gusau",
-      "abbreviation": "ZA",
-      "stateCode": "852211",
-      "slug": "zamfarawa",
-      "Country": "NG",
-      "latitude": "12.16 N",
-      "longitude": "6.66 E"
+        "name": "Zamfara",
+        "capital": "Gusau",
+        "abbreviation": "ZA",
+        "slug": "zamfarawa"
     }
-  ]
+]

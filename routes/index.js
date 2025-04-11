@@ -108,7 +108,12 @@ router.get('/login', (req, res) => {
 
 router.post('/signup', async (req, res, next) => {
     try {
-        const { PropertyId, datetime, referral_code = null, ...userData } = req.body;
+        // validate recaptcha
+        const { 'g-recaptcha-response': recaptchaResponse, PropertyId, datetime, referral_code = null, ...userData } = req.body;
+        const response = await utilityService.verifyRecaptcha(recaptchaResponse);
+        if (!response.success) {
+            return res.status(400).json({ error: 'reCAPTCHA verification failed' });
+        }
         const newUser = await userService.create(userData);
         if (req.query.json == 'no') {
             if (newUser.role == 'partner') {

@@ -11,6 +11,14 @@ const generateUniqueValue = (length = 35, num = false, prefix = null) => {
 }
 
 module.exports = {
+    verifyRecaptcha: async (recaptchaResponse) => {
+        const secret = process.env.RECAPTCHA_SECRET_KEY;
+        const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${recaptchaResponse}`;
+        const APIRequest = new apiRequest({});
+        const res = await APIRequest.get(url);
+        return res;
+    },
+
     generateOTP: () => {
         return chance.string({ length: 6, pool: '0123456789' });
     },
@@ -47,7 +55,7 @@ module.exports = {
 
     formatTime: date => new Date(date).toLocaleTimeString('en-US'),
 
-    formatDateSince: function(date) {
+    formatDateSince: function (date) {
         let seconds = Math.floor((new Date() - new Date(date)) / 1000);
 
         let interval = Math.floor(seconds / 31536000);
@@ -74,5 +82,5 @@ module.exports = {
         return Math.floor(seconds) + " seconds";
     },
 
-    filterCitiesByState: state => cities.filter(city => city.State == state)
+    filterCitiesByState: state => cities[state] || []
 }

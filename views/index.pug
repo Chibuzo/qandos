@@ -4,6 +4,8 @@ block styleBlock
     style.
         .over-lay { background-color: rgba(0, 0, 0, 0.5) !important; height: 100vh }
 
+    script(src="https://www.google.com/recaptcha/api.js" async defer)
+
 block content 
     section.hero-section.set-bg(data-setbg='/img/rei.jpg')
         .over-lay
@@ -25,7 +27,7 @@ block content
                         select#state(name="state")
                             option(value='') -- State --
                                 each state in states 
-                                    option(value=`${state.name}`)= state.name
+                                    option(value=`${state.slug}`)= state.name
                         select#city(name="city")
                             option(value='') -- City --
                         button.site-btn.fs-submit SEARCH
@@ -191,7 +193,7 @@ block Modals
                                     select.form-control#vet-state(name="state" required)
                                         option(value="") -- Choose State --
                                             each state in states 
-                                                option(value=`${state.name}`)= state.name
+                                                option(value=`${state.slug}`)= state.name
                                 .col 
                                     select.form-control#vet-city(name="city")
                                         option(value="") -- Choose City --
@@ -219,9 +221,9 @@ block Modals
                             .alert.alert-info.d-none 
 
                     .modal-footer
-                        button.btn.site-btn#request-btn(type='submit') Send Request
-
+                        button.btn.site-btn.g-recaptcha(data-sitekey=_recaptcha_site_key data-callback="onSubmit" data-action='submit') Send Request
 block scriptBlock
+
     script. 
 
         let state;
@@ -230,20 +232,25 @@ block scriptBlock
             const resp = await fetch('/cities?state=' + state);
             const cities = await resp.json();
             let opts = "<option value=''>-- City --</option>";
-            opts += cities.data.cities.map(city => `<option value=${city.name}>${city.name}</option>`);
+            opts += cities.data.cities.map(city => `<option value=${city}>${city}</option>`);
             $('#city, #vet-city').html(opts);
         });
 
 
-        document.querySelector('#form-vet-property').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const data = new FormData(e.target);
-            const res = await postForm(e.target.action, serialize(data));
-            if (res.status == 'success') {
-                e.target.reset();
-                document.getElementById('form-wrapper').classList.add('d-none');
-                document.getElementById('request-btn').classList.add('d-none');
-                e.target.querySelector('.alert-info').innerHTML = 'We have received your request. We will get back to you shortly';
-                e.target.querySelector('.alert-info').classList.remove('d-none');
-            }
-        });
+        //- document.querySelector('#form-vet-property').addEventListener('submit', async (e) => {
+        //-     e.preventDefault();
+        //-     const data = new FormData(e.target);
+        //-     const res = await postForm(e.target.action, serialize(data));
+        //-     if (res.status == 'success') {
+        //-         e.target.reset();
+        //-         document.getElementById('form-wrapper').classList.add('d-none');
+        //-         document.getElementById('request-btn').classList.add('d-none');
+        //-         e.target.querySelector('.alert-info').innerHTML = 'We have received your request. We will get back to you shortly';
+        //-         e.target.querySelector('.alert-info').classList.remove('d-none');
+        //-     }
+        //- });
+
+        //- recaptcha callback function
+        function onSubmit(token) {
+            document.getElementById("form-vet-property").submit();
+        }
