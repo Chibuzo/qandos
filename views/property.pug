@@ -65,9 +65,10 @@ block content
                                 p
                                     i.fa.fa-bath
                                     |  #{property.toilets} Toilets
-                                p
-                                    i.fa.fa-trophy
-                                    |  #{property.age} years age
+                                if property.age > 0
+                                    p
+                                        i.fa.fa-trophy
+                                        |  #{property.age} years age
                         h3.sl-sp-title Description
                         .description
                             p
