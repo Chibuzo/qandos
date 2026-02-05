@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         mediaType: {
-            type: Sequelize.ENUM('photo', 'video', 'floor plan'),
+            type: Sequelize.ENUM('photo', 'video', 'floor plan', 'document'),
             defaultValue: 'photo'
         }
     }, {
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'propertyMedia'
     });
 
-    PropertyMedia.associate = function(models) {
+    PropertyMedia.associate = function (models) {
         PropertyMedia.belongsTo(models.Property);
     }
 

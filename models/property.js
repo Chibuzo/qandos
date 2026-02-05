@@ -53,6 +53,21 @@ module.exports = (sequelize, DataTypes) => {
         deleted: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
+        },
+        district: DataTypes.STRING(50),
+        asset_class: DataTypes.STRING(50),
+        role: {
+            type: Sequelize.ENUM('Owner', 'Agent'),
+            defaultValue: 'Agent'
+        },
+        title_document_type: DataTypes.STRING(50),
+        plot_number: DataTypes.STRING(50),
+        allottee_name: DataTypes.STRING(100),
+        survey_coordinates: DataTypes.STRING(100),
+        nin_rc: DataTypes.STRING(50),
+        listing_consent: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
     }, {
         timestamps: true,

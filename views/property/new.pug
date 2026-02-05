@@ -22,98 +22,106 @@ block content
                 .card-body.p-4
                     h4.fw-semibold.mb-4 Property Details 
 
-                    form(action='/property/new' method='post')
+                    //- New structured form: Sections A–D
+                    form(action='/property/new' method='post' enctype='multipart/form-data')
+                        // Public visibility note
+                        .alert.alert-info Small(text) Only Size, Price, Location, Asset Class and Pictures & Videos will be publicly visible.
+
+                        // Section A: Basic Property Details
+                        h5.mb-3 Basic Property Details
                         .form-group.mb-3
-                            label.form-label Property Title 
-                            input.form-control(name="title" type="text" required)
-                        .form-group.mb-3 
-                            label.form-label Description
-                            textarea.form-control(name="description" type="text")
+                            label.form-label Property Title/Name
+                            input.form-control(name="title" type="text" required placeholder="e.g., 500sqm Plot in Jahi")
+
+                        .form-group.mb-3
+                            label.form-label Location / District
+                            select.form-control(name="district" required)
+                                option(value='') -- Select District --
+                                option(value='Guzape') Guzape
+                                option(value='Maitama') Maitama
+                                option(value='Wuse II') Wuse II
+                                option(value='Wuse I') Wuse I
+                                option(value='Jahi') Jahi
+                                option(value='Gwarinpa') Gwarinpa
+                                option(value='Asokoro') Asokoro
+                                option(value='Kubwa') Kubwa
+                                option(value='Bwari') Bwari
 
                         .form-group.mb-3.row
                             .col-md-6
-                                label.form-label Category 
-                                select.form-control(name="category" required)  
-                                    option(value='') -- Category --
-                                    option(value='fully built') Fully built 
-                                    option(value='land') Land
-                                    option(value='uncompleted') Uncompleted
+                                label.form-label Asset Class
+                                select.form-control(name="asset_class" required)
+                                    option(value='') -- Select Asset Class --
+                                    option(value='Residential') Residential
+                                    option(value='Commercial') Commercial
+                                    option(value='Mixed-Use') Mixed-Use
                             .col-md-6
-                                label.form-label Currently Occupied 
-                                select.form-control(name="occupied")  
-                                    option(value='0') No 
-                                    option(value='1') Yes
-                        .form-group.mb-3.row 
-                            .col-md-6
-                                label.form-label Bedrooms 
-                                select.form-control(name="bedrooms" required)  
-                                    option(value='') -- No of Bedrooms --
-                                    option(value='1') 1 
-                                    option(value='2') 2
-                                    option(value='3') 3
-                                    option(value='4') 4
-                                    option(value='5') 5
-                                    option(value='6') 6
-                                    option(value='7') 7
-                            .col-md-6
-                                label.form-label Toilets 
-                                select.form-control(name="toilets" required)  
-                                    option(value='') -- No of Toilets --
-                                    option(value='1') 1 
-                                    option(value='2') 2
-                                    option(value='3') 3
-                                    option(value='4') 4
-                                    option(value='5') 5
-                                    option(value='6') 6
-                                    option(value='7') 7
+                                label.form-label Asking Price (₦)
+                                input.form-control(name="price" type='text' required placeholder='e.g., 25,000,000')
 
-                        .form-group.mb-3.row
-                            .col-md-6
-                                label.form-label Age (months)
-                                input.form-control(name="age" type='number')  
+                        .form-group.mb-3
+                            label.form-label Role
+                            select.form-control(name="role" required)
+                                option(value='') -- Select Role --
+                                option(value='Owner') Owner
+                                option(value='Agent') Agent
 
-                            .col-md-6
-                                label.form-label Asking Price 
-                                input.form-control(name="cost" type='text' required)  
+                        .form-group.mb-3
+                            label.form-label Size
+                            input.form-control(name="plot_size" type='text' placeholder='e.g., 500 sqm')
 
-                        .form-group.mb-4.row
-                            .col-md-6
-                                label.form-label State 
-                                select.form-control#state(name="state" required)  
-                                    option(value='') -- State --
-                                    each state in states 
-                                        option(value=`${state.slug}`)= state.name
+                        // Section B: Legal & Technical (Required for Verification)
+                        h5.mt-4.mb-3 Legal & Technical (Required for Verification)
+                        .form-group.mb-3
+                            label.form-label Title Document Type
+                            select.form-control(name="title_document_type" required)
+                                option(value='') -- Select Document Type --
+                                option(value='C of O') C of O
+                                option(value='R of O') R of O
+                                option(value='Deed of Assignment') Deed of Assignment
+                                option(value='Court Judgment') Court Judgment
 
-                            .col-md-6
-                                label.form-label City 
-                                select.form-control#city(name="city")  
-                                    option(value='') -- City --
+                        .form-group.mb-3
+                            label.form-label Plot Number
+                            input.form-control(name="plot_number" type='text' required placeholder='Critical for AGIS check')
 
-                        .form-group.mb-4.row
-                            .col-md-6
-                                label.form-label Available Units 
-                                input.form-control(type='number' name="available_units" value='1' required)  
-                            .col-md-6
-                                label.form-label Plot Size 
-                                input.form-control(name="plot_size" type='text')  
+                        .form-group.mb-3
+                            label.form-label Name of Allottee/Owner (as on document)
+                            input.form-control(name="allottee_name" type='text' required)
 
-                        .form-group.mb-4.row
-                            .col-md-6
-                                label.form-label Closest Landmark 
-                                input.form-control(type='text' name="closest_landmark")  
-                            .col-md-6
-                                label.form-label Garage/Parking Space
-                                input.form-control(name="garage" type='text')  
+                        .form-group.mb-3
+                            label.form-label Survey Coordinates / Beacon Numbers
+                            input.form-control(name="survey_coordinates" type='text' placeholder='GPS coords or beacon refs')
 
-                        .form-group.mb-4.row
-                            .col-md-6
-                                label.form-label Longitude
-                                input.form-control(type='text' name="longitude")  
-                            .col-md-6
-                                label.form-label Latitude 
-                                input.form-control(name="latitude" type='text')  
+                        // Section C: Media & Attachments
+                        h5.mt-4.mb-3 Media & Attachments
+                        .form-group.mb-3
+                            label.form-label High-Res Title Document Scan (for OCR)
+                            input.form-control(type='file' name='title_document' accept='.pdf,image/*' required)
 
-                        .mb-3 
+                        .form-group.mb-3
+                            label.form-label Property Images (Up to 5 high-quality photos)
+                            input.form-control(type='file' name='property_images' accept='image/*' multiple)
+                            small.form-text.text-muted Upload up to 5 images. Large files recommended as high-res for listings.
+
+                        .form-group.mb-3
+                            label.form-label Video Walkthrough (optional)
+                            input.form-control(type='file' name='video_walkthrough' accept='video/*')
+
+                        // Section D: Agent/Owner Identity
+                        h5.mt-4.mb-3 Agent / Owner Identity
+                        .form-group.mb-3
+                            label.form-label NIN or RC Number
+                            input.form-control(name='nin_rc' type='text' required placeholder='NIN or RC number for verification')
+
+                        .form-group.mb-3.form-check
+                            input.form-check-input(type='checkbox' id='listing_consent' name='listing_consent' required)
+                            label.form-check-label(for='listing_consent') I confirm that I have the legal right to list this property and that QANDOS will conduct a mandatory audit upon buyer interest.
+
+                        // Visibility control note (informational)
+                        p.text-muted.mt-3 Only Size, Price, Location, Asset Class and uploaded Pictures & Videos will be visible to the public. All other details are used for verification and will remain private.
+
+                        .mb-3
                             button.btn.btn-primary.float-end(type='submit') Save Property
 
 

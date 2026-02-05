@@ -3,8 +3,31 @@ const { ErrorHandler } = require('../helpers/errorHandler');
 const { uploadFiles } = require('../helpers/fileUpload');
 const { Op, Sequelize, or } = require("sequelize");
 
-const create = async data => {
-    return Property.create(data);
+const create = async (data, files) => {
+    const property = await Property.create(data);
+
+    if (files) {
+        if (files.title_document) {
+            const uploaded = await uploadFiles(files.title_document, 'property_documents');
+            if (uploaded.length > 0) {
+                await PropertyMedia.create({ location: uploaded[0], PropertyId: property.id, mediaType: 'document' });
+            }
+        }
+        if (files.property_images) {
+            const uploaded = await uploadFiles(files.property_images, 'property_photos');
+            await PropertyMedia.bulkCreate(
+                uploaded.map(location => ({ location, PropertyId: property.id, mediaType: 'photo' }))
+            );
+        }
+        if (files.video_walkthrough) {
+            const uploaded = await uploadFiles(files.video_walkthrough, 'property_videos');
+            if (uploaded.length > 0) {
+                await PropertyMedia.create({ location: uploaded[0], PropertyId: property.id, mediaType: 'video' });
+            }
+        }
+    }
+
+    return property;
 }
 
 const list = async (criteria = {}, limit = 15, searchParams = null) => {

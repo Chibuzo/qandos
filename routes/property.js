@@ -25,8 +25,12 @@ router.get('/new', async (req, res, next) => {
 
 router.post('/new', async (req, res, next) => {
     try {
-        const property = await propertyService.create(req.body);
-        res.redirect(`/property/${property.id}/edit`);
+        const { price, ...rest } = req.body;
+        // Clean price string (e.g., "25,000,000" -> 25000000)
+        const cost = price ? parseInt(price.replace(/,/g, '')) : 0;
+        const propertyData = { ...rest, cost };
+        const property = await propertyService.create(propertyData, req.files);
+        res.redirect(`/property/list`);
     } catch (err) {
         next(err);
     }

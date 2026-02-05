@@ -23,10 +23,10 @@ block content
                     thead
                         tr
                             th Title
-                            th Beds
-                            th toilets
+                            th Asset Class
+                            th District
                             th Location
-                            th Age
+                            th Size
                             th Cost 
                             th Feat.
                             th status
@@ -35,10 +35,10 @@ block content
                         each property in properties 
                             tr 
                                 td=property.title
-                                td=property.bedrooms 
-                                td=property.toilets 
+                                td=property.asset_class
+                                td=property.district
                                 td #{property.state}, #{property.city} 
-                                td=property.age 
+                                td=property.plot_size
                                 td N #{view.formatCurrency(property.cost)}
                                 td 
                                     if property.featured == '1'

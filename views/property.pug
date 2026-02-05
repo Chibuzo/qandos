@@ -36,7 +36,7 @@ block content
                                 h2 #{property.title}
                                 p
                                     i.fa.fa-map-marker
-                                    | #{property.state}, #{property.city}
+                                    | #{property.district}, #{property.city}
                             .col-xl-4
                                 a.price-btn(href='#') N#{view.formatCurrency(property.cost)}
                         h3.sl-sp-title Property Details
@@ -69,10 +69,25 @@ block content
                                     p
                                         i.fa.fa-trophy
                                         |  #{property.age} years age
+                                p
+                                    i.fa.fa-tag
+                                    |  #{property.asset_class}
+                                p
+                                    i.fa.fa-user-circle
+                                    |  #{property.role}
                         h3.sl-sp-title Description
                         .description
                             p
                             | #{property.description}
+
+                        h3.sl-sp-title Legal & Technical Details
+                        .row.property-details-list
+                            .col-md-6
+                                p #[strong Plot Number:] #{property.plot_number}
+                                p #[strong Title Document:] #{property.title_document_type}
+                            .col-md-6
+                                p #[strong Allottee Name:] #{property.allottee_name}
+                                p #[strong Survey Coordinates:] #{property.survey_coordinates}
 
 
                         h3.sl-sp-title.bd-no Floorplans
@@ -134,6 +149,14 @@ block content
                             button.btn-custom.btn-block.btn-lg.mb-4(data-bs-toggle='modal' data-bs-target='#form-login') 
                                 i.fa.fa-heart-o 
                                 | &nbsp;    Add to Wishlist
+
+                        - const propertyUrl = referralLink ? referralLink : `${baseUrl}/property/${property.id}/${property.title.split(' ').join('-')}`
+                        - const whatsappMsg = encodeURIComponent(`Hello, I would like to verify property ID: ${property.id}. Link: ${propertyUrl}`)
+                        - const whatsappNumber = '2349166788985'
+                        a.btn.btn-success.btn-block.btn-lg.mb-4(href=`https://wa.me/${whatsappNumber}?text=${whatsappMsg}` target='_blank' style='background-color: #25D366; border-color: #25D366;')
+                            i.fa.fa-whatsapp 
+                            | &nbsp;    Verify Property
+
                         p.text-center OR 
                         h5 Book Appointment
                         #userPane.d-none
