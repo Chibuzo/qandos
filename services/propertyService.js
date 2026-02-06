@@ -4,7 +4,8 @@ const { uploadFiles } = require('../helpers/fileUpload');
 const { Op, Sequelize, or } = require("sequelize");
 
 const create = async (data, files) => {
-    const property = await Property.create(data);
+    const { UserId, ...propertyData } = data;
+    const property = await Property.create({ ...propertyData, UserId });
 
     if (files) {
         if (files.title_document) {
@@ -43,10 +44,13 @@ const list = async (criteria = {}, limit = 15, searchParams = null) => {
     };
     return Property.findAll({
         where: { ...criteria, deleted: false },
-        include: {
+        include: [{
             model: PropertyMedia,
             limit: 1
-        },
+        }, {
+            model: require('../models').User,
+            attributes: ['id', 'fullname', 'role']
+        }],
         limit,
         order: [['createdAt', 'desc']]
     });
@@ -92,7 +96,11 @@ const update = async (id, data) => {
 }
 
 const uploadPropertyPhotos = async (PropertyId, files, mediaType = 'photo') => {
-    const uploadedFiles = await uploadFiles(files);
+    let subfolder = 'property_photos';
+    if (mediaType === 'video') subfolder = 'property_videos';
+    if (mediaType === 'document' || mediaType === 'floor plan') subfolder = 'property_documents';
+
+    const uploadedFiles = await uploadFiles(files, subfolder);
     return PropertyMedia.bulkCreate(
         uploadedFiles.map(file => ({ location: file, PropertyId, mediaType }))
     );

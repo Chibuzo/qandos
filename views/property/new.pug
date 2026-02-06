@@ -1,4 +1,4 @@
-extends ../admin/layout 
+extends ../dashboard-layout 
 
 block content
     .card.bg-light-info.shadow-none.position-relative.overflow-hidden
@@ -25,7 +25,7 @@ block content
                     //- New structured form: Sections A–D
                     form(action='/property/new' method='post' enctype='multipart/form-data')
                         // Public visibility note
-                        .alert.alert-info Small(text) Only Size, Price, Location, Asset Class and Pictures & Videos will be publicly visible.
+                        .alert.alert-info Only Size, Price, Location, Asset Class and Pictures & Videos will be publicly visible.
 
                         // Section A: Basic Property Details
                         h5.mb-3 Basic Property Details
@@ -74,7 +74,7 @@ block content
                         h5.mt-4.mb-3 Legal & Technical (Required for Verification)
                         .form-group.mb-3
                             label.form-label Title Document Type
-                            select.form-control(name="title_document_type" required)
+                            select.form-control(name="title_document_type")
                                 option(value='') -- Select Document Type --
                                 option(value='C of O') C of O
                                 option(value='R of O') R of O
@@ -97,7 +97,7 @@ block content
                         h5.mt-4.mb-3 Media & Attachments
                         .form-group.mb-3
                             label.form-label High-Res Title Document Scan (for OCR)
-                            input.form-control(type='file' name='title_document' accept='.pdf,image/*' required)
+                            input.form-control(type='file' name='title_document' accept='.pdf,image/*')
 
                         .form-group.mb-3
                             label.form-label Property Images (Up to 5 high-quality photos)

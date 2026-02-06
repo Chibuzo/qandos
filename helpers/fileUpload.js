@@ -1,4 +1,3 @@
-const { ErrorHandler } = require('../helpers/errorHandler');
 
 const uploadFiles = async (files, subfolder = 'property_photos') => {
     if (!files) return [];

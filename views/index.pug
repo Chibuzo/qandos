@@ -48,7 +48,7 @@ block content
                                         a(href=`/property/${property.id}/${property.title.split(' ').join('-')}`)=property.title
                                     p
                                         i.fa.fa-map-marker
-                                        |  #{property.state}, #{property.city}
+                                        |  #{property.district}
                                 .price N#{view.formatCurrency(property.cost)}
 
     section.services-section.spad.set-bg(data-setbg='/img/service-bg.jpg')
@@ -101,7 +101,7 @@ block content
                                         a(href=`/property/${property.id}/${property.title.split(' ').join('-')}`)=property.title
                                     p
                                         i.fa.fa-map-marker
-                                        |  #{property.state}, #{property.city}
+                                        |  #{property.district}
                                 .room-info-warp
                                     .room-info
                                         .rf-left

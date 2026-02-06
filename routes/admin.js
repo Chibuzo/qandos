@@ -5,6 +5,7 @@ const authenticateAdmin = require('../middlewares/authenticateAdmin');
 const userService = require('../services/userService');
 const paymentService = require('../services/paymentService');
 const propertyService = require('../services/propertyService');
+const { Op } = require('sequelize');
 
 
 router.get('/', function (req, res) {
@@ -89,6 +90,30 @@ router.get('/list-vetting-requests', authenticateAdmin, async (req, res, next) =
     try {
         const properties = await propertyService.listPropertiesForVetting();
         res.render('admin/property-vetting', { properties });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/agent-properties', authenticateAdmin, async (req, res, next) => {
+    try {
+        // List properties where the user role is 'partner' or 'agent'
+        const properties = await propertyService.list({ UserId: { [Op.not]: null } }, 100);
+        // Filter in memory for simplicity if the include User is not sufficient, 
+        // but propertyService.list now includes User.
+        const partnerProperties = properties.filter(p => p.User && (p.User.role === 'partner' || p.User.role === 'agent'));
+
+        res.render('admin/agent-properties', { properties: partnerProperties });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.post('/update-property-status', authenticateAdmin, async (req, res, next) => {
+    try {
+        const { propertyId, status } = req.body;
+        await propertyService.update(propertyId, { status });
+        res.status(200).json({ status: 'success' });
     } catch (err) {
         next(err);
     }

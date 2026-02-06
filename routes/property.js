@@ -8,8 +8,19 @@ const newsletterService = require('../services/newsLetterService');
 
 router.get('/list', async (req, res, next) => {
     try {
-        const properties = await propertyService.list({}, 15);
-        res.render('property/list', { properties });
+        const user = req.session.user || req.session.admin;
+        if (!user) return res.redirect('/login');
+
+        const criteria = user.role === 'admin' ? {} : { UserId: user.id };
+        const properties = await propertyService.list(criteria, 100);
+
+        const dashboardLink = user.role === 'admin' ? '/admin/dashboard' : '/partner/dashboard';
+
+        // Ensure layout has access to the correct user/admin object
+        if (user.role === 'admin') res.locals.admin = user;
+        else res.locals.user = user;
+
+        res.render('property/list', { properties, dashboardLink });
     } catch (err) {
         next(err);
     }
@@ -17,6 +28,12 @@ router.get('/list', async (req, res, next) => {
 
 router.get('/new', async (req, res, next) => {
     try {
+        const user = req.session.user || req.session.admin;
+        if (!user) return res.redirect('/login');
+
+        if (user.role === 'admin') res.locals.admin = user;
+        else res.locals.user = user;
+
         res.render('property/new', { states });
     } catch (err) {
         next(err);
@@ -25,10 +42,19 @@ router.get('/new', async (req, res, next) => {
 
 router.post('/new', async (req, res, next) => {
     try {
+        const user = req.session.user || req.session.admin;
+        if (!user) return res.status(401).send('Unauthorized');
+
         const { price, ...rest } = req.body;
         // Clean price string (e.g., "25,000,000" -> 25000000)
         const cost = price ? parseInt(price.replace(/,/g, '')) : 0;
-        const propertyData = { ...rest, cost };
+        const propertyData = { ...rest, cost, UserId: user.id };
+
+        // Partners create properties with 'unverified' status (default is now unverified)
+        if (user.role === 'partner') {
+            propertyData.status = 'unverified';
+        }
+
         const property = await propertyService.create(propertyData, req.files);
         res.redirect(`/property/list`);
     } catch (err) {
@@ -38,10 +64,17 @@ router.post('/new', async (req, res, next) => {
 
 router.get('/:id/edit', async (req, res, next) => {
     try {
+        const user = req.session.user || req.session.admin;
+        if (!user) return res.redirect('/login');
+
         const { id } = req.params;
         const foundProperty = await propertyService.view(id);
         const { photos = [], ...property } = foundProperty;
         const cities = utilityService.filterCitiesByState(property.state);
+
+        if (user.role === 'admin') res.locals.admin = user;
+        else res.locals.user = user;
+
         res.render('property/edit', { property, photos, states, cities });
     } catch (err) {
         next(err);
@@ -51,7 +84,14 @@ router.get('/:id/edit', async (req, res, next) => {
 router.post('/:id/update', async (req, res, next) => {
     try {
         const { id } = req.params;
-        await propertyService.update(id, req.body);
+        const { price, ...rest } = req.body;
+
+        let updateData = { ...rest };
+        if (price) {
+            updateData.cost = parseInt(price.replace(/,/g, ''));
+        }
+
+        await propertyService.update(id, updateData);
         res.redirect(`/property/${id}/edit`);
     } catch (err) {
         next(err);
@@ -62,7 +102,8 @@ router.post('/:id/upload-photos', async (req, res, next) => {
     try {
         const { id: propertyId } = req.params;
         const { mediaType } = req.body;
-        await propertyService.uploadPropertyPhotos(propertyId, req.files, mediaType);
+        const files = req.files ? req.files.property_photos : null;
+        await propertyService.uploadPropertyPhotos(propertyId, files, mediaType);
         res.redirect(`/property/${propertyId}/edit`);
     } catch (err) {
         next(err);

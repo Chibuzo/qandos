@@ -1,7 +1,7 @@
 doctype html
 head
     // Title
-    title Qandos Admin
+    title Qandos #{admin ? 'Admin' : 'Partner'}
     // Required Meta Tag
     meta(http-equiv='Content-Type' content='text/html; charset=UTF-8')
     meta(name='viewport' content='width=device-width, initial-scale=1')
@@ -41,9 +41,6 @@ body
     // Preloader
     .preloader
         img.lds-ripple.img-fluid(src='/img/favicon.png' alt='loader')
-    // Preloader
-    .preloader
-        img.lds-ripple.img-fluid(src='/img/favicon.png' alt='loader')
     // Body Wrapper
     #main-wrapper.page-wrapper(data-layout='vertical' data-sidebartype='full' data-sidebar-position='fixed' data-header-position='fixed')
         // Sidebar Start
@@ -59,21 +56,46 @@ body
                 // Sidebar navigation
                 nav.sidebar-nav.scroll-sidebar(data-simplebar='')
                     ul#sidebarnav
-                        li.sidebar-item
-                            a.sidebar-link(href='/admin/dashboard' aria-expanded='false')
-                                span
-                                    i.ti.ti-activity-heartbeat
-                                span.hide-menu Dashboard
-                        li.sidebar-item
-                            a.sidebar-link(href='/property/list' aria-expanded='false')
-                                span
-                                    i.ti.ti-home
-                                span.hide-menu Properties
-                        li.sidebar-item
-                            a.sidebar-link(href='/admin/list-vetting-requests' aria-expanded='false')
-                                span
-                                    i.ti.ti-home
-                                span.hide-menu Vetting Requests
+                        if admin
+                            li.sidebar-item
+                                a.sidebar-link(href='/admin/dashboard' aria-expanded='false')
+                                    span
+                                        i.ti.ti-activity-heartbeat
+                                    span.hide-menu Dashboard
+                        
+                            li.sidebar-item
+                                a.sidebar-link(href='/property/list' aria-expanded='false')
+                                    span
+                                        i.ti.ti-home
+                                    span.hide-menu Properties
+                            
+                            li.sidebar-item
+                                a.sidebar-link(href='/admin/agent-properties' aria-expanded='false')
+                                    span
+                                        i.ti.ti-building-community
+                                    span.hide-menu Agent Properties
+                            li.sidebar-item
+                                a.sidebar-link(href='/admin/list-vetting-requests' aria-expanded='false')
+                                    span
+                                        i.ti.ti-home
+                                    span.hide-menu Vetting Requests
+                        
+                        if user && (user.role === 'partner' || user.role === 'agent')
+                            li.sidebar-item
+                                a.sidebar-link(href='/partner/appointments' aria-expanded='false')
+                                    span
+                                        i.ti.ti-calendar
+                                    span.hide-menu Referals' Appointments
+                            li.sidebar-item
+                                a.sidebar-link(href='/partner/property-leads' aria-expanded='false')
+                                    span
+                                        i.ti.ti-home
+                                    span.hide-menu Property Leads
+                            li.sidebar-item
+                                a.sidebar-link(href='/partner/transactions' aria-expanded='false')
+                                    span
+                                        i.ti.ti-file-text
+                                    span.hide-menu Transactions
 
                         li.sidebar-item
                             a.sidebar-link(href='/logout' aria-expanded='false')

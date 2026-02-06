@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             defaultValue: 0
         },
-        plot_size: DataTypes.STRING(15), 
+        plot_size: DataTypes.STRING(15),
         garage: {
             type: DataTypes.INTEGER,
             defaultValue: 1
@@ -47,8 +47,8 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: false
         },
         status: {
-            type: Sequelize.ENUM('sold', 'available', 'processing'),
-            defaultValue: 'available'
+            type: Sequelize.ENUM('sold', 'available', 'processing', 'unverified'),
+            defaultValue: 'unverified'
         },
         deleted: {
             type: DataTypes.BOOLEAN,
@@ -76,6 +76,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Property.associate = function (models) {
         Property.hasMany(models.PropertyMedia);
+        Property.belongsTo(models.User);
     };
 
     return Property;

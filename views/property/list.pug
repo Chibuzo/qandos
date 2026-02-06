@@ -1,4 +1,4 @@
-extends ../admin/layout
+extends ../dashboard-layout
 
 block content
     .card.bg-light-info.shadow-none.position-relative.overflow-hidden
@@ -9,7 +9,7 @@ block content
                     nav(aria-label='breadcrumb')
                         ol.breadcrumb
                             li.breadcrumb-item
-                                a.text-muted(href='/admin/deashboard') Home
+                                a.text-muted(href=`${dashboardLink}`) Home
                             li.breadcrumb-item(aria-current='page') Properties
                 .col-3
                     a.btn.btn-primary.float-end(href='/property/new') Add New
@@ -25,10 +25,11 @@ block content
                             th Title
                             th Asset Class
                             th District
-                            th Location
+                            //- th Location
                             th Size
                             th Cost 
-                            th Feat.
+                            if user.role == 'admin'
+                                th Feat.
                             th status
                             th Action
                     tbody
@@ -37,14 +38,15 @@ block content
                                 td=property.title
                                 td=property.asset_class
                                 td=property.district
-                                td #{property.state}, #{property.city} 
+                                //- td #{property.state}, #{property.city} 
                                 td=property.plot_size
                                 td N #{view.formatCurrency(property.cost)}
-                                td 
-                                    if property.featured == '1'
-                                        | Yes
-                                    else 
-                                        | No
+                                if user.role == 'admin'
+                                    td 
+                                        if property.featured == '1'
+                                            | Yes
+                                        else 
+                                            | No
                                 td=property.status 
                                 td
                                     a(href=`/property/${property.id}/edit`).me-2
