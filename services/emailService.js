@@ -61,7 +61,7 @@ module.exports = {
 
         const data = {
             user: user.fullname.split(' ')[0],
-            url: BASE_URL + path + '/' + email_b64 + '/' + hash,
+            url: BASE_URL + '/' + path + '/' + email_b64 + '/' + hash,
             base_url: BASE_URL
         };
         console.log(data.url)
@@ -77,7 +77,7 @@ module.exports = {
 
         const data = {
             user: user.fullname,
-            url: BASE_URL + 'password-reset/' + email_b64 + '/' + hash,
+            url: BASE_URL + '/password-reset/' + email_b64 + '/' + hash,
             base_url: BASE_URL
         };
         const subject = `${APP_NAME} Password Reset Link`;
@@ -103,7 +103,7 @@ module.exports = {
         const subject = 'New Properties Recently Added';
         const template = 'weeklyNewsletter';
         subscribers.forEach(subscriber => {
-            data.unsubscribeLink = BASE_URL + 'unsubscribe/' + Buffer.from(subscriber.email).toString('base64');
+            data.unsubscribeLink = BASE_URL + '/unsubscribe/' + Buffer.from(subscriber.email).toString('base64');
             sendMail(subscriber.email, subject, template, data);
         });
     },
@@ -115,7 +115,7 @@ module.exports = {
             units: investment.units,
             currency: investment.currency.symbol,
             amount: formatCurrency(investment.amount_invested),
-            url: BASE_URL + 'users/dashboard'
+            url: BASE_URL + '/users/dashboard'
         };
         const subject = `Congratulations! You just invested in our ${data.investment_name}`;
         const template = 'paymentConfirmation';
