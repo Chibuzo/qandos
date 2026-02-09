@@ -49,7 +49,7 @@ const sendMail = (to, subject, template, data) => {
         if (error) {
             return console.log(error);
         }
-        // console.log('Message sent: %s', info.messageId);
+        console.log('Message sent: %s', info.messageId);
     });
 }
 
@@ -64,6 +64,7 @@ module.exports = {
             url: BASE_URL + path + '/' + email_b64 + '/' + hash,
             base_url: BASE_URL
         };
+        console.log(data.url)
         const subject = "Verify your email address";
         const template = 'verifyAccount';
         sendMail(user.email, subject, template, data);
