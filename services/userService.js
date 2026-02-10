@@ -34,9 +34,6 @@ const create = async ({ fullname, email, phone, location, newsletter, password, 
         data.password = await bcrypt.hash(password, saltRounds);
         emailPath = 'activate';
     }
-    if (role == 'partner') {
-        data.agent_status = 'pending';
-    }
     const newUser = await User.create(data);
     emailService.sendConfirmationEmail(newUser, emailPath);
     delete newUser.password;

@@ -35,7 +35,8 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: 'inactive'
         },
         agent_status: {
-            type: Sequelize.ENUM('pending', 'verified', 'rejected')
+            type: Sequelize.ENUM('pending', 'verified', 'rejected'),
+            defaultValue: 'verified'
         },
         agentCode: {
             type: DataTypes.STRING(15)
