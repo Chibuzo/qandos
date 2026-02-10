@@ -119,4 +119,25 @@ router.post('/update-property-status', authenticateAdmin, async (req, res, next)
     }
 });
 
+router.post('/reject-property', authenticateAdmin, async (req, res, next) => {
+    try {
+        const { propertyId, reason } = req.body;
+        await propertyService.update(propertyId, { status: 'rejected', rejection_reason: reason });
+        res.status(200).json({ status: 'success' });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/property/:id', authenticateAdmin, async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const property = await propertyService.view(id);
+        const photos = property.photos || [];
+        res.render('admin/property-detail', { property, photos });
+    } catch (err) {
+        next(err);
+    }
+});
+
 module.exports = router;

@@ -68,6 +68,10 @@ module.exports = (sequelize, DataTypes) => {
         listing_consent: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
+        },
+        rejection_reason: {
+            type: DataTypes.TEXT,
+            allowNull: true
         }
     }, {
         timestamps: true,
