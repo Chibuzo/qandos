@@ -5,7 +5,7 @@ const { Op, Sequelize, or } = require("sequelize");
 
 const create = async (data, files) => {
     const { UserId, ...propertyData } = data;
-    const property = await Property.create({ ...propertyData, UserId });
+    const property = await Property.create({ ...propertyData, colisting_consent: true, UserId });
 
     if (files) {
         if (files.title_document) {
