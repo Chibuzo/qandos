@@ -11,13 +11,14 @@ router.get('/list', async (req, res, next) => {
         const user = req.session.user || req.session.admin;
         if (!user) return res.redirect('/login');
 
-        const criteria = user.role === 'admin' ? {} : { UserId: user.id };
+        const isAdmin = user.type === 'admin-user';
+        const criteria = isAdmin ? {} : { UserId: user.id };
         const properties = await propertyService.list(criteria, 100);
 
-        const dashboardLink = user.role === 'admin' ? '/admin/dashboard' : '/partner/dashboard';
+        const dashboardLink = isAdmin ? '/admin/dashboard' : '/partner/dashboard';
 
         // Ensure layout has access to the correct user/admin object
-        if (user.role === 'admin') res.locals.admin = user;
+        if (isAdmin) res.locals.admin = user;
         else res.locals.user = user;
 
         res.render('property/list', { properties, dashboardLink });
@@ -31,7 +32,9 @@ router.get('/new', async (req, res, next) => {
         const user = req.session.user || req.session.admin;
         if (!user) return res.redirect('/login');
 
-        if (user.role === 'admin') res.locals.admin = user;
+        const isAdmin = user.type === 'admin-user';
+
+        if (isAdmin) res.locals.admin = user;
         else res.locals.user = user;
 
         res.render('property/new', { states });
@@ -72,7 +75,9 @@ router.get('/:id/edit', async (req, res, next) => {
         const { photos = [], ...property } = foundProperty;
         const cities = utilityService.filterCitiesByState(property.state);
 
-        if (user.role === 'admin') res.locals.admin = user;
+        const isAdmin = user.type === 'admin-user';
+
+        if (isAdmin) res.locals.admin = user;
         else res.locals.user = user;
 
         res.render('property/edit', { property, photos, states, cities });

@@ -56,19 +56,12 @@ body
                 // Sidebar navigation
                 nav.sidebar-nav.scroll-sidebar(data-simplebar='')
                     ul#sidebarnav
-                        if admin
+                        if admin 
                             li.sidebar-item
                                 a.sidebar-link(href='/admin/dashboard' aria-expanded='false')
                                     span
                                         i.ti.ti-activity-heartbeat
                                     span.hide-menu Dashboard
-                        
-                            li.sidebar-item
-                                a.sidebar-link(href='/property/list' aria-expanded='false')
-                                    span
-                                        i.ti.ti-home
-                                    span.hide-menu Properties
-                            
                             li.sidebar-item
                                 a.sidebar-link(href='/admin/agent-properties' aria-expanded='false')
                                     span
@@ -79,6 +72,12 @@ body
                                     span
                                         i.ti.ti-home
                                     span.hide-menu Vetting Requests
+
+                        li.sidebar-item
+                            a.sidebar-link(href='/property/list' aria-expanded='false')
+                                span
+                                    i.ti.ti-home
+                                span.hide-menu Properties
                         
                         if user && (user.role === 'partner' || user.role === 'agent')
                             li.sidebar-item

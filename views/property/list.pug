@@ -28,7 +28,7 @@ block content
                             //- th Location
                             th Size
                             th Cost 
-                            if user.role == 'admin'
+                            if admin
                                 th Feat.
                             th status
                             th Action
@@ -41,7 +41,7 @@ block content
                                 //- td #{property.state}, #{property.city} 
                                 td=property.plot_size
                                 td N #{view.formatCurrency(property.cost)}
-                                if user.role == 'admin'
+                                if admin
                                     td 
                                         if property.featured == '1'
                                             | Yes
