@@ -4,8 +4,9 @@ const { uploadFiles } = require('../helpers/fileUpload');
 const { Op, Sequelize, or } = require("sequelize");
 
 const create = async (data, files) => {
-    const { UserId, ...propertyData } = data;
-    const property = await Property.create({ ...propertyData, colisting_consent: true, UserId });
+    const { UserId, listing_consent, ...propertyData } = data;
+    if (listing_consent) propertyData.listing_consent = true;
+    const property = await Property.create({ ...propertyData, UserId });
 
     if (files) {
         if (files.title_document) {
