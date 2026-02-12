@@ -122,6 +122,10 @@ const listPropertiesForVetting = async () => {
     return VerifyProperty.findAll({ order: [['createdAt', 'desc']] });
 }
 
+const countUserProperties = async UserId => {
+    return Property.count({ where: { UserId, deleted: false } });
+}
+
 module.exports = {
     create,
     list,
@@ -133,5 +137,6 @@ module.exports = {
     fetchRelatedProperties,
     deleteMedia,
     logPropertyVerification,
-    listPropertiesForVetting
+    listPropertiesForVetting,
+    countUserProperties
 }

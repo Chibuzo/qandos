@@ -47,7 +47,7 @@ block content
                                             | Yes
                                         else 
                                             | No
-                                td=property.status 
+                                td(style='text-transform: capitalize')=property.status
                                 td
                                     a(href=`/property/${property.id}/edit`).me-2
                                         span(style='font-size: 16px')    

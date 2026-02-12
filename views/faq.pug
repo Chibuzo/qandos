@@ -1,93 +1,121 @@
-extends layout 
+extends layout
 
 block content
     section.page-top-section.set-bg(data-setbg='/img/page-top-bg.jpg')
         .container.text-white
-            h2 FAQ
+            h2 Frequently Asked Questions
 
     .site-breadcrumb
         .container
-            a(href='')
+            a(href='/')
                 i.fa.fa-home
                 | Home
             span
                 i.fa.fa-angle-right
                 | FAQ
 
-    section.feature-section
+    section.page-section.faq-page
         .container
-            .row(style='margin-bottom: 150px;')
-                .col-md-7
-                    #accordion.faq-item
-                        .faq-single-item
-                            h3#headingOne
-                                button.btn.btn-link(data-toggle='collapse' data-target='#collapseOne' aria-expanded='true' aria-controls='collapseOne')
-                                    span.lnr.lnr-question-circle
-                                    | How do I know the properties listed on QANDOS are legally verified?
-                            #collapseOne.collapse(aria-labelledby='headingOne' data-parent='#accordion')
+            .row
+                .col-lg-12
+                    .accordion#faqAccordion
+                        .card.mb-3
+                            .card-header#headingOne
+                                h5.mb-0
+                                    button.btn.btn-link(type='button' data-toggle='collapse' data-target='#collapseOne' aria-expanded='true' aria-controls='collapseOne')
+                                        | 1. What does QANDOS do?
+                            #collapseOne.collapse.show(aria-labelledby='headingOne' data-parent='#faqAccordion')
                                 .card-body
-                                    p All properties listed on QANDOS go through a rigorous due diligence process. We work with reputable legal firms and verify each property's title deed, land registry, and any encumbrances to ensure they are free of legal issues.
-                        .faq-single-item            
-                            h3#headingTwo
-                                button.btn.btn-link(data-toggle='collapse' data-target='#collapseTwo' aria-expanded='false' aria-controls='collapseTwo')
-                                    span.lnr.lnr-question-circle
-                                    | Can I invest in Nigerian real estate if I’m living abroad?
-                            #collapseTwo.collapse(aria-labelledby='headingTwo' data-parent='#accordion')
-                                .card-body
-                                    p Yes, QANDOS specializes in helping Nigerians in the diaspora invest in real estate. We offer remote services, including virtual property tours, online documentation, and secure payment options to make the process seamless.
-                        .faq-single-item            
-                            h3#headingThree
-                                button.btn.btn-link(data-toggle='collapse' data-target='#collapseThree' aria-expanded='false' aria-controls='collapseTwo')
-                                    span.lnr.lnr-question-circle
-                                    | What payment methods do you accept?
-                            #collapseThree.collapse(aria-labelledby='headingThree' data-parent='#accordion')
-                                .card-body
-                                    p We accept multiple payment methods, including bank transfers, credit/debit cards, and international payment platforms like PayPal. We also offer flexible payment plans to accommodate different financial situations.
-                        .faq-single-item            
-                            h3#headingFour
-                                button.btn.btn-link(data-toggle='collapse' data-target='#collapseFour' aria-expanded='false' aria-controls='collapseTwo')
-                                    span.lnr.lnr-question-circle
-                                    | How can I be sure my investment is secure?
-                            #collapseFour.collapse(aria-labelledby='headingFour' data-parent='#accordion')
-                                .card-body
-                                    p QANDOS uses escrow accounts to hold your funds until all legal requirements are met and the property is transferred to your name. This ensures that your investment is protected throughout the transaction process.
-                        .faq-single-item            
-                            h3#headingFive
-                                button.btn.btn-link(data-toggle='collapse' data-target='#collapseFive' aria-expanded='false' aria-controls='collapseTwo')
-                                    span.lnr.lnr-question-circle
-                                    | What happens if I change my mind after making a payment?
-                            #collapseFive.collapse(aria-labelledby='headingTwo' data-parent='#accordion')
-                                .card-body
-                                    p If you decide to withdraw from the investment before finalizing the purchase, we have a refund policy in place. However, it’s important to review the specific terms and conditions related to refunds for each investment option.
-                        .faq-single-item            
-                            h3#headingSix
-                                button.btn.btn-link(data-toggle='collapse' data-target='#collapseSix' aria-expanded='false' aria-controls='collapseTwo')
-                                    span.lnr.lnr-question-circle
-                                    | How do I manage my property after purchasing it?
-                            #collapseSix.collapse(aria-labelledby='headingTwo' data-parent='#accordion')
-                                .card-body
-                                    p QANDOS offers property management services to help you handle everything from tenant placement to maintenance and rent collection. This service is especially beneficial for Nigerians living abroad who need someone to manage their property locally.
-                        .faq-single-item            
-                            h3#headingSeven
-                                button.btn.btn-link(data-toggle='collapse' data-target='#collapseSeven' aria-expanded='false' aria-controls='collapseTwo')
-                                    span.lnr.lnr-question-circle
-                                    | Are there any tax implications for owning property in Nigeria?
-                            #collapseSeven.collapse(aria-labelledby='headingTwo' data-parent='#accordion')
-                                .card-body
-                                    p Yes, owning property in Nigeria may have tax implications, including property taxes, rental income tax, and capital gains tax if you sell the property. We recommend consulting with a tax advisor to understand your specific obligations.
-                        .faq-single-item            
-                            h3#headingEight
-                                button.btn.btn-link(data-toggle='collapse' data-target='#collapseEight' aria-expanded='false' aria-controls='collapseTwo')
-                                    span.lnr.lnr-question-circle
-                                    | What is the process for transferring property ownership?
-                            #collapseEight.collapse(aria-labelledby='headingTwo' data-parent='#accordion')
-                                .card-body
-                                    p Once the purchase is complete, QANDOS assists with the transfer of ownership by registering the property in your name at the relevant land registry. You will receive all necessary documentation, including the title deed, as proof of ownership.
+                                    | QANDOS provides secure property verification, transaction advisory, and escrow-facilitated real estate acquisition services to eliminate fraud and risk.
 
+                        .card.mb-3
+                            .card-header#headingTwo
+                                h5.mb-0
+                                    button.btn.btn-link.collapsed(type='button' data-toggle='collapse' data-target='#collapseTwo' aria-expanded='false' aria-controls='collapseTwo')
+                                        | 2. Do you sell property directly?
+                            #collapseTwo.collapse(aria-labelledby='headingTwo' data-parent='#faqAccordion')
+                                .card-body
+                                    | No. We verify and secure property transactions. We may introduce verified opportunities but act primarily as a trust and transaction security partner.
 
-   
-block scriptBlock
-    script.
-        $(document).ready(function() {
-            
-        });
+                        .card.mb-3
+                            .card-header#headingThree
+                                h5.mb-0
+                                    button.btn.btn-link.collapsed(type='button' data-toggle='collapse' data-target='#collapseThree' aria-expanded='false' aria-controls='collapseThree')
+                                        | 3. How does your verification work?
+                            #collapseThree.collapse(aria-labelledby='headingThree' data-parent='#faqAccordion')
+                                .card-body
+                                    p Our process includes:
+                                    ul
+                                        li Title and registry checks
+                                        li Survey verification
+                                        li Legal review
+                                        li Physical inspection
+                                        li Risk advisory report
+
+                        .card.mb-3
+                            .card-header#headingFour
+                                h5.mb-0
+                                    button.btn.btn-link.collapsed(type='button' data-toggle='collapse' data-target='#collapseFour' aria-expanded='false' aria-controls='collapseFour')
+                                        | 4. Do you work with Nigerians in the diaspora?
+                            #collapseFour.collapse(aria-labelledby='headingFour' data-parent='#faqAccordion')
+                                .card-body
+                                    | Yes. A large portion of our clients are diaspora investors seeking safe property acquisition in Nigeria.
+
+                        .card.mb-3
+                            .card-header#headingFive
+                                h5.mb-0
+                                    button.btn.btn-link.collapsed(type='button' data-toggle='collapse' data-target='#collapseFive' aria-expanded='false' aria-controls='collapseFive')
+                                        | 5. What is escrow and how does it protect me?
+                            #collapseFive.collapse(aria-labelledby='headingFive' data-parent='#faqAccordion')
+                                .card-body
+                                    | Escrow ensures funds are held securely and only released when agreed transaction conditions are met, protecting both buyer and seller.
+
+                        .card.mb-3
+                            .card-header#headingSix
+                                h5.mb-0
+                                    button.btn.btn-link.collapsed(type='button' data-toggle='collapse' data-target='#collapseSix' aria-expanded='false' aria-controls='collapseSix')
+                                        | 6. How long does verification take?
+                            #collapseSix.collapse(aria-labelledby='headingSix' data-parent='#faqAccordion')
+                                .card-body
+                                    | Typically 3–10 working days depending on location and documentation availability.
+
+                        .card.mb-3
+                            .card-header#headingSeven
+                                h5.mb-0
+                                    button.btn.btn-link.collapsed(type='button' data-toggle='collapse' data-target='#collapseSeven' aria-expanded='false' aria-controls='collapseSeven')
+                                        | 7. What are your fees?
+                            #collapseSeven.collapse(aria-labelledby='headingSeven' data-parent='#faqAccordion')
+                                .card-body
+                                    p Fees depend on:
+                                    ul
+                                        li Property value
+                                        li Verification scope
+                                        li Transaction complexity
+                                    p A clear quote is provided before engagement.
+
+                        .card.mb-3
+                            .card-header#headingEight
+                                h5.mb-0
+                                    button.btn.btn-link.collapsed(type='button' data-toggle='collapse' data-target='#collapseEight' aria-expanded='false' aria-controls='collapseEight')
+                                        | 8. Do you guarantee property safety?
+                            #collapseEight.collapse(aria-labelledby='headingEight' data-parent='#faqAccordion')
+                                .card-body
+                                    | We provide professional verification and risk assessment. Where applicable, insured or guaranteed transactions will be clearly stated.
+
+                        .card.mb-3
+                            .card-header#headingNine
+                                h5.mb-0
+                                    button.btn.btn-link.collapsed(type='button' data-toggle='collapse' data-target='#collapseNine' aria-expanded='false' aria-controls='collapseNine')
+                                        | 9. Where do you operate?
+                            #collapseNine.collapse(aria-labelledby='headingNine' data-parent='#faqAccordion')
+                                .card-body
+                                    | Currently focused on Abuja with expansion across major African cities planned.
+
+                        .card.mb-3
+                            .card-header#headingTen
+                                h5.mb-0
+                                    button.btn.btn-link.collapsed(type='button' data-toggle='collapse' data-target='#collapseTen' aria-expanded='false' aria-controls='collapseTen')
+                                        | 10. How do I get started?
+                            #collapseTen.collapse(aria-labelledby='headingTen' data-parent='#faqAccordion')
+                                .card-body
+                                    | Email: info@qandos.com Or request a secure consultation via our website.

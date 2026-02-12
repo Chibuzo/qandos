@@ -18,7 +18,7 @@ block content
                     .col-md-3
                         button.site-btn.mb-3(data-toggle='modal' data-target='#vet-property-modal' style='background: #e0e0e0; color: #333') VERIFY PROPERTY
                     .col-md-3
-                        a.site-btn(href='/property/browse') START INVESTING
+                        a.site-btn(href='/property/browse') BROWSE PROPERTIES
 
             .filter-search
                 .container
@@ -82,7 +82,7 @@ block content
                                 p
                                     | We provide specialized services for the Diaspora Community
 
-                    a.site-btn.float-right.mt-4(href='/property/browse') START INVESTING
+                    a.site-btn.float-right.mt-4(href='/property/browse') BROWSE PROPERTIES
 
     section.feature-section.spad
         .container
@@ -102,32 +102,16 @@ block content
                                     p
                                         i.fa.fa-map-marker
                                         |  #{property.district}
-                                .room-info-warp
-                                    .room-info
-                                        .rf-left
-                                            p
-                                                i.fa.fa-th-large
-                                                |  #{property.plot_size} Square foot
-                                            p
-                                                i.fa.fa-bed
-                                                |  #{property.bedrooms} Bedrooms
-                                        .rf-right
-                                            p
-                                                i.fa.fa-car
-                                                |  #{property.garage} Garages
-                                            p
-                                                i.fa.fa-bath
-                                                |  #{property.toilets} Toilets
                                     .room-info
                                         .rf-left
                                             p
                                                 i.fa.fa-user
                                                 |  Qandos
-                                        .rf-right
-                                            p
-                                                i.fa.fa-clock-o
-                                                |  #{view.formatDateSince(property.createdAt)} ago
-                                a.room-price(href=`/property/${property.id}/${property.title.split(' ').join('-')}`) N#{view.formatCurrency(property.cost)}
+                                .d-flex.justify-content-between.align-items-center.mt-2
+                                    a.room-price(href=`/property/${property.id}/${property.title.split(' ').join('-')}`) N#{view.formatCurrency(property.cost)}
+                                    button.btn.btn-sm.btn-outline-primary.share-btn(data-title=property.title data-url=`/property/${property.id}/${property.title.split(' ').join('-')}`)
+                                        i.fa.fa-share-alt
+                                        |  Share
 
     section.feature-category-section.spad
         .container

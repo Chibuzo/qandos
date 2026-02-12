@@ -27,6 +27,12 @@ block content
                         // Public visibility note
                         .alert.alert-info Only Size, Price, Location, Asset Class and Pictures & Videos will be publicly visible.
 
+                        if quota
+                            .alert(class=(count >= quota ? 'alert-danger' : 'alert-warning'))
+                                h5.mb-0 Listing Quota: #{count} / #{quota} properties listed.
+                                if count >= quota
+                                    p.mb-0 You have reached your listing limit. Please contact support or delete old listings to add more.
+
                         // Section A: Basic Property Details
                         h5.mb-3 Basic Property Details
                         .form-group.mb-3
@@ -37,15 +43,11 @@ block content
                             label.form-label Location / District
                             select.form-control(name="district" required)
                                 option(value='') -- Select District --
-                                option(value='Guzape') Guzape
-                                option(value='Maitama') Maitama
-                                option(value='Wuse II') Wuse II
-                                option(value='Wuse I') Wuse I
-                                option(value='Jahi') Jahi
-                                option(value='Gwarinpa') Gwarinpa
-                                option(value='Asokoro') Asokoro
-                                option(value='Kubwa') Kubwa
-                                option(value='Bwari') Bwari
+                                if districts
+                                    each phaseDistricts, phase in districts
+                                        optgroup(label=phase)
+                                            each dist in phaseDistricts
+                                                option(value=dist)= dist
 
                         .form-group.mb-3.row
                             .col-md-6
@@ -122,7 +124,7 @@ block content
                         p.text-muted.mt-3 Only Size, Price, Location, Asset Class and uploaded Pictures & Videos will be visible to the public. All other details are used for verification and will remain private.
 
                         .mb-3
-                            button.btn.btn-primary.float-end(type='submit') Save Property
+                            button.btn.btn-primary.float-end(type='submit' disabled=(count >= quota)) Save Property
 
 
         //- .col-md-5 

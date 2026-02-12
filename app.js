@@ -6,6 +6,8 @@ const session = require('express-session');
 const fileUpload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const sessionDb = require('./config/session-db');
 const authenticate = require('./middlewares/authenticate');
 const formatView = require('./middlewares/formatView');
 const { APP_NAME, EMAIL, PHONE } = require('./config/constants');
@@ -31,12 +33,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(fileUpload({
     limits: { fileSize: 50 * 1024 * 1024 },
 }));
+const sessionStore = new SequelizeStore({
+    db: sessionDb,
+});
+
 app.use(session({
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767tobechangedbeforegoinglive",
+    store: sessionStore,
     saveUninitialized: false,
     cookie: { maxAge: 24000 * 60 * 60, secure: false }, // one fucking hour
     resave: false
 }));
+
+sessionStore.sync();
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

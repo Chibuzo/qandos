@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const propertyService = require('../services/propertyService');
 const states = require('../config/data/states');
+const districts = require('../config/data/districts.json');
+console.log('Districts loaded:', Object.keys(districts).length, 'phases found');
 const utilityService = require('../services/UtillityService');
 const newsletterService = require('../services/newsLetterService');
 
@@ -37,7 +39,12 @@ router.get('/new', async (req, res, next) => {
         if (isAdmin) res.locals.admin = user;
         else res.locals.user = user;
 
-        res.render('property/new', { states });
+        let count = 0;
+        if (!isAdmin) {
+            count = await propertyService.countUserProperties(user.id);
+        }
+
+        res.render('property/new', { states, districts, count, quota: 10 });
     } catch (err) {
         next(err);
     }
@@ -55,6 +62,10 @@ router.post('/new', async (req, res, next) => {
 
         // Partners create properties with 'unverified' status (default is now unverified)
         if (user.role === 'partner') {
+            const count = await propertyService.countUserProperties(user.id);
+            if (count >= 10) {
+                return res.status(403).send('Listing quota exceeded (Max 10)');
+            }
             propertyData.status = 'unverified';
         }
 
@@ -80,7 +91,7 @@ router.get('/:id/edit', async (req, res, next) => {
         if (isAdmin) res.locals.admin = user;
         else res.locals.user = user;
 
-        res.render('property/edit', { property, photos, states, cities });
+        res.render('property/edit', { property, photos, states, cities, districts });
     } catch (err) {
         next(err);
     }

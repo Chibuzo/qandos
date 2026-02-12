@@ -62,6 +62,30 @@ router.get('/faq', async (req, res, next) => {
     }
 });
 
+router.get('/terms', async (req, res, next) => {
+    try {
+        res.render('terms', { title: 'Terms & Conditions' });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/refund-policy', async (req, res, next) => {
+    try {
+        res.render('refund-policy', { title: 'Refund Policy' });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/privacy-policy', async (req, res, next) => {
+    try {
+        res.render('privacy-policy', { title: 'Privacy Policy' });
+    } catch (err) {
+        next(err);
+    }
+});
+
 router.get('/for-diaspora', isAuthenticated, async (req, res, next) => {
     try {
         res.render('for-diaspora', { title: 'Qandos for Nigerians in Diaspora' });

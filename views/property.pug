@@ -19,16 +19,9 @@ block content
         .container
             .row
                 .col-lg-8.single-list-page
-                    #sl-slider.single-list-slider.owl-carousel
-                        each photo in property.photos
-                            if photo.mediaType == 'photo'
-                                .sl-item.set-bg(data-setbg=`/${photo.location}`)
-
-
-                    #sl-slider-thumb.owl-carousel.sl-thumb-slider
-                        each photo in property.photos
-                            if photo.mediaType == 'photo'
-                                .sl-thumb.set-bg(data-setbg=`/${photo.location}`)
+                    //- Show only the first photo as per public visibility requirement
+                    if property.photos.length
+                        .sl-item.set-bg(data-setbg=`/${property.photos[0].location}` style="height: 400px; background-size: cover; background-position: center;")
 
                     .single-list-content
                         .row
@@ -37,80 +30,52 @@ block content
                                 p
                                     i.fa.fa-map-marker
                                     | #{property.district}
-                            .col-xl-4
+                            .col-xl-4.text-end
                                 a.price-btn(href='#') N#{view.formatCurrency(property.cost)}
+                                button.btn.btn-outline-primary.mt-2.share-btn(data-title=property.title data-url=`/property/${property.id}/${property.title.split(' ').join('-')}`)
+                                    i.fa.fa-share-alt
+                                    |  Share This Property
                         h3.sl-sp-title Property Details
                         .row.property-details-list
-                            .col-md-4.col-sm-6
+                            .col-md-6.col-sm-6
                                 p
                                     i.fa.fa-th-large
-                                    |  #{property.plot_size} Square foot
+                                    |  #{property.plot_size}
                                 p
-                                    i.fa.fa-bed
-                                    |  #{property.bedrooms} Bedrooms
-                                p
-                                    i.fa.fa-user
-                                    |  Qandos
-                            .col-md-4.col-sm-6
-                                p
-                                    i.fa.fa-car
-                                    |  2 Garages
+                                    i.fa.fa-tag
+                                    |  #{property.asset_class}
+                            .col-md-6.col-sm-6
                                 p
                                     i.fa.fa-building-o
                                     |  #{view.capitalizeFirstLetter(property.category)}
                                 p
-                                    i.fa.fa-clock-o
-                                    |  #{view.formatDateSince(property.createdAt)} ago
-                            .col-md-4
-                                p
-                                    i.fa.fa-bath
-                                    |  #{property.toilets} Toilets
-                                if property.age > 0
-                                    p
-                                        i.fa.fa-trophy
-                                        |  #{property.age} years age
-                                p
-                                    i.fa.fa-tag
-                                    |  #{property.asset_class}
-                                p
-                                    i.fa.fa-user-circle
-                                    |  #{property.role}
-                        h3.sl-sp-title Description
-                        .description
-                            p
-                            | #{property.description}
+                                    i.fa.fa-user
+                                    |  Qandos
 
-                        h3.sl-sp-title Legal & Technical Details
-                        .row.property-details-list
-                            .col-md-6
-                                p #[strong Plot Number:] #{property.plot_number}
-                                p #[strong Title Document:] #{property.title_document_type}
-                            .col-md-6
-                                p #[strong Allottee Name:] #{property.allottee_name}
-                                p #[strong Survey Coordinates:] #{property.survey_coordinates}
+                        //- h3.sl-sp-title Description
+                        //- .description
+                        //-     p
+                        //-     | #{property.description}
 
+                        //- Legal & Technical and Video are not in the list of publicly visible items
+                        //- h3.sl-sp-title Legal & Technical Details
+                        //- .row.property-details-list
+                        //-     .col-md-6
+                        //-         p #[strong Plot Number:] #{property.plot_number}
+                        //-         p #[strong Title Document:] #{property.title_document_type}
+                        //-     .col-md-6
+                        //-         p #[strong Allottee Name:] #{property.allottee_name}
+                        //-         p #[strong Survey Coordinates:] #{property.survey_coordinates}
 
-                        h3.sl-sp-title.bd-no Floorplans
-                        #accordion.plan-accordion
-                            each photo in property.photos
-                                if photo.mediaType == 'floor plan'
-                                    .panel
-                                        #headingOne.panel-header
-                                            button.panel-link.active(data-toggle='collapse' data-target='#collapse1' aria-expanded='false' aria-controls='collapse1')
-                                                i.fa.fa-angle-down
-                                        #collapse1.collapse.show(aria-labelledby='headingOne' data-parent='#accordion')
-                                            .panel-body
-                                                img(src=`/${photo.location}` alt='')
+                        //- - const video = property.photos.find(media => media.mediaType == 'video');
+                        //- if (video)
+                        //-     h3.sl-sp-title.bd-no Video
+                        //-     .perview-video
+                        //-         video(controls)
+                        //-             source(src=`/${video.location}` type='video/mp4')
 
-                        - const video = property.photos.find(media => media.mediaType == 'video');
-                        if (video)
-                            h3.sl-sp-title.bd-no Video
-                            .perview-video
-                                video(controls)
-                                    source(src=`/${video.location}` type='video/mp4')
-
-                        h3.sl-sp-title.bd-no Location
-                        #map-canvas.pos-map
+                        //- h3.sl-sp-title.bd-no Location
+                        //- #map-canvas.pos-map
 
                         if referralLink
                             .row.mt-4 
@@ -191,7 +156,7 @@ block content
                                     h5 #{property.title}
                                     p
                                         i.fa.fa-map-marker
-                                        | #{property.state}, #{property.city}
+                                        | #{property.district}
                                 a.rp-price(href=`/property/${property.id}/${property.title.split(' ').join('-')}`) N#{view.formatCurrency(property.cost)}
 
 block scriptBlock 

@@ -21,6 +21,34 @@ head
         h5 a { color: #132758 }
 
         video { width: 100% }
+        .share-btn { 
+            background: #f8f9fa; 
+            border: 1px solid #dee2e6; 
+            padding: 5px 12px; 
+            border-radius: 4px; 
+            color: #132758; 
+            transition: all 0.3s;
+        }
+        .share-btn:hover { background: #e2e6ea; border-color: #adb5bd; }
+
+        .legal-content h3 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 22px;
+            color: #132758;
+        }
+        .legal-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .legal-content ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        .legal-content ul li {
+            list-style: disc;
+            margin-bottom: 8px;
+        }
 
     block styleBlock
 #preloder
@@ -133,7 +161,13 @@ footer.footer-section.set-bg(data-setbg='/img/footer-bg.jpg')
                         li
                             a(href='/for-nigerians') QANDOS for Nigerians in Nigeria
                         li
-                            a(href='#/how-it-works') How it Works
+                            a(href='/how-it-works') How it Works
+                        li
+                            a(href='/terms') Terms & Conditions
+                        li
+                            a(href='/privacy-policy') Privacy Policy
+                        li
+                            a(href='/refund-policy') Refund Policy
                         //- li
                         //-   a(href='#') Media Mentions
 
@@ -226,4 +260,28 @@ script.
         return res.json();
     }
 
-block scriptBlock
+block append scriptBlock
+    script.
+        $(document).on('click', '.share-btn', async function() {
+            const title = $(this).data('title');
+            const url = window.location.origin + $(this).data('url');
+
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: title,
+                        url: url
+                    });
+                } catch (err) {
+                    console.error('Share failed:', err);
+                }
+            } else {
+                // Fallback to clipboard
+                try {
+                    await navigator.clipboard.writeText(url);
+                    alert('Link copied to clipboard!');
+                } catch (err) {
+                    alert('Could not copy link: ' + err);
+                }
+            }
+        });

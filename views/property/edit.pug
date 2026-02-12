@@ -36,8 +36,11 @@ block content
                             label.form-label Location / District
                             select.form-control(name="district" required)
                                 option(value='') -- Select District --
-                                each dist in ['Guzape', 'Maitama', 'Wuse II', 'Wuse I', 'Jahi', 'Gwarinpa', 'Asokoro', 'Kubwa', 'Bwari']
-                                    option(value=dist selected=(property.district === dist))= dist
+                                if districts
+                                    each phaseDistricts, phase in districts
+                                        optgroup(label=phase)
+                                            each dist in phaseDistricts
+                                                option(value=dist selected=(property.district === dist))= dist
 
                         .form-group.mb-3.row
                             .col-md-6
