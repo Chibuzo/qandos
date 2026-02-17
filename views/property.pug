@@ -45,12 +45,15 @@ block content
                                     i.fa.fa-tag
                                     |  #{property.asset_class}
                             .col-md-6.col-sm-6
+                                //- p
+                                //-     i.fa.fa-building-o
+                                //-     |  #{view.capitalizeFirstLetter(property.category)}
                                 p
                                     i.fa.fa-building-o
-                                    |  #{view.capitalizeFirstLetter(property.category)}
-                                p
-                                    i.fa.fa-user
-                                    |  Qandos
+                                    |  #{property.available_units} Units Available
+                                //- p
+                                //-     i.fa.fa-user
+                                //-     |  Qandos
 
                         //- h3.sl-sp-title Description
                         //- .description
@@ -101,19 +104,19 @@ block content
                     //-         i.fa.fa-envelope
                     //-         a.__cf_email__(href='/cdn-cgi/l/email-protection' data-cfemail='9cfbf5f2fdebf9eff0f9e5aeaadcfbf1fdf5f0b2fff3f1') [email&nbsp;protected]
                     .contact-form-card
-                        h5 Interested in this property?
+                        //- h5 Interested in this property?
 
-                        #wishListPane.d-none
-                            .alert.alert-info This property has been added to your wishlist
+                        //- #wishListPane.d-none
+                        //-     .alert.alert-info This property has been added to your wishlist
 
-                        if (user)
-                            button.btn-custom.btn-block.btn-lg.mb-4#add-to-wishlist(data-propertyid=`${property.id}` data-referral_code=`${referral_code}`) 
-                                i.fa.fa-heart-o 
-                                | &nbsp;    Add to Wishlist
-                        else 
-                            button.btn-custom.btn-block.btn-lg.mb-4(data-bs-toggle='modal' data-bs-target='#form-login') 
-                                i.fa.fa-heart-o 
-                                | &nbsp;    Add to Wishlist
+                        //- if (user)
+                        //-     button.btn-custom.btn-block.btn-lg.mb-4#add-to-wishlist(data-propertyid=`${property.id}` data-referral_code=`${referral_code}`) 
+                        //-         i.fa.fa-heart-o 
+                        //-         | &nbsp;    Add to Wishlist
+                        //- else 
+                        //-     button.btn-custom.btn-block.btn-lg.mb-4(data-bs-toggle='modal' data-bs-target='#form-login') 
+                        //-         i.fa.fa-heart-o 
+                        //-         | &nbsp;    Add to Wishlist
 
                         - const propertyUrl = referralLink ? referralLink : `${baseUrl}/property/${property.id}/${property.title.split(' ').join('-')}`
                         - const whatsappMsg = encodeURIComponent(`Hello, I would like to verify property ID: ${property.id}. Link: ${propertyUrl}`)
@@ -122,30 +125,30 @@ block content
                             i.fa.fa-whatsapp 
                             | &nbsp;    Verify Property
 
-                        p.text-center OR 
-                        h5 Book Appointment
-                        #userPane.d-none
-                            .alert.alert-info An appointment has been successfully booked for this property!
-                            h6 DETAILS 
-                            p Date: <span id='date'></span>
-                            p Time: <span id='time'></span>
+                        //- p.text-center OR 
+                        //- h5 Book Appointment
+                        //- #userPane.d-none
+                        //-     .alert.alert-info An appointment has been successfully booked for this property!
+                        //-     h6 DETAILS 
+                        //-     p Date: <span id='date'></span>
+                        //-     p Time: <span id='time'></span>
 
-                        if (user)
-                            form#form-appointment(method='post')
-                                input(type='datetime-local' name='datetime' required)
-                                input(type='hidden' name='PropertyId' value=`${property.id}`)
-                                input(type='hidden' name='referral_code' value=`${referral_code}`)
-                                button.btn-custom BOOK APPOINTMENT
-                        else
-                            form#form-signup(method='post')
-                                input(type='text' name='fullname' placeholder='Your name' required)
-                                input(type='email' name='email' placeholder='Your email' required)
-                                input(type='tel' name='phone' placeholder='Your Phone')
-                                input(type='datetime-local' name='datetime' required)
-                                input(type='hidden' name='PropertyId' value=`${property.id}`)
-                                input(type='hidden' name='referral_code' value=`${referral_code}`)
+                        //- if (user)
+                        //-     form#form-appointment(method='post')
+                        //-         input(type='datetime-local' name='datetime' required)
+                        //-         input(type='hidden' name='PropertyId' value=`${property.id}`)
+                        //-         input(type='hidden' name='referral_code' value=`${referral_code}`)
+                        //-         button.btn-custom BOOK APPOINTMENT
+                        //- else
+                        //-     form#form-signup(method='post')
+                        //-         input(type='text' name='fullname' placeholder='Your name' required)
+                        //-         input(type='email' name='email' placeholder='Your email' required)
+                        //-         input(type='tel' name='phone' placeholder='Your Phone')
+                        //-         input(type='datetime-local' name='datetime' required)
+                        //-         input(type='hidden' name='PropertyId' value=`${property.id}`)
+                        //-         input(type='hidden' name='referral_code' value=`${referral_code}`)
 
-                                button.btn-custom BOOK APPOINTMENT
+                        //-         button.btn-custom BOOK APPOINTMENT
                     .related-properties
                         h2 Related Property
                         each property in relatedProperties

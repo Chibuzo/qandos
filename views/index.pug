@@ -4,14 +4,14 @@ block styleBlock
     style.
         .over-lay { background-color: rgba(0, 0, 0, 0.5) !important; height: 100vh }
 
-    script(src="https://www.google.com/recaptcha/api.js" async defer)
+
 
 block content 
     section.hero-section.set-bg(data-setbg='/img/rei.jpg')
         .over-lay
             .container.hero-text.text-white
-                h2 Invest for the Future
-                p Safe and easy real estate investment
+                h2 The Trust Infrastructure for African Real Estate
+                p QANDOS verifies ownership, documentation & legitimacy before you pay
                 br
 
                 .row.justify-content-center
@@ -103,10 +103,7 @@ block content
                                         i.fa.fa-map-marker
                                         |  #{property.district}
                                     .room-info
-                                        .rf-left
-                                            p
-                                                i.fa.fa-user
-                                                |  Qandos
+                                        
                                 .d-flex.justify-content-between.align-items-center.mt-2
                                     a.room-price(href=`/property/${property.id}/${property.title.split(' ').join('-')}`) N#{view.formatCurrency(property.cost)}
                                     button.btn.btn-sm.btn-outline-primary.share-btn(data-title=property.title data-url=`/property/${property.id}/${property.title.split(' ').join('-')}`)
@@ -171,16 +168,15 @@ block Modals
                         #form-wrapper
                             .alert.alert-success
                                 | Gives us the details of the property you want to verify
-                            .form-group.mb-3.row
-                                .col
-
-                                    select.form-control#vet-state(name="state" required)
-                                        option(value="") -- Choose State --
-                                            each state in states 
-                                                option(value=`${state.slug}`)= state.name
-                                .col 
-                                    select.form-control#vet-city(name="city")
-                                        option(value="") -- Choose City --
+                            .form-group.mb-3
+                                label.form-label Location / District
+                                select.form-control#vet-district(name="district" required)
+                                    option(value='') -- Select District --
+                                    if districts
+                                        each phaseDistricts, phase in districts
+                                            optgroup(label=phase)
+                                                each dist in phaseDistricts
+                                                    option(value=dist)= dist
                             .form-group.mb-3
                                 label.form-label Property Type 
                                 select.form-control(name="propertyType" required)  
@@ -205,10 +201,37 @@ block Modals
                             .alert.alert-info.d-none 
 
                     .modal-footer
-                        button.btn.site-btn.g-recaptcha(data-sitekey=_recaptcha_site_key data-callback="onSubmit" data-action='submit') Send Request
-block scriptBlock
+                        button.btn.site-btn#vet-property-submit(type="button") Continue to WhatsApp
+block append scriptBlock
 
     script. 
+        document.getElementById('vet-property-submit')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            const form = document.getElementById("form-vet-property");
+            
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const formData = {};
+            new FormData(form).forEach((value, key) => {
+                formData[key] = value;
+            });
+
+            const whatsappNumber = '2349166788985';
+            const newsletterOptIn = formData.newsletter ? 'Yes' : 'No';
+            const message = `Hello Qandos, I would like to verify a property.\n\nDetails:\n- Name: ${formData.name || 'N/A'}\n- Email: ${formData.email || 'N/A'}\n- Phone: ${formData.phone || 'N/A'}\n- District: ${formData.district || 'N/A'}\n- Property Type: ${formData.propertyType || 'N/A'}\n- Newsletter updates: ${newsletterOptIn}`;
+            
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+            
+            document.getElementById('form-wrapper').classList.add('d-none');
+            const alertInfo = form.querySelector('.alert-info');
+            alertInfo.innerHTML = 'Opening WhatsApp...';
+            alertInfo.classList.remove('d-none');
+            
+            window.location.href = whatsappUrl;
+        });
 
         let state;
         $('#state, #vet-state').change(async function() {
@@ -219,22 +242,3 @@ block scriptBlock
             opts += cities.data.cities.map(city => `<option value=${city}>${city}</option>`);
             $('#city, #vet-city').html(opts);
         });
-
-
-        //- document.querySelector('#form-vet-property').addEventListener('submit', async (e) => {
-        //-     e.preventDefault();
-        //-     const data = new FormData(e.target);
-        //-     const res = await postForm(e.target.action, serialize(data));
-        //-     if (res.status == 'success') {
-        //-         e.target.reset();
-        //-         document.getElementById('form-wrapper').classList.add('d-none');
-        //-         document.getElementById('request-btn').classList.add('d-none');
-        //-         e.target.querySelector('.alert-info').innerHTML = 'We have received your request. We will get back to you shortly';
-        //-         e.target.querySelector('.alert-info').classList.remove('d-none');
-        //-     }
-        //- });
-
-        //- recaptcha callback function
-        function onSubmit(token) {
-            document.getElementById("form-vet-property").submit();
-        }

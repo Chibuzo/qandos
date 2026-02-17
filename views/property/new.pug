@@ -39,15 +39,19 @@ block content
                             label.form-label Property Title/Name
                             input.form-control(name="title" type="text" required placeholder="e.g., 500sqm Plot in Jahi")
 
-                        .form-group.mb-3
-                            label.form-label Location / District
-                            select.form-control(name="district" required)
-                                option(value='') -- Select District --
-                                if districts
-                                    each phaseDistricts, phase in districts
-                                        optgroup(label=phase)
-                                            each dist in phaseDistricts
-                                                option(value=dist)= dist
+                        .form-group.mb-3.row 
+                            .col-md-6
+                                label.form-label Location / District
+                                select.form-control(name="district" required)
+                                    option(value='') -- Select District --
+                                    if districts
+                                        each phaseDistricts, phase in districts
+                                            optgroup(label=phase)
+                                                each dist in phaseDistricts
+                                                    option(value=dist)= dist
+                            .col-md-6
+                                label.form-label Available Units
+                                input.form-control(name="available_units" type="number" value="1")
 
                         .form-group.mb-3.row
                             .col-md-6

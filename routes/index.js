@@ -13,6 +13,7 @@ const appointmentService = require('../services/appointmentService');
 const utilityService = require('../services/UtillityService');
 const newsletterService = require('../services/newsLetterService');
 const states = require('../config/data/states');
+const districts = require('../config/data/districts.json');
 const { Buffer } = require('buffer');
 
 
@@ -23,7 +24,7 @@ router.get('/', isAuthenticated, async (req, res, next) => {
             propertyService.list({}, 6),
             propertyService.fetchFeatured()
         ]);
-        res.render('index', { title: 'Welcome', states, properties, featured });
+        res.render('index', { title: 'Welcome', states, districts, properties, featured });
     } catch (err) {
         next(err);
     }
@@ -193,8 +194,8 @@ router.post('/login', async (req, res, next) => {
         }
         const userPage = {
             user: '/user/appointments',
-            partner: '/partner/appointments',
-            agent: ''
+            partner: '/property/list',
+            agent: '/property/list'
         };
         res.redirect(userPage[user.role]);
     } catch (err) {

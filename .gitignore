@@ -3,3 +3,5 @@ package-lock.json
 .env
 inf.service
 public/property_photos
+
+sessions.sqlite

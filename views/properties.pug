@@ -41,6 +41,10 @@ block content
                                             p
                                                 i.fa.fa-user
                                                 |  Qandos
+                                        .rf-right
+                                            p
+                                                i.fa.fa-building-o
+                                                |  #{property.available_units} Units
                                 .d-flex.justify-content-between.align-items-center.mt-2
                                     a.room-price(href=`/property/${property.id}/${property.title.split(' ').join('-')}`) N#{view.formatCurrency(property.cost)}
                                     button.btn.btn-sm.btn-outline-primary.share-btn(data-title=property.title data-url=`/property/${property.id}/${property.title.split(' ').join('-')}`)
