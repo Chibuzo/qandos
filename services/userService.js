@@ -12,14 +12,14 @@ const newsLetterService = require('./newsLetterService');
 
 const create = async ({ fullname, email, phone, location, newsletter, password, role = 'user' }) => {
     if (!fullname) throw new ErrorHandler(400, 'Full name is required');
-    // if (!phone) throw new ErrorHandler(400, 'Phone number is required');
+    if (!phone) throw new ErrorHandler(400, 'Phone number is required');
     if (!email) throw new ErrorHandler(400, 'Email is required');
+    if (!password) throw new ErrorHandler(400, 'Password is required');
     if (role == 'admin') throw new ErrorHandler(400, 'Invalid value');
 
-    const existingUser = await User.findOne({ where: { [Op.or]: [{ email }] } });
-
+    const existingUser = await User.findOne({ where: { [Op.or]: [{ email }, { phone }] } });
     if (existingUser)
-        return existingUser
+        throw new ErrorHandler(400, 'User with this email or phone already exists');
 
     const data = {
         fullname,

@@ -156,6 +156,7 @@ router.post('/signup', async (req, res, next) => {
         }
         res.json({ status: 'success' });
     } catch (err) {
+        console.log(err)
         next(err);
     }
 });

@@ -182,7 +182,7 @@ block scriptBlock
                 document.getElementById('time').innerHTML = new Date(appointmentTime).toLocaleTimeString('en-GB');
                 document.getElementById('userPane').classList.remove('d-none');
             } else {
-                alert('Error')
+                alert(res.message || 'Error occurred')
             }
         });
 
@@ -198,7 +198,7 @@ block scriptBlock
                 document.getElementById('time').innerHTML = new Date(appointmentTime).toLocaleTimeString('en-GB');
                 document.getElementById('userPane').classList.remove('d-none');
             } else {
-                alert('Error')
+                alert(res.message || 'Error occurred')
             }
         });
 

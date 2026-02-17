@@ -63,11 +63,19 @@ app.use(function (req, res, next) {
 });
 
 // error handler
+// error handler
 app.use(function (err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.url_referrer = req.get('referrer');
     res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+    if (req.get('Content-Type') === 'application/json' || req.query.json === 'true') {
+        return res.status(err.status || 500).json({
+            status: 'error',
+            message: err.message
+        });
+    }
 
     // render the error page
     res.status(err.status || 500);
