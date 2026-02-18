@@ -7,7 +7,7 @@ block styleBlock
 
 
 block content 
-    section.hero-section.set-bg(data-setbg='/img/rei.jpg')
+    section.hero-section.set-bg(data-setbg='/img/hero-bg.jpeg')
         .over-lay
             .container.hero-text.text-white
                 h2 The Trust Infrastructure for African Real Estate
@@ -51,39 +51,40 @@ block content
                                         |  #{property.district}
                                 .price N#{view.formatCurrency(property.cost)}
 
-    section.services-section.spad.set-bg(data-setbg='/img/service-bg.jpg')
+    section.services-section.spad.set-bg(data-setbg='/img/rei.jpg')
         .container
             .row
                 .col-lg-6
-                    img(src='/img/service.jpg' alt='')
-                .col-lg-5.offset-lg-1.pl-lg-0
-                    .section-title.text-white
+                    .section-title
                         h3 why qandos
 
-                    .services.mb-5
-                        .service-item
-                            i.fa.fa-briefcase
-                            .service-text
-                                h5 Secure Investments
-                                p
-                                    | Every investment fund is paid into a secure escrow account and will ONLY be released to the seller after all due diligence, verification and documentation is fully completed.
+                        .services.mb-5
+                            .service-item
+                                i.fa.fa-briefcase
+                                .service-text
+                                    h5 Secure Investments
+                                    p
+                                        | Every investment fund is paid into a secure escrow account and will ONLY be released to the seller after all due diligence, verification and documentation is fully completed.
 
-                        .service-item
-                            i.fa.fa-home
-                            .service-text
-                                h5 Vetted Properties
-                                p
-                                    | We ensure that only safe and legitimate properties are listed through our network of real estate development partners.
+                            .service-item
+                                i.fa.fa-home
+                                .service-text
+                                    h5 Vetted Properties
+                                    p
+                                        | We ensure that only safe and legitimate properties are listed through our network of real estate development partners.
 
-                        .service-item.mb-5
-                            i.fa.fa-comments
-                            .service-text
-                                h5 Tailored Services for Diaspora
-                                p
-                                    | We provide specialized services for the Diaspora Community
+                            .service-item.mb-5
+                                i.fa.fa-comments
+                                .service-text
+                                    h5 Tailored Services for Diaspora
+                                    p
+                                        | We provide specialized services for the Diaspora Community
 
+                .col-lg-5.offset-lg-1.pl-lg-0
+            .row.text-right
+                .col
                     a.site-btn.float-right.mt-4(href='/property/browse') BROWSE PROPERTIES
-
+                    
     //- section.feature-section.spad
     //-     .container
     //-         .section-title.text-center

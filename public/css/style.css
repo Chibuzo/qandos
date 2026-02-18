@@ -469,7 +469,7 @@ ul {
 	border-radius: 50%;
 	text-align: center;
 	padding-top: 18px;
-	color: #fff;
+	/* color: #fff; */
 	font-size: 24px;
 	float: left;
 }
@@ -480,14 +480,14 @@ ul {
 
 .service-item .service-text h5 {
 	font-weight: 400;
-	color: #fff;
+	/* color: #fff; */
 	font-size: 18px;
 	margin-bottom: 8px;
 }
 
 .service-item .service-text p {
 	margin-bottom: 0;
-	color: #cccccc;
+	/* color: #cccccc; */
 }
 
 /*------------------
