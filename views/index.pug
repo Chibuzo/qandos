@@ -2,7 +2,7 @@ extends layout
 
 block styleBlock 
     style.
-        .over-lay { background-color: rgba(0, 0, 0, 0.5) !important; height: 100vh }
+        .over-lay { background-color: rgba(0, 0, 0, 0.5) !important; height: 80vh }
 
 
 
@@ -20,17 +20,17 @@ block content
                     .col-md-3
                         a.site-btn(href='/property/browse') BROWSE PROPERTIES
 
-            .filter-search
-                .container
-                    form.filter-form(action='/property/browse' method='GET')
-                        input(type='text' name='keywords' placeholder='Search for property type (e.g 3 bedroom terrace duplex)')
-                        select#state(name="state")
-                            option(value='') -- State --
-                                each state in states 
-                                    option(value=`${state.slug}`)= state.name
-                        select#city(name="city")
-                            option(value='') -- City --
-                        button.site-btn.fs-submit SEARCH
+            //- .filter-search
+            //-     .container
+            //-         form.filter-form(action='/property/browse' method='GET')
+            //-             input(type='text' name='keywords' placeholder='Search for property type (e.g 3 bedroom terrace duplex)')
+            //-             select#state(name="state")
+            //-                 option(value='') -- State --
+            //-                     each state in states 
+            //-                         option(value=`${state.slug}`)= state.name
+            //-             select#city(name="city")
+            //-                 option(value='') -- City --
+            //-             button.site-btn.fs-submit SEARCH
 
     section.properties-section.spad
         .container
@@ -84,31 +84,31 @@ block content
 
                     a.site-btn.float-right.mt-4(href='/property/browse') BROWSE PROPERTIES
 
-    section.feature-section.spad
-        .container
-            .section-title.text-center
-                h3 Recent Listings
-                p Browse houses and flats for sale in your choice locations
-            .row
-                each property in properties
-                    .col-lg-4.col-md-6
-                        .feature-item
-                            .feature-pic.set-bg(data-setbg=`${property.PropertyMedia[0] && property.PropertyMedia[0].location}`)
-                                //- .sale-notic FOR SALE
-                            .feature-text
-                                .text-center.feature-title
-                                    h5 
-                                        a(href=`/property/${property.id}/${property.title.split(' ').join('-')}`)=property.title
-                                    p
-                                        i.fa.fa-map-marker
-                                        |  #{property.district}
-                                    .room-info
+    //- section.feature-section.spad
+    //-     .container
+    //-         .section-title.text-center
+    //-             h3 Recent Listings
+    //-             p Browse houses and flats for sale in your choice locations
+    //-         .row
+    //-             each property in properties
+    //-                 .col-lg-4.col-md-6
+    //-                     .feature-item
+    //-                         .feature-pic.set-bg(data-setbg=`${property.PropertyMedia[0] && property.PropertyMedia[0].location}`)
+    //-                             //- .sale-notic FOR SALE
+    //-                         .feature-text
+    //-                             .text-center.feature-title
+    //-                                 h5 
+    //-                                     a(href=`/property/${property.id}/${property.title.split(' ').join('-')}`)=property.title
+    //-                                 p
+    //-                                     i.fa.fa-map-marker
+    //-                                     |  #{property.district}
+    //-                                 .room-info
                                         
-                                .d-flex.justify-content-between.align-items-center.mt-2
-                                    a.room-price(href=`/property/${property.id}/${property.title.split(' ').join('-')}`) N#{view.formatCurrency(property.cost)}
-                                    button.btn.btn-sm.btn-outline-primary.share-btn(data-title=property.title data-url=`/property/${property.id}/${property.title.split(' ').join('-')}`)
-                                        i.fa.fa-share-alt
-                                        |  Share
+    //-                             .d-flex.justify-content-between.align-items-center.mt-2
+    //-                                 a.room-price(href=`/property/${property.id}/${property.title.split(' ').join('-')}`) N#{view.formatCurrency(property.cost)}
+    //-                                 button.btn.btn-sm.btn-outline-primary.share-btn(data-title=property.title data-url=`/property/${property.id}/${property.title.split(' ').join('-')}`)
+    //-                                     i.fa.fa-share-alt
+    //-                                     |  Share
 
     section.feature-category-section.spad
         .container

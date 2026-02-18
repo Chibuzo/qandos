@@ -39,14 +39,21 @@ block content
                                     .room-info
                                         .rf-left
                                             p
-                                                i.fa.fa-user
-                                                |  Qandos
+                                                i.fa.fa-money
+                                                |  <strong>NGN #{view.formatCurrency(property.cost)}</strong> per unit
+
                                         .rf-right
                                             p
                                                 i.fa.fa-building-o
                                                 |  #{property.available_units} Units
                                 .d-flex.justify-content-between.align-items-center.mt-2
-                                    a.room-price(href=`/property/${property.id}/${property.title.split(' ').join('-')}`) N#{view.formatCurrency(property.cost)}
+                                    //- - const propertyUrl = referralLink ? referralLink : `${baseUrl}/property/${property.id}/${property.title.split(' ').join('-')}`
+                                    //- - const whatsappMsg = encodeURIComponent(`Hello, I would like to verify property ID: ${property.id}. Link: ${propertyUrl}`)
+                                    //- - const whatsappNumber = '2349166788985'
+                                    //- a.site-btn(href=`https://wa.me/${whatsappNumber}?text=${whatsappMsg}` target='_blank')
+                                    //-     i.fa.fa-whatsapp 
+                                    //-     | &nbsp;  Verify Property
+
                                     button.btn.btn-sm.btn-outline-primary.share-btn(data-title=property.title data-url=`/property/${property.id}/${property.title.split(' ').join('-')}`)
                                         i.fa.fa-share-alt
                                         |  Share
