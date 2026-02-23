@@ -213,13 +213,13 @@ ul {
 
 .header-top {
 	padding: 12px 0;
-	border-bottom: 1px solid #667792;
-	margin-bottom: 20px;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 10px;
 }
 
 .top-info {
 	font-size: 14px;
-	color: #fff;
+	color: #132758;
 	display: inline-block;
 }
 
@@ -236,7 +236,7 @@ ul {
 }
 
 .top-social a {
-	color: #fff;
+	color: #132758;
 	margin: 0 10px;
 }
 
@@ -246,7 +246,7 @@ ul {
 }
 
 .user-panel a {
-	color: #fff;
+	color: #132758;
 	padding: 0 20px;
 	border-left: 1px solid #667792;
 }
@@ -278,11 +278,12 @@ ul {
 
 .main-menu li a {
 	display: inline-block;
-	color: #fff;
+	color: #132758;
 	text-transform: uppercase;
+	font-weight: 600;
 	margin-left: 30px;
 	padding: 12px 5px;
-	font-size: 14px;
+	font-size: 15px;
 }
 
 .main-menu li a:hover {
@@ -295,19 +296,20 @@ ul {
 
 .hero-section {
 	position: relative;
-	height: 80vh;
+	height: 100vh;
 	/* margin-bottom: -54px; */
 }
 
 .hero-text {
 	padding-top: 190px;
-	text-align: center;
 	margin-bottom: 50px;
 }
 
 .hero-text h2 {
 	/* text-transform: uppercase; */
-	margin-bottom: 20px;
+	margin-bottom: 18px;
+	margin-top: 90px;
+	font-size: 3.5rem;
 }
 
 .hero-text p {
@@ -981,9 +983,9 @@ ul {
 ===================*/
 
 .page-top-section {
-	height: 350px;
+	height: 250px;
 	text-align: center;
-	padding-top: 210px;
+	padding-top: 130px;
 }
 
 .page-top-section h2 {

@@ -2,23 +2,24 @@ extends layout
 
 block styleBlock 
     style.
-        .over-lay { background-color: rgba(0, 0, 0, 0.5) !important; height: 80vh }
+        .over-lay { background-color: rgba(0, 0, 0, 0.5) !important; height: 100vh }
+        .service-icon-box { width: 60px; height: 60px; min-width: 60px; background-color: #bdab2d; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .service-icon-box i { color: white !important; margin: 0 !important; padding: 0 !important; float: none !important; height: auto !important; width: auto !important; background: transparent !important; }
+        .service-text-custom { padding-left: 0 !important; padding-top: 5px; }
 
 
 
 block content 
-    section.hero-section.set-bg(data-setbg='/img/hero-bg.jpeg')
-        .over-lay
-            .container.hero-text.text-white
-                h2 The Trust Infrastructure for African Real Estate
-                p QANDOS verifies ownership, documentation & legitimacy before you pay
-                br
+    section.hero-section.set-bg(data-setbg='/img/hero_bg.jpeg')
+        .container.hero-text
+            .row 
+                .col-md-6
+                    h2 The Trust Infrastructure for African Real Estate
+                    p QANDOS verifies ownership, documentation & legitimacy before you pay
+                    br
 
-                .row.justify-content-center
-                    .col-md-3
-                        button.site-btn.mb-3(data-toggle='modal' data-target='#vet-property-modal' style='background: #e0e0e0; color: #333') VERIFY PROPERTY
-                    .col-md-3
-                        a.site-btn(href='/property/browse') BROWSE PROPERTIES
+                    button.site-btn.mb-3.mr-5(data-toggle='modal' data-target='#vet-property-modal') VERIFY PROPERTY
+                    a.site-btn(href='/property/browse' style='background: #e0e0e0; color: #333') BROWSE PROPERTIES
 
             //- .filter-search
             //-     .container
@@ -32,59 +33,68 @@ block content
             //-                 option(value='') -- City --
             //-             button.site-btn.fs-submit SEARCH
 
-    section.properties-section.spad
-        .container
-            .section-title.text-center
-                h3 FEATURED PROPERTIES
-                p Discover great properties in top cities
-            .row
-                each property in featured
-                    .col-md-6
-                        .propertie-item.set-bg(data-setbg=`${property.PropertyMedia[0] &&   property.PropertyMedia[0].location}`)
-                            //- .sale-notic FOR SALE
-                            .propertie-info.text-white
-                                .info-warp
-                                    h5 
-                                        a(href=`/property/${property.id}/${property.title.split(' ').join('-')}`)=property.title
-                                    p
-                                        i.fa.fa-map-marker
-                                        |  #{property.district}
-                                .price N#{view.formatCurrency(property.cost)}
+    //- section.properties-section.spad
+    //-     .container
+    //-         .section-title.text-center
+    //-             h3 FEATURED PROPERTIES
+    //-             p Discover great properties in top cities
+    //-         .row
+    //-             each property in featured
+    //-                 .col-md-6
+    //-                     .propertie-item.set-bg(data-setbg=`${property.PropertyMedia[0] &&   property.PropertyMedia[0].location}`)
+    //-                         //- .sale-notic FOR SALE
+    //-                         .propertie-info.text-white
+    //-                             .info-warp
+    //-                                 h5 
+    //-                                     a(href=`/property/${property.id}/${property.title.split(' ').join('-')}`)=property.title
+    //-                                 p
+    //-                                     i.fa.fa-map-marker
+    //-                                     |  #{property.district}
+    //-                             .price N#{view.formatCurrency(property.cost)}
 
-    section.services-section.spad.set-bg(data-setbg='/img/rei.jpg')
+    section.services-section.spad(style="background-color: #f8f9fa;")
         .container
-            .row
-                .col-lg-6
-                    .section-title
-                        h3 why qandos
+            .row.align-items-center
+                .col-lg-6.mb-5.mb-lg-0
+                    .section-title.mb-5
+                        h3 Why QANDOS
 
-                        .services.mb-5
-                            .service-item
+                    .services.mb-5
+                        .service-item.d-flex.align-items-start.mb-4
+                            .service-icon-box.flex-shrink-0.mr-3.mr-md-4
                                 i.fa.fa-briefcase
-                                .service-text
-                                    h5 Secure Investments
-                                    p
-                                        | Every investment fund is paid into a secure escrow account and will ONLY be released to the seller after all due diligence, verification and documentation is fully completed.
+                            .service-text.service-text-custom
+                                h5 Secure Investments
+                                p
+                                    | Every investment fund is paid into a secure escrow account and will ONLY be released to the seller after all due diligence, verification and documentation is fully completed.
 
-                            .service-item
+                        .service-item.d-flex.align-items-start.mb-4
+                            .service-icon-box.flex-shrink-0.mr-3.mr-md-4
                                 i.fa.fa-home
-                                .service-text
-                                    h5 Vetted Properties
-                                    p
-                                        | We ensure that only safe and legitimate properties are listed through our network of real estate development partners.
+                            .service-text.service-text-custom
+                                h5 Vetted Properties
+                                p
+                                    | We ensure that only safe and legitimate properties are listed through our network of real estate development partners.
 
-                            .service-item.mb-5
+                        .service-item.d-flex.align-items-start.mb-4
+                            .service-icon-box.flex-shrink-0.mr-3.mr-md-4
                                 i.fa.fa-comments
-                                .service-text
-                                    h5 Tailored Services for Diaspora
-                                    p
-                                        | We provide specialized services for the Diaspora Community
+                            .service-text.service-text-custom
+                                h5 Tailored Services for Diaspora
+                                p
+                                    | We provide specialized services for the Diaspora Community
 
-                .col-lg-5.offset-lg-1.pl-lg-0
-            .row.text-right
-                .col
-                    a.site-btn.float-right.mt-4(href='/property/browse') BROWSE PROPERTIES
-                    
+                    a.site-btn(href='/property/browse') BROWSE PROPERTIES
+
+                .col-lg-5.offset-lg-1
+                    .service-image-wrapper(style="position: relative;")
+                        img.img-fluid.rounded.shadow-lg(src='/img/services-bg.png' alt='Qandos Services' style="width: 100%; object-fit: cover;")
+                        div.d-none.d-md-flex(style="position: absolute; bottom: -30px; left: -30px; background: white; padding: 20px 30px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); align-items: center; gap: 15px; border-left: 5px solid #bdab2d;")
+                            i.fa.fa-check-circle(style="font-size: 40px; color: #bdab2d; margin: 0; padding: 0;")
+                            div
+                                h4.mb-0(style="font-weight: 700; color: #132758;") 100%
+                                p.mb-0(style="font-size: 14px; font-weight: 600; color: #666;") Verified Properties
+
     //- section.feature-section.spad
     //-     .container
     //-         .section-title.text-center

@@ -2,7 +2,7 @@
 extends layout 
 
 block content
-    section.page-top-section.set-bg(data-setbg='/img/page-top-bg.jpg')
+    section.page-top-section.set-bg(data-setbg='/img/hero-bg.jpeg')
         .container.text-white
             h2 Recent Property LISTING
 
@@ -47,16 +47,16 @@ block content
                                                 i.fa.fa-building-o
                                                 |  #{property.available_units} Units
                                 .d-flex.justify-content-between.align-items-center.mt-2
-                                    //- - const propertyUrl = referralLink ? referralLink : `${baseUrl}/property/${property.id}/${property.title.split(' ').join('-')}`
-                                    //- - const whatsappMsg = encodeURIComponent(`Hello, I would like to verify property ID: ${property.id}. Link: ${propertyUrl}`)
-                                    //- - const whatsappNumber = '2349166788985'
-                                    //- a.site-btn(href=`https://wa.me/${whatsappNumber}?text=${whatsappMsg}` target='_blank')
-                                    //-     i.fa.fa-whatsapp 
-                                    //-     | &nbsp;  Verify Property
+                                    - const propertyUrl = referralLink ? referralLink : `${baseUrl}/property/${property.id}/${property.title.split(' ').join('-')}`
+                                    - const whatsappMsg = encodeURIComponent(`Hello, I would like to verify property ID: ${property.id}. Link: ${propertyUrl}`)
+                                    - const whatsappNumber = '2349166788985'
+                                    a.site-btn(href=`https://wa.me/${whatsappNumber}?text=${whatsappMsg}` target='_blank')
+                                        i.fa.fa-whatsapp 
+                                        | &nbsp;  Verify Property
 
-                                    button.btn.btn-sm.btn-outline-primary.share-btn(data-title=property.title data-url=`/property/${property.id}/${property.title.split(' ').join('-')}`)
-                                        i.fa.fa-share-alt
-                                        |  Share
+                                    //- button.btn.btn-sm.btn-outline-primary.share-btn(data-title=property.title data-url=`/property/${property.id}/${property.title.split(' ').join('-')}`)
+                                    //-     i.fa.fa-share-alt
+                                    //-     |  Share
                                 //- .row
                                 //-     .col-md-8
                                 //-         .input-group.mb-2
