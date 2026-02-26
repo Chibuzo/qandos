@@ -69,7 +69,7 @@ router.post('/new', async (req, res, next) => {
             propertyData.status = 'unverified';
         }
 
-        const property = await propertyService.create(propertyData, req.files);
+        await propertyService.create(propertyData, req.files);
         res.redirect(`/property/list`);
     } catch (err) {
         next(err);
@@ -139,15 +139,15 @@ router.get('/:id/delete', async (req, res, next) => {
 router.get('/:id/:title', async (req, res, next) => {
     try {
         const { id, title } = req.params;
-        const { referral_code = null } = req.query;
-        const { user: partner } = req.session;
-        const referralLink = (partner && partner.role == 'partner')
-            ? process.env.BASE_URL + `property/${id}/${title.split(' ').join('-')}?referral_code=${partner.agentCode}`
-            : null;
+        // const { referral_code = null } = req.query;
+        // const { user: partner } = req.session;
+        // const referralLink = (partner && partner.role == 'partner')
+        //     ? process.env.BASE_URL + `property/${id}/${title.split(' ').join('-')}?referral_code=${partner.agentCode}`
+        //     : null;
 
         const property = await propertyService.view(id);
         const relatedProperties = await propertyService.fetchRelatedProperties(property);
-        res.render('property', { property, relatedProperties, referral_code, referralLink });
+        res.render('property', { property, relatedProperties });
     } catch (err) {
         next(err);
     }
@@ -166,16 +166,25 @@ router.get('/browse', async (req, res, next) => {
 
 router.post('/verify', async (req, res, next) => {
     try {
-        // Validate the reCAPTCHA response
         const { 'g-recaptcha-response': recaptchaResponse, ...propertyData } = req.body;
-        const response = await utilityService.verifyRecaptcha(recaptchaResponse);
-        if (!response.success) {
-            throw new Error('reCAPTCHA verification failed');
-            // return res.status(400).json({ error: 'reCAPTCHA verification failed' });
+
+        // Only verify reCAPTCHA if a token was sent
+        if (recaptchaResponse) {
+            const response = await utilityService.verifyRecaptcha(recaptchaResponse);
+            if (!response.success) {
+                if (req.query.json === 'true') {
+                    return res.status(400).json({ status: 'error', message: 'reCAPTCHA verification failed' });
+                }
+                throw new Error('reCAPTCHA verification failed');
+            }
         }
+
         await propertyService.logPropertyVerification(propertyData);
         if (req.body.newsletter) {
             await newsletterService.create({ email: req.body.email });
+        }
+        if (req.query.json === 'true') {
+            return res.json({ status: 'success' });
         }
         res.render('property/submit-verification-response');
     } catch (err) {

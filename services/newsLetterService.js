@@ -18,12 +18,15 @@ const sendWeeklyNewsLetter = async () => {
     // Get all properties created in the last 7 days
     const recentProperties = await propertyService.list({ createdAt: { [Op.gt]: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) } });
     if (!recentProperties.length) return;
-    const properties = recentProperties.map(rawProperty => {
-        const property = rawProperty.toJSON();
+    const properties = recentProperties.map(property => {
+        // list() already returns plain objects; propertyPhoto added during mapping
+        const photoLocation = property.propertyPhoto && property.propertyPhoto.location
+            ? property.propertyPhoto.location
+            : (property.PropertyMedia && property.PropertyMedia[0] ? property.PropertyMedia[0].location : null);
         return {
             title: property.title,
             url: `${process.env.BASE_URL}property/${property.id}/${property.title.replace(/\s/g, '-')}`,
-            photo: process.env.BASE_URL + property.PropertyMedia.length ? property.PropertyMedia[0].location : null
+            photo: photoLocation ? process.env.BASE_URL + photoLocation : null
         }
     });
     const subscribers = await NewsLetter.findAll();

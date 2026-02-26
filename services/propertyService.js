@@ -2,6 +2,7 @@ const { Property, PropertyMedia, VerifyProperty } = require('../models');
 const { ErrorHandler } = require('../helpers/errorHandler');
 const { uploadFiles } = require('../helpers/fileUpload');
 const { Op, Sequelize, or } = require("sequelize");
+const { raw } = require('express');
 
 const create = async (data, files) => {
     const { UserId, listing_consent, ...propertyData } = data;
@@ -43,10 +44,13 @@ const list = async (criteria = {}, limit = 15, searchParams = null) => {
             ]
         };
     };
-    return Property.findAll({
+    const properties = await Property.findAll({
         where: { ...criteria, deleted: false },
         include: [{
             model: PropertyMedia,
+            // only pull a photo for the listing thumbnail
+            where: { mediaType: 'photo' },
+            required: false,
             limit: 1
         }, {
             model: require('../models').User,
@@ -54,6 +58,13 @@ const list = async (criteria = {}, limit = 15, searchParams = null) => {
         }],
         limit,
         order: [['createdAt', 'desc']]
+    });
+
+    return properties.map(property => {
+        const photos = property.PropertyMedia || [];
+        // since we filtered in the include, the first item (if any) is a photo
+        const propertyPhoto = photos[0] || '';
+        return { ...property.toJSON(), photos, propertyPhoto };
     });
 }
 
@@ -80,10 +91,23 @@ const fetchRelatedProperties = async property => {
 }
 
 const findOne = async criteria => {
-    const property = await Property.findOne({ where: { ...criteria, deleted: false } });
+    const property = await Property.findOne({
+        where: { ...criteria, deleted: false },
+        include: {
+            model: PropertyMedia,
+        }
+    });
     if (!property) return null;
-    const photos = await property.getPropertyMedia({ raw: true });
-    return { ...property.toJSON(), photos };
+
+    let photos = property.PropertyMedia || [];
+    // Ensure photos array is ordered so that actual photos come first
+    photos = photos.sort((a, b) => {
+        if (a.mediaType === 'photo' && b.mediaType !== 'photo') return -1;
+        if (b.mediaType === 'photo' && a.mediaType !== 'photo') return 1;
+        return 0;
+    });
+    const propertyPhoto = photos.find(photo => photo.mediaType === 'photo') || '';
+    return { ...property.toJSON(), photos, propertyPhoto };
 }
 
 const view = async id => {

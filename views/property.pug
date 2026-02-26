@@ -19,8 +19,10 @@ block content
         .container
             .row
                 .col-lg-8.single-list-page
-                    //- Show only the first photo as per public visibility requirement
-                    if property.photos.length
+                    //- Show the selected photo (always a 'photo' mediaType) if available, otherwise fall back to the very first media item
+                    if property.propertyPhoto && property.propertyPhoto.location
+                        .sl-item.set-bg(data-setbg=`/${property.propertyPhoto.location}` style="height: 400px; background-size: cover; background-position: center;")
+                    else if property.photos.length
                         .sl-item.set-bg(data-setbg=`/${property.photos[0].location}` style="height: 400px; background-size: cover; background-position: center;")
 
                     .single-list-content
@@ -111,7 +113,7 @@ block content
                         h2 Related Property
                         each property in relatedProperties
                             .rp-item
-                                .rp-pic.set-bg(data-setbg=`/${property.PropertyMedia[0] && property.PropertyMedia[0].location}`)
+                                .rp-pic.set-bg(data-setbg=`/${(property.propertyPhoto || property.PropertyMedia[0]) && (property.propertyPhoto || property.PropertyMedia[0]).location}`)
                                     .sale-notic FOR SALE
                                 .rp-info
                                     h5 #{property.title}
