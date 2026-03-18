@@ -117,7 +117,9 @@ const view = async id => {
 }
 
 const update = async (id, data) => {
-    return Property.update(data, { where: { id } });
+    const { listing_consent, ...rest } = data;
+    if (listing_consent) rest.listing_consent = true;
+    return Property.update(rest, { where: { id } });
 }
 
 const uploadPropertyPhotos = async (PropertyId, files, mediaType = 'photo') => {
