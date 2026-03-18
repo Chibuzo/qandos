@@ -254,6 +254,18 @@ router.get('/coming-soon', (req, res) => {
     res.render('coming-soon', { title: 'Coming Soon' });
 });
 
+router.get('/verification-protocol', (req, res) => {
+    res.render('verification-protocol', { title: 'Verification Protocol' });
+});
+
+router.get('/diaspora-concierge', (req, res) => {
+    res.render('diaspora-concierge', { title: 'Diaspora Concierge' });
+});
+
+router.get('/verified-deals', (req, res) => {
+    res.render('verified-deals', { title: 'Verified Deals' });
+});
+
 router.get('/password-reset/:email_hash/:hash_string', async (req, res, next) => {
     try {
         const email_hash = req.params.email_hash;

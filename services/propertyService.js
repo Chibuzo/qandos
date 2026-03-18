@@ -2,7 +2,6 @@ const { Property, PropertyMedia, VerifyProperty } = require('../models');
 const { ErrorHandler } = require('../helpers/errorHandler');
 const { uploadFiles } = require('../helpers/fileUpload');
 const { Op, Sequelize, or } = require("sequelize");
-const { raw } = require('express');
 
 const create = async (data, files) => {
     const { UserId, listing_consent, ...propertyData } = data;
@@ -73,9 +72,10 @@ const fetchFeatured = async () => {
     const randomFunc = isPostgres ? 'random()' : 'rand()';
     return Property.findAll({
         where: { featured: true, deleted: false },
-        order: Sequelize.literal(randomFunc),
+        order: [Sequelize.literal(randomFunc)],
         include: {
             model: PropertyMedia,
+            separate: true,
             limit: 1
         },
         limit: 4

@@ -1,0 +1,30 @@
+extend layout
+
+block content
+    section.page-top-section.set-bg(data-setbg='/img/hero-bg.jpeg')
+        .container
+            h4 Verified Deals
+
+    .site-breadcrumb
+        .container
+            a(href='/')
+                i.fa.fa-home
+                | Home
+            span
+                i.fa.fa-angle-right
+                | Verified Deals
+
+    section.page-section
+        .container
+            .section-title.text-center
+                h3 Verified Real Estate Opportunities
+                p Explore properties that have undergone our comprehensive verification protocol.
+
+            .row.justify-content-center
+                .col-lg-8.text-center
+                    .p-5.bg-light.rounded
+                        i.fa.fa-search.fa-4x.mb-4(style="color: #bdab2d;")
+                        h4 Our verification team is currently vetting new opportunities.
+                        p Check back soon for properties that meet the QANDOS trust standard.
+                        br
+                        a.site-btn(href='/coming-soon') NOTIFY ME OF NEW DEALS
