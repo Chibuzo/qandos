@@ -18,7 +18,7 @@ block content
                     p QANDOS verifies property ownership, documentation & legitimacy before you pay
                     br
 
-                    button.site-btn.mb-3.mr-5#verify-property VERIFY A PROPERTY
+                    a.site-btn.mb-3.mr-5#verify-property(href="https://wa.me/2349166788985?text=Hello%20Qandos%20I%20would%20like%20to%20verify%20a%20property" target="_blank") VERIFY A PROPERTY
                     
                     //- a.site-btn(href='/property/browse' style='background: #e0e0e0; color: #333') BROWSE PROPERTIES
 
@@ -65,26 +65,27 @@ block content
                             .service-icon-box.flex-shrink-0.mr-3.mr-md-4
                                 i.fa.fa-briefcase
                             .service-text.service-text-custom
-                                h5 Secure Investments
+                                h5 Trust Infrastructure for Real Estate
                                 p
-                                    | Every investment fund is paid into a secure escrow account and will ONLY be released to the seller after all due diligence, verification and documentation is fully completed.
+                                    | Real estate should be one of the most secure assets in the world, yet fragmented records and weak verification systems across many African markets have created uncertainty, especially for buyers abroad. QANDOS was built to close this gap by establishing the trust infrastructure needed for transparent, secure property transactions.
+
+                                p Through rigorous verification of property ownership, documentation, developer credibility, government records, and on-ground inspections, QANDOS transforms property listings into verified opportunities investors can approach with confidence.
 
                         .service-item.d-flex.align-items-start.mb-4
                             .service-icon-box.flex-shrink-0.mr-3.mr-md-4
                                 i.fa.fa-home
                             .service-text.service-text-custom
-                                h5 Vetted Properties
+                                h5 Proof Before Payment (Verification Protocol)
                                 p
-                                    | We ensure that only safe and legitimate properties are listed through our network of real estate development partners.
+                                    | Every property is verified before you pay a dime. QANDOS checks ownership, documentation, developer credibility, and on-ground reality—so you know exactly what you’re buying.
 
                         .service-item.d-flex.align-items-start.mb-4
                             .service-icon-box.flex-shrink-0.mr-3.mr-md-4
                                 i.fa.fa-comments
                             .service-text.service-text-custom
-                                h5 Tailored Services for Diaspora
+                                h5 Buy Property, Not Stories (Escrow Payment)
                                 p
-                                    | We provide specialized services for the Diaspora Community
-
+                                    | Your funds are protected until all conditions are met. With QANDOS escrow, payment is only released when the property is fully verified and ready for transfer—ensuring you pay for assets, not promises.
                     a.site-btn(href='/property/browse') BROWSE PROPERTIES
 
                 .col-lg-5.offset-lg-1
@@ -154,102 +155,29 @@ block content
                     .gi-info
                         h3 FCT, Abuja
                         p 3 Properties
-                a.gallery-item.grid-wide.set-bg(href='/property/browse?state=lagos' data-setbg='/img/gallery/Lagos.jpg')
+                a.gallery-item.grid-wide.set-bg(href='/coming-soon' data-setbg='/img/gallery/Lagos.jpg')
                     .gi-info
                         h3 Lagos
                         p 0 Properties
-                a.gallery-item.set-bg(href='/property/browse?state=enugu' data-setbg='/img/gallery/Enugu.jpg')
+                a.gallery-item.set-bg(href='/coming-soon' data-setbg='/img/gallery/Enugu.jpg')
                     .gi-info
                         h3 Enugu
                         p 0 Properties
-                a.gallery-item.set-bg(href='/property/browse?state=asaba' data-setbg='/img/gallery/Asaba.jpg')
+                a.gallery-item.set-bg(href='/coming-soon' data-setbg='/img/gallery/Asaba.jpg')
                     .gi-info
                         h3 Asaba
                         p 0 Properties
 
-block Modals 
-    #vet-property-modal.modal.fade
-        .modal-dialog
-            .modal-content
-                .modal-header
-                    h5.modal-title Verify Property
-                    button.close(type='button' data-dismiss='modal' aria-label='Close')
-                        span(aria-hidden='true') &times;
-                form#form-vet-property(action="/property/verify" method="post")   
-                    .modal-body
-                        #form-wrapper
-                            .alert.alert-success
-                                | Gives us the details of the property you want to verify
-                            .form-group.mb-3
-                                label.form-label Location / District
-                                select.form-control#vet-district(name="district" required)
-                                    option(value='') -- Select District --
-                                    if districts
-                                        each phaseDistricts, phase in districts
-                                            optgroup(label=phase)
-                                                each dist in phaseDistricts
-                                                    option(value=dist)= dist
-                            .form-group.mb-3
-                                label.form-label Property Type 
-                                select.form-control(name="propertyType" required)  
-                                    option(value='') -- Category --
-                                    option(value='fully built') Fully Developed 
-                                    option(value='land') Land
-                                    option(value='uncompleted') Uncompleted
-                            .form-group.mb-3
-                                label.form-label Your Name 
-                                input.form-control(name="name" type="text" required)
-                            .form-group.mb-3 
-                                label.form-label Email 
-                                input.form-control(name="email" type="text" required)
-                            .form-group.mb-3 
-                                label.form-label Phone 
-                                input.form-control(name="phone" type="text" required)  
-                            .form-check.mb-3 
-                                input#flexCheckDefault.form-check-input(type='checkbox' name='newsletter' checked)
-                                label.form-check-label(for='flexCheckDefault') I want to receive updates and promotions from Qandos
+//- block Modals removed as requested for direct WhatsApp link
 
-                        .form-group 
-                            .alert.alert-info.d-none 
-
-                    .modal-footer
-                        button.btn.site-btn#vet-property-submit(type="submit") Continue to WhatsApp
 block append scriptBlock
 
     script.
-        document.getElementById('form-vet-property').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const form = this;
-
-            if (!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
-
-            const formData = {};
-            new FormData(form).forEach((value, key) => {
-                formData[key] = value;
-            });
-
-            const whatsappNumber = '2349166788985';
-            const newsletterOptIn = formData.newsletter ? 'Yes' : 'No';
-            const message = `Hello Qandos, I would like to verify a property.\n\nDetails:\n- Name: ${formData.name || 'N/A'}\n- Email: ${formData.email || 'N/A'}\n- Phone: ${formData.phone || 'N/A'}\n- District: ${formData.district || 'N/A'}\n- Property Type: ${formData.propertyType || 'N/A'}\n- Newsletter updates: ${newsletterOptIn}`;
-            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
-            // Open WhatsApp directly
-            window.open(whatsappUrl, '_blank');
-            
-            // Close the modal
-            $('#vet-property-modal').modal('hide');
-        });
-
-        let state;
-        $('#state, #vet-state').change(async function() {
-            state = this.value;
+        $('#state').change(async function() {
+            const state = this.value;
             const resp = await fetch('/cities?state=' + state);
             const cities = await resp.json();
             let opts = "<option value=''>-- City --</option>";
-            opts += cities.data.cities.map(city => `<option value=${city}>${city}</option>`);
-            $('#city, #vet-city').html(opts);
+            opts += cities.data.cities.map(city => `<option value="${city}">${city}</option>`).join('');
+            $('#city').html(opts);
         });

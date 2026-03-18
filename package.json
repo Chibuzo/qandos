@@ -25,6 +25,8 @@
         "nodemailer": "^6.6.3",
         "nodemailer-express-handlebars": "^4.0.0",
         "nodemon": "^3.1.14",
+        "pg": "^8.20.0",
+        "pg-hstore": "^2.3.4",
         "pug": "2.0.0-beta11",
         "sequelize": "^6.6.5",
         "sqlite3": "^5.1.7"

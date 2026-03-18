@@ -27,8 +27,9 @@ block content
                 each property in properties
                     .col-lg-4.col-md-6
                         .feature-item
-                            .feature-pic.set-bg(data-setbg=`/${property.propertyPhoto && property.propertyPhoto.location}`)
-                                //- .sale-notic FOR SALE
+                            a(href=`/property/${property.id}/${property.title.split(' ').join('-')}`)
+                                .feature-pic.set-bg(data-setbg=`/${property.propertyPhoto && property.propertyPhoto.location}`)
+                                    //- .sale-notic FOR SALE
                             .feature-text
                                 .text-center.feature-title
                                     h5 

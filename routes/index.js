@@ -240,7 +240,7 @@ router.get('/reset-password', async (req, res, next) => {
 router.post('/send-reset-email', async (req, res, next) => {
     try {
         const { email } = req.body;
-        const [user] = await userService.find({ where: { email } });
+        const user = await userService.findOne({ email });
         let message = 'A password reset link has been sent to your email';
         emailService.sendPasswordResetLink(user);
         if (!user) message = 'There is no account associated with this email';
@@ -248,6 +248,10 @@ router.post('/send-reset-email', async (req, res, next) => {
     } catch (err) {
         next(err);
     }
+});
+
+router.get('/coming-soon', (req, res) => {
+    res.render('coming-soon', { title: 'Coming Soon' });
 });
 
 router.get('/password-reset/:email_hash/:hash_string', async (req, res, next) => {

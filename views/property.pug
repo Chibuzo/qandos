@@ -113,8 +113,9 @@ block content
                         h2 Related Property
                         each property in relatedProperties
                             .rp-item
-                                .rp-pic.set-bg(data-setbg=`/${(property.propertyPhoto || property.PropertyMedia[0]) && (property.propertyPhoto || property.PropertyMedia[0]).location}`)
-                                    .sale-notic FOR SALE
+                                a(href=`/property/${property.id}/${property.title.split(' ').join('-')}`)
+                                    .rp-pic.set-bg(data-setbg=`/${(property.propertyPhoto || property.PropertyMedia[0]) && (property.propertyPhoto || property.PropertyMedia[0]).location}`)
+                                        .sale-notic FOR SALE
                                 .rp-info
                                     h5 #{property.title}
                                     p

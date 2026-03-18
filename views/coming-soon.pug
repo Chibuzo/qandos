@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    section.hero-section.set-bg(data-setbg='/img/hero_bg.jpeg')
+        .container.hero-text
+            .row.justify-content-center
+                .col-md-8.text-center
+                    h2 Coming Soon!
+                    p.lead 
+                        | We are working hard to bring QANDOS to this location. 
+                        br
+                        | Stay tuned for verified properties and secure investments in this area.
+                    br
+                    a.site-btn(href='/') BACK TO HOME
+    
+    //- section.spad
+    //-     .container.text-center
+    //-         .section-title
+    //-             h3 Sign up for updates
+    //-             p Be the first to know when we launch in new locations.
+    //-         .row.justify-content-center
+    //-             .col-md-6
+    //-                 form.footer-newslatter-form(action='/newsletter' method='POST')
+    //-                     input(type='email' name='email' placeholder='Email address' required)
+    //-                     button.site-btn(type='submit') SUBSCRIBE
+    //-                 .alert.alert-success#newsletter-msg.mt-3.d-none Subscribed successfully!

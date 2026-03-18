@@ -69,9 +69,11 @@ const list = async (criteria = {}, limit = 15, searchParams = null) => {
 }
 
 const fetchFeatured = async () => {
+    const isPostgres = process.env.DB_DIALECT === 'postgres';
+    const randomFunc = isPostgres ? 'random()' : 'rand()';
     return Property.findAll({
-        where: { featured: 1, deleted: false },
-        order: Sequelize.literal('rand()'),
+        where: { featured: true, deleted: false },
+        order: Sequelize.literal(randomFunc),
         include: {
             model: PropertyMedia,
             limit: 1
