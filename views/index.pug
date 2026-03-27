@@ -8,9 +8,14 @@ block styleBlock
         .service-text-custom { padding-left: 0 !important; padding-top: 5px; }
         .how-slider .how-item { position: relative; padding: 10px; }
         .how-slider img { width: 100% !important; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .how-slider .owl-nav button { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(189, 171, 45, 0.8) !important; color: white !important; width: 40px; height: 40px; border-radius: 50%; }
-        .how-slider .owl-nav .owl-prev { left: -20px; }
-        .how-slider .owl-nav .owl-next { right: -20px; }
+        .how-slider .owl-nav { position: static; }
+        .how-slider .owl-nav .owl-prev, .how-slider .owl-nav .owl-next { display: flex; align-items: center; justify-content: center; position: absolute; top: 50%; transform: translateY(-50%); background: #bdab2d !important; color: white !important; width: 45px; height: 45px; border-radius: 50%; font-size: 20px; z-index: 100; transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); border: none !important; padding: 0 !important; }
+        .how-slider .owl-nav .owl-prev { left: -25px; }
+        .how-slider .owl-nav .owl-next { right: -25px; }
+        .how-slider .owl-nav .owl-prev:hover, .how-slider .owl-nav .owl-next:hover { background: #132758 !important; }
+        .how-slider .owl-dots { text-align: center; margin-top: 20px; display: none !important; }
+        .how-slider .owl-dots .owl-dot span { width: 12px; height: 12px; margin: 5px 7px; background: #d6d6d6; display: block; transition: opacity .2s ease; border-radius: 30px; }
+        .how-slider .owl-dots .owl-dot.active span { background: #bdab2d; }
 
 
 
@@ -133,7 +138,7 @@ block content
             .section-title.text-center
                 h3 How QANDOS Works
             
-            .how-slider.owl-carousel
+            .how-slider.owl-carousel.owl-theme
                 .how-item
                     img.img-fluid(src='/img/how/step1.png' alt='Step 1')
                 .how-item
@@ -190,29 +195,6 @@ block content
 block append scriptBlock
 
     script.
-        $(document).ready(function() {
-            console.log("Initializing how-slider...");
-            $('.how-slider').owlCarousel({
-                loop: true,
-                margin: 30,
-                nav: true,
-                dots: true,
-                autoplay: true,
-                navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    768: {
-                        items: 2
-                    },
-                    992: {
-                        items: 3
-                    }
-                }
-            });
-        });
-
         $('#state').change(async function() {
             const state = this.value;
             const resp = await fetch('/cities?state=' + state);

@@ -14,7 +14,7 @@ body {
 	height: 100%;
 	font-family: 'Source Sans Pro', sans-serif;
 	-webkit-font-smoothing: antialiased;
-	font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 
@@ -209,6 +209,22 @@ ul {
 	left: 0;
 	top: 0;
 	z-index: 99;
+}
+
+.nav-section {
+	width: 100%;
+	z-index: 999;
+	transition: all 0.3s;
+}
+
+.nav-section.sticky {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: #fff;
+	box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+	padding: 10px 0;
 }
 
 .header-top {
@@ -857,7 +873,7 @@ ul {
 }
 
 .footer-widget .double-menu-widget {
-	paddingleft: 20px;
+	padding-left: 20px;
 }
 
 .footer-widget .double-menu-widget ul {
