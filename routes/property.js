@@ -167,6 +167,15 @@ router.get('/browse', async (req, res, next) => {
 router.post('/verify', async (req, res, next) => {
     try {
         const { 'g-recaptcha-response': recaptchaResponse, ...propertyData } = req.body;
+        if (propertyData.propertyId) {
+            propertyData.propertyId = parseInt(propertyData.propertyId, 10);
+            if (!Number.isInteger(propertyData.propertyId)) {
+                throw new Error('Invalid property selected for verification');
+            }
+            await propertyService.view(propertyData.propertyId);
+        } else {
+            delete propertyData.propertyId;
+        }
 
         // Only verify reCAPTCHA if a token was sent
         if (recaptchaResponse) {

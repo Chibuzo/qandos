@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         email: DataTypes.STRING(50),
         phone: DataTypes.STRING(50),
         propertyType: DataTypes.STRING(50),
+        propertyId: DataTypes.INTEGER,
         status: {
             type: Sequelize.ENUM('pending', 'in-progress', 'verified', 'unverified', 'rejected'),
             defaultValue: 'pending'

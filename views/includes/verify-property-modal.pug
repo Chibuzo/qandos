@@ -7,6 +7,7 @@
                     span(aria-hidden='true') &times;
             .modal-body
                 form#verifyPropertyForm(action='/property/verify' method='POST')
+                    input#verifyPropertyId(type='hidden' name='propertyId')
                     .row
                         .col-md-6
                             .form-group
@@ -17,31 +18,33 @@
                                 label(for='email') Email Address
                                 input#email.form-control(type='email' name='email' required)
                     .row
-                        .col-md-6
+                        .col-md-12
                             .form-group
                                 label(for='phone') Phone Number
                                 input#phone.form-control(type='text' name='phone' required)
-                        .col-md-6
-                            .form-group
-                                label(for='propertyType') Property Type
-                                select.form-control(name="propertyType" required)  
-                                    option(value='') -- Category --
-                                    option(value='fully built') Fully Developed 
-                                    option(value='land') Land
-                                    option(value='uncompleted') Uncompleted
-                    .row
-                        .col-md-6
-                            .form-group
-                                label(for='modal-state') State
-                                select#modal-state.form-control(name='state' required)
-                                    option(value='') -- Select State --
-                                    each state in states
-                                        option(value=state.slug)= state.name
-                        .col-md-6
-                            .form-group
-                                label(for='modal-city') City
-                                select#modal-city.form-control(name='city' required)
-                                    option(value='') -- Select City --
+                    #verifyPropertyDetailsFields
+                        .row
+                            .col-md-12
+                                .form-group
+                                    label(for='propertyType') Property Type
+                                    select#propertyType.form-control(name="propertyType" required)  
+                                        option(value='') -- Category --
+                                        option(value='fully built') Fully Developed 
+                                        option(value='land') Land
+                                        option(value='uncompleted') Uncompleted
+                        .row
+                            .col-md-6
+                                .form-group
+                                    label(for='modal-state') State
+                                    select#modal-state.form-control(name='state' required)
+                                        option(value='') -- Select State --
+                                        each state in states
+                                            option(value=state.slug)= state.name
+                            .col-md-6
+                                .form-group
+                                    label(for='modal-city') City
+                                    select#modal-city.form-control(name='city' required)
+                                        option(value='') -- Select City --
                     
                     #verifyPropertyRecaptcha(data-sitekey=_recaptcha_site_key)
                     
@@ -90,8 +93,16 @@
             $('#verifyPropertyModal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var propertyTitle = button.data('property-title');
+                var propertyId = button.data('property-id');
                 var modal = $(this);
-                if (propertyTitle) {
+                var hasPlatformProperty = Boolean(propertyId);
+
+                modal.find('#verifyPropertyId').val(propertyId || '');
+                modal.find('#verifyPropertyDetailsFields').toggleClass('d-none', hasPlatformProperty);
+                modal.find('#propertyType, #modal-state, #modal-city').prop('required', !hasPlatformProperty);
+                modal.find('#propertyType, #modal-state, #modal-city').prop('disabled', hasPlatformProperty);
+
+                if (!hasPlatformProperty && propertyTitle) {
                     modal.find('.modal-body #propertyType').val(propertyTitle.substring(0, 50));
                 }
             });

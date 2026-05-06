@@ -28,6 +28,7 @@ block content
                             th Name
                             th Email
                             th Phone  
+                            th Property
                             th Status
 
                     tbody
@@ -39,5 +40,10 @@ block content
                                 td= property.name
                                 td= property.email
                                 td= property.phone 
+                                td
+                                    if property.propertyId
+                                        a.btn.btn-sm.btn-outline-primary(href=`/admin/property/${property.propertyId}`) View Property
+                                    else
+                                        | External Request
                                 td= property.status
 
