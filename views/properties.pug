@@ -48,11 +48,8 @@ block content
                                                 i.fa.fa-building-o
                                                 |  #{property.available_units} Units
                                 .d-flex.justify-content-between.align-items-center.mt-2
-                                    - const propertyUrl = referralLink ? referralLink : `${baseUrl}/property/${property.id}/${property.title.split(' ').join('-')}`
-                                    - const whatsappMsg = encodeURIComponent(`Hello, I would like to verify property ID: ${property.id}. Link: ${propertyUrl}`)
-                                    - const whatsappNumber = '2349166788985'
-                                    a.site-btn(href=`https://wa.me/${whatsappNumber}?text=${whatsappMsg}` target='_blank')
-                                        i.fa.fa-whatsapp 
+                                    button.site-btn(type='button' data-toggle='modal' data-target='#verifyPropertyModal' data-property-title=property.title)
+                                        i.fa.fa-check-circle
                                         | &nbsp;  Verify Property
 
                                     //- button.btn.btn-sm.btn-outline-primary.share-btn(data-title=property.title data-url=`/property/${property.id}/${property.title.split(' ').join('-')}`)
@@ -66,6 +63,9 @@ block content
                                 //-         button.btn.btn-custom(onclick='copyToClipboard()') 
                                 //-             i.ti.ti-clipboard-text 
                                 //-             | Copy Link
+
+block Modals
+    include includes/verify-property-modal.pug
 
 block scriptBlock 
     script.

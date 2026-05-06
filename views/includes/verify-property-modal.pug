@@ -1,0 +1,99 @@
+#verifyPropertyModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='verifyPropertyModalLabel' aria-hidden='true')
+    .modal-dialog.modal-lg(role='document')
+        .modal-content
+            .modal-header
+                h5#verifyPropertyModalLabel.modal-title Verify Property
+                button.close(type='button' data-dismiss='modal' aria-label='Close')
+                    span(aria-hidden='true') &times;
+            .modal-body
+                form#verifyPropertyForm(action='/property/verify' method='POST')
+                    .row
+                        .col-md-6
+                            .form-group
+                                label(for='name') Full Name
+                                input#name.form-control(type='text' name='name' required)
+                        .col-md-6
+                            .form-group
+                                label(for='email') Email Address
+                                input#email.form-control(type='email' name='email' required)
+                    .row
+                        .col-md-6
+                            .form-group
+                                label(for='phone') Phone Number
+                                input#phone.form-control(type='text' name='phone' required)
+                        .col-md-6
+                            .form-group
+                                label(for='propertyType') Property Type
+                                select.form-control(name="propertyType" required)  
+                                    option(value='') -- Category --
+                                    option(value='fully built') Fully Developed 
+                                    option(value='land') Land
+                                    option(value='uncompleted') Uncompleted
+                    .row
+                        .col-md-6
+                            .form-group
+                                label(for='modal-state') State
+                                select#modal-state.form-control(name='state' required)
+                                    option(value='') -- Select State --
+                                    each state in states
+                                        option(value=state.slug)= state.name
+                        .col-md-6
+                            .form-group
+                                label(for='modal-city') City
+                                select#modal-city.form-control(name='city' required)
+                                    option(value='') -- Select City --
+                    
+                    #verifyPropertyRecaptcha(data-sitekey=_recaptcha_site_key)
+                    
+                    .modal-footer.px-0.pb-0
+                        button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+                        button.btn.btn-primary.site-btn(type='submit') Submit Verification Request
+
+    script.
+        var verifyPropertyRecaptchaWidgetId = null;
+
+        window.onVerifyPropertyRecaptchaLoad = function() {
+            verifyPropertyRecaptchaWidgetId = grecaptcha.render('verifyPropertyRecaptcha', {
+                sitekey: document.getElementById('verifyPropertyRecaptcha').dataset.sitekey,
+                size: 'invisible',
+                callback: onVerifyPropertyRecaptchaSubmit
+            });
+        };
+
+        window.onVerifyPropertyRecaptchaSubmit = function() {
+            document.getElementById('verifyPropertyForm').submit();
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('verifyPropertyForm').addEventListener('submit', function(event) {
+                const responseInput = document.querySelector('#verifyPropertyForm [name="g-recaptcha-response"]');
+                if (responseInput && responseInput.value) {
+                    return;
+                }
+
+                event.preventDefault();
+                if (window.grecaptcha && verifyPropertyRecaptchaWidgetId !== null) {
+                    grecaptcha.execute(verifyPropertyRecaptchaWidgetId);
+                }
+            });
+
+            $('#modal-state').change(async function() {
+                const state = this.value;
+                const resp = await fetch('/cities?state=' + state);
+                const cities = await resp.json();
+                let opts = "<option value=''>-- Select City --</option>";
+                opts += cities.data.cities.map(city => `<option value="${city}">${city}</option>`).join('');
+                $('#modal-city').html(opts);
+            });
+
+            // Populate propertyType if data-property-title is present on triggering button
+            $('#verifyPropertyModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var propertyTitle = button.data('property-title');
+                var modal = $(this);
+                if (propertyTitle) {
+                    modal.find('.modal-body #propertyType').val(propertyTitle.substring(0, 50));
+                }
+            });
+        })
+    script(src='https://www.google.com/recaptcha/api.js?onload=onVerifyPropertyRecaptchaLoad&render=explicit' async defer)

@@ -87,5 +87,6 @@ app.locals._app_name = APP_NAME;
 app.locals._email = EMAIL;
 app.locals._phone = PHONE;
 app.locals._recaptcha_site_key = process.env.RECAPTCHA_SITE_KEY;
+app.locals.states = require('./config/data/states.json');
 
 module.exports = app;
